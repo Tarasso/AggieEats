@@ -14,5 +14,5 @@ To run:
 
 Current pages:
   - `/`: home page
-  - `/account`: default account page
-  - `/account/{id}`: user number 'id' home page
+  - `/users`: selects all users from `demo_table`
+  - `/user/{id}`: user number 'id' home page

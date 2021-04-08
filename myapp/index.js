@@ -1,4 +1,5 @@
 const express = require('express')
+const db = require('./queries')
 const app = express()
 const port = 3000
 
@@ -6,12 +7,10 @@ app.get('/', (req, res) => {
  res.send('Welcome to AggieEats!')
 })
 
-app.get('/account', (req, res) => {
-    res.send('Default User Page!')
-   });
+app.get('/users', db.getUsers)
 
-app.get('/account/:accountId', (req, res) => {
-res.send('User account: ' + req.params.accountId)
+app.get('/user/:accountId', (req, res) => {
+res.send('User: ' + req.params.accountId)
 });
    
 
