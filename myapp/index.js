@@ -1,11 +1,39 @@
 const express = require('express')
+const path = require('path');
 const db = require('./queries')
 const app = express()
 const port = 3000
 
+// path.join(...) is to make directories relative to index.js rather
+// than relative to terminal directory
+
+// load up public CSS/JS files
+app.use(express.static(path.join(__dirname, 'public')))
+
+// load up views
+app.set('views', path.join(__dirname, '/views'))
+
+// hook up EJS for dynamic HTML 
+app.set('view engine', 'ejs');
+
+// route views
 app.get('/', (req, res) => {
- res.send('Welcome to AggieEats!')
+ res.render('home.ejs')
+
 })
+
+app.get('/restaurants', (req, res) => {
+    res.render('restaurants.ejs')
+})
+
+app.get('/recipies', (req, res) => {
+    res.render('recipies.ejs')
+})
+
+// For any undefined pages, handle here
+app.get('*', (req, res) => {
+    res.send('Page not found :(')
+   })
 
 app.get('/users', db.getUsers)
 
