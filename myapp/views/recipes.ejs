@@ -4,7 +4,49 @@
 
     <main class="flex-fill">
         <div class="container fill">
-            <h1>This is a recipes page</h1>
+            <h1>Recipe Library</h1>
+            <hr/>
+            <div class="search-bar-area">
+                <form action="#" method="get" id="searchForm" class="input-group">
+                    <div class="input-group-btn search-panel">
+                        <!-- cuisine down selection -->
+                        <select name="search_param" id="search_param" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <option value="all">All</option>
+                            <option value="african">African</option>
+                            <option value="american">American</option>
+                            <option value="british">British</option>
+                            <option value="cajun">Cajun</option>
+                            <option value="caribbean">Caribbean</option>
+                            <option value="chinese">Chinese</option>
+                            <option value="european">European</option>
+                            <option value="french">French</option>
+                            <option value="german">German</option>
+                            <option value="greek">Greek</option>
+                            <option value="indian">Indian</option>
+                            <option value="italian">Italian</option>
+                            <option value="japanese">Japanese</option>
+                            <option value="jewish">Jewish</option>
+                            <option value="korean">Korean</option>
+                            <option value="latinamerican">Latin American</option>
+                            <option value="miditerranean">Mediterranean</option>
+                            <option value="mexican">Mexican</option>
+                            <option value="middleeastern">Middle Eastern</option>
+                            <option value="southern">Southern</option>
+                            <option value="spanish">Spanish</option>
+                            <option value="thai">Thai</option>
+                            <option value="vietnamese">Vietnamese</option>
+                        </select>
+                    </div>
+                    <input type="text" class="form-control" name="x" placeholder="Enter Recipe...">
+                    <!-- search button-->
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="submit">
+                           <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                </form>  
+            </div> 
+
         </div>
     </main>
 
