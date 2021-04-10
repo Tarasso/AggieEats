@@ -18,11 +18,13 @@
                             <option value="cajun">Cajun</option>
                             <option value="caribbean">Caribbean</option>
                             <option value="chinese">Chinese</option>
+                            <option value="easterneuropean">Eastern European</option>
                             <option value="european">European</option>
                             <option value="french">French</option>
                             <option value="german">German</option>
                             <option value="greek">Greek</option>
                             <option value="indian">Indian</option>
+                            <option value="irish">Irish</option>
                             <option value="italian">Italian</option>
                             <option value="japanese">Japanese</option>
                             <option value="jewish">Jewish</option>
@@ -31,6 +33,7 @@
                             <option value="miditerranean">Mediterranean</option>
                             <option value="mexican">Mexican</option>
                             <option value="middleeastern">Middle Eastern</option>
+                            <option value="nordic">Nordic</option>
                             <option value="southern">Southern</option>
                             <option value="spanish">Spanish</option>
                             <option value="thai">Thai</option>
@@ -40,13 +43,47 @@
                     <input type="text" class="form-control" name="x" placeholder="Enter Recipe...">
                     <!-- search button-->
                     <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                           <span class="glyphicon glyphicon-search"></span>
-                        </button>
+                        <button class="btn btn-primary" type="submit">Search</button>
                     </span>
-                </form>  
-            </div> 
-
+                </form> 
+                <!-- check boxes for food restrictions-->
+                <div id="checkBoxes">
+                    <label for="first"><input type="checkbox" id="vegetarian"/>Vegetarian</label>
+                    <label for="second"><input type="checkbox" id="vegan"/>Vegan</label>
+                    <label for="third"><input type="checkbox" id="gultenfree"/>Gulten Free</label>
+                    <label for="fourth"><input type="checkbox" id="dairy"/>Dairy</label>
+                </div> 
+            </div>
+            <hr/>
+            <!-- recipe cards-->
+            <div class="form-row">
+                <div class="card">
+                    <h5 class="card-header">Recipe 1</h5>
+                    <div class="card-body">
+                    <h5 class="card-title">This card will contain image of recipe</h5>
+                    <p class="card-text">*Image* and *Rate*</p>
+                    <a href="#" class="btn btn-primary">More Details</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header">Recipe 2</h5>
+                    <div class="card-body">
+                    <h5 class="card-title">This card will contain image of recipe</h5>
+                    <p class="card-text">*Image* and *Rate*</p>
+                    <a href="#" class="btn btn-primary">More Details</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h5 class="card-header">Recipe 3</h5>
+                    <div class="card-body">
+                    <h5 class="card-title">This card will contain image of recipe</h5>
+                    <p class="card-text">*Image* and *Rate*</p>
+                    <a href="#" class="btn btn-primary">More Details</a>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <a href="#" class="btn btn-primary">Load More</a>
         </div>
     </main>
 
