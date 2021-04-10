@@ -8,7 +8,8 @@ const port = 3000
 // than relative to terminal directory
 
 // load up public CSS/JS files
-app.use(express.static(path.join(__dirname, 'public')))
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({extended: true}));
 
 // load up views
 app.set('views', path.join(__dirname, '/views'))
@@ -38,10 +39,21 @@ app.get('/login', (req, res) => {
     res.render('login.ejs', { pageInfo: pageName })
 })
 
+// get object including inputs of login form
+app.post('/login', (req, res) => {
+    res.send(req.body)
+})
+
 app.get('/register', (req, res) => {
     const pageName = "Register";
     res.render('register.ejs', { pageInfo: pageName })
 })
+
+// get object including inputs of registration form
+app.post('/register', (req, res) => {
+    res.send(req.body)
+})
+
 
 app.get('/test', (req, res) => {
     const pageName = "Test";
