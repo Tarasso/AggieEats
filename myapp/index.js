@@ -43,6 +43,10 @@ app.get('/register', (req, res) => {
     res.render('register.ejs', { pageInfo: pageName })
 })
 
+app.get('/test', (req, res) => {
+    const pageName = "Test";
+    res.render('test.ejs', { pageInfo: pageName })
+})
 
 // For any undefined pages, handle here
 app.get('*', (req, res) => {

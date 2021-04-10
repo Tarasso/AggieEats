@@ -1,11 +1,13 @@
 <%- include('partials/head', {pageInfo: pageInfo})%>
 <%- include('partials/navbar', {pageInfo: pageInfo})%>
-<body class="d-flex flex-column h-100">
+<div class="d-flex flex-column min-vh-100">
 
-<main class="flex-shrink-0">
-    <div class="container fill">
-        <h1>This is a restaurants page</h1>
-    </div>
-</main>
+    <main class="flex-fill">
+        <div class="container fill">
+            <h1>This is a restaurants page</h1>
+        </div>
+    </main>
 
-<%- include('partials/foot')%>
+    <%- include('partials/foot')%>
+</div>
+
