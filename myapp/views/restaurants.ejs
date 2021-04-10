@@ -4,7 +4,59 @@
 
     <main class="flex-fill">
         <div class="container fill">
-            <h1>This is a restaurants page</h1>
+            <h1>Local Restaurant Information</h1>
+            <hr/>
+            <form action="/restaurant" method="POST">
+                    <div class="form-group">
+                        <label for="inputCuisine">What cuisine would you like too try today?</label>
+                        <input type="text" class="form-control" name="cuisine" id="inputCuisine" placeholder="Enter Cuisine">
+                      </div>
+                    <div class="form-group">
+                        <label for="inputFoodName">What would you like to eat today?</label>
+                        <input type="text" class="form-control" name="foodName" id="inputFoodName" placeholder="Enter Food Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFoodName">Distance</label>
+                        <input type="text" class="form-control" name="foodName" id="inputFoodName" placeholder="Enter Miles">
+                    </div>
+                    <div class="form-group">
+                        <a href="#" class="btn btn-primary col-md-12">Search</a>
+                        <hr>
+                        <a href="#" class="btn btn-primary col-md-12">Suprise Me!</a>
+                    </div>
+
+                    <div class="card">
+                        <h5 class="card-header">Local Restaurant</h5>
+                        <div class="card-body">
+                            <table class="table table-hover table-light">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Restaurant Name</th>
+                                    <th scope="col">Cuisine</th>
+                                    <th scope="col">Distance</th>
+                                    <th scope="col">Info</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Tanaka Ramen</td>
+                                    <td>Japanese</td>
+                                    <td>####</td>
+                                    <td><a href="#" class="btn btn-primary col-md-10">More</a></td>
+                                  </tr>
+                                  <tr>
+                                    <td>Olive Garden</td>
+                                    <td>Italian</td>
+                                    <td>####</td>
+                                    <td><a href="#" class="btn btn-primary col-md-10">More</a></td>
+                                  </tr>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                        </div>
+                    </div>
+            </form>
         </div>
     </main>
 
