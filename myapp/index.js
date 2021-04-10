@@ -41,6 +41,7 @@ app.get('/login', (req, res) => {
 
 // get object including inputs of login form
 app.post('/login', (req, res) => {
+    console.log("Received user input from login form.")
     res.send(req.body)
 })
 
@@ -51,6 +52,7 @@ app.get('/register', (req, res) => {
 
 // get object including inputs of registration form
 app.post('/register', (req, res) => {
+    console.log("Received user input from registration form.")
     res.send(req.body)
 })
 
