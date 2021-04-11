@@ -25,6 +25,11 @@ app.get('/', (req, res) => {
 
 })
 
+app.get('/dashboard', (req, res) => {
+    const pageName = "Dashboard";
+    res.render('dashboard.ejs', { pageInfo: pageName })
+})
+
 app.get('/restaurants', (req, res) => {
     const pageName = "Restaurants";
     res.render('restaurants.ejs', { pageInfo: pageName })
