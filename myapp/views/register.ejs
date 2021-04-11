@@ -1,0 +1,55 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+<%- include('partials/navbar', {pageInfo: pageInfo})%>
+<div class="d-flex flex-column min-vh-100">
+
+    <main class="flex-fill">
+        <div class="container fill">
+            <h1>Sign Up for AggieEats </h1>
+            <p>Start exploring local restaurants and find tasty recipes</p>
+            <hr/>
+            <form action="/register" method="POST">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputFirstName">First Name</label>
+                        <input type="text" class="form-control" name="firstName" id="inputFirstName">
+                      </div>
+                      <div class="form-group col-md-6">
+                        <label for="inputLastName">Last Name</label>
+                        <input type="text" class="form-control" name="lastName" id="inputLastName">
+                      </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail">Email address</label>
+                  <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp">
+                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword">Password</label>
+                  <input type="password" class="form-control" name="password" id="inputPassword" aria-describedby="passwordHelp">
+                  <small id="passwordHelp" class="form-text text-muted">Must be 8-20 characters long.</small>
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="showPassword">
+                    <label class="form-check-label" for="showPassword">Show Password</label>
+                </div>
+                <div class="form-group">
+                    <label for="inputDietaryPref">Dietary Preferance</label>
+                    <!-- SUGGESTION: make choices not hard coded-->
+                    <select name="diet" id="inputDietaryPref" class="form-control">
+                      <option selected>None</option>
+                      <option>Vegan</option>
+                      <option>Vegetarian</option>
+                      <option>Gluten Free</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary" aria-describedby="submitButton">Register</button>
+                <small id="submitButton" class="form-text text-muted">By continuing, you agree to AggieEat's Terms of Service and acknowledge AggieEat's Privacy Policy.</small>
+                <small id="submitButton" class="form-text text-muted">Already have an account? Sign in <a href="/login">here</a>.</small>
+
+              </form>
+            
+        </div>
+    </main>
+
+    <%- include('partials/foot')%>
+</div>
