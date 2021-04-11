@@ -5,7 +5,6 @@
             <main class="flex-fill">
                 <div class="container fill">
                     <h1>Recipe Library</h1>
-                    <p class="text-muted">What do you feel like eating today?</p>
                     <hr />
 
                     <form action="/recipes" method="POST" id="searchForm">
@@ -27,9 +26,8 @@
                                 <label for="querySearch" class="text-muted">Search by keywords</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" id="querySearch" class="form-control" aria-label="String query"
-                                        placeholder="Enter any recipe...">
-                                </div>
+                                    <input type="text" id="querySearch" class="form-control" aria-label="String query" placeholder="Enter recipe...">
+                                    </div>
                             </div>
                         </div>
                         <label for="test" class="text-muted">Enter dietary restrictions (optional)</label>
@@ -49,74 +47,62 @@
                                 <label class="form-check-label" for="inlineCheckbox3">Gluten Free</label>
                             </div>
                         </div>
-                        <button class="btn btn-primary" type="submit">Search</button>
-
+                        <button class="btn btn-primary" type="submit" style="background-color: rgb(80, 0, 0);">Search</button>
+                          
                     </form>
 
                     <hr />
                     <!-- recipe cards-->
-                    <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <a href="https://www.google.com/">
-                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/97352/Five-Ingredient-Veggie-Burgers-Wordpress-1-360x270-c.jpg"
-                                        class="card-img-top" alt="sample1">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">Five-Ingredient Veggie Burger</h5>
-                                    <p class="card-text">Some cool info here</p>
+                    <div class="form-row">
+                        <div class="card">
+                            <h5 class="card-header">Recipe 1</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">This card will contain image of recipe</h5>
+                                <p class="card-text">*Image* and *Rate*</p>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">More Details</button>
 
-                                    <div class="d-flex flex-row justify-content-around my-flex-container">
-                                        <a href="#" class="btn btn-primary p-2">More Details</a>
-
-                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip" data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="staticBackdropLabel">Restaurant Name</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <p>This window will display recipe information from Spoonacular API</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" style="background-color: rgb(80, 0, 0);">Save to My Library</button>
+                                            </div>
+                                        </div>
                                     </div>
-                                
-
-                                </div>
+                                    </div> 
                             </div>
                         </div>
-
-                        <div class="col">
-                            <div class="card">
-                                <a href="https://www.google.com/">
-                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/126506/Teriyaki-Burger-with-carrot-pickle-wordpress-360x270-c.jpg"
-                                        class="card-img-top" alt="sample2">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">Pineapple Teriyaki Burgers</h5>
-                                    <p class="card-text">Some cool info here</p>
-                                    <div class="d-flex flex-row justify-content-around my-flex-container">
-                                        <a href="#" class="btn btn-primary p-2">More Details</a>
-
-                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip" data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <h5 class="card-header">Recipe 2</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">This card will contain image of recipe</h5>
+                                <p class="card-text">*Image* and *Rate*</p>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">More Details</button>
                             </div>
                         </div>
-                        <div class="col">
-                            <div class="card">
-                                <a href="https://www.google.com/">
-                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/128207/White-Bean-and-Pesto-Burgers-360x270-c.jpg"
-                                        class="card-img-top" alt="sample3">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">White Bean and Pesto Burger</h5>
-                                    <p class="card-text">Some cool info here</p>
-                                    <div class="d-flex flex-row justify-content-around my-flex-container">
-                                        <a href="#" class="btn btn-primary p-2">More Details</a>
-
-                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip" data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
-                                    </div>
-                                </div>
+                        <div class="card">
+                            <h5 class="card-header">Recipe 3</h5>
+                            <div class="card-body">
+                                <h5 class="card-title">This card will contain image of recipe</h5>
+                                <p class="card-text">*Image* and *Rate*</p>
+                                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#staticBackdrop">More Details</button>
                             </div>
                         </div>
                     </div>
                     <hr />
                     <a href="#" class="btn btn-primary">Load More</a>
-
-
-
                 </div>
             </main>
 
