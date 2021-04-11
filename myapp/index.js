@@ -35,6 +35,12 @@ app.get('/recipes', (req, res) => {
     res.render('recipes.ejs', { pageInfo: pageName, cuisineData: cuisineData })
 })
 
+// get object including inputs of registration form
+app.post('/recipes', (req, res) => {
+    console.log("Received user input from post form.")
+    res.send(req.body)
+})
+
 app.get('/login', (req, res) => {
     const pageName = "Login";
     res.render('login.ejs', { pageInfo: pageName })
@@ -56,7 +62,6 @@ app.post('/register', (req, res) => {
     console.log("Received user input from registration form.")
     res.send(req.body)
 })
-
 
 app.get('/test', (req, res) => {
     const pageName = "Test";
