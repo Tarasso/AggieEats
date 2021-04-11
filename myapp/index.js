@@ -4,7 +4,7 @@ const db = require('./queries')
 const spoon = require('./yelp')
 const cuisineData = require('./resources/cuisines.json')
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 // path.join(...) is to make directories relative to index.js rather
 // than relative to terminal directory
