@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const db = require('./queries')
+const cuisineData = require('./resources/cuisines.json')
 const app = express()
 const port = 3000
 
@@ -31,7 +32,7 @@ app.get('/restaurants', (req, res) => {
 
 app.get('/recipes', (req, res) => {
     const pageName = "Recipes";
-    res.render('recipes.ejs', { pageInfo: pageName })
+    res.render('recipes.ejs', { pageInfo: pageName, cuisineData: cuisineData })
 })
 
 app.get('/login', (req, res) => {
