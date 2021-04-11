@@ -4,7 +4,8 @@
 
     <main class="flex-fill">
         <div class="container fill">
-            <h1>Local Restaurant Information</h1>
+            <h1>Local Restaurant Search</h1>
+            <p class="text-muted">Search and filter the hottest local restaurants in your area.</p>
             <hr/>
             <form action="/restaurant" method="POST">
                     <div class="form-group">
@@ -16,17 +17,21 @@
                         <input type="text" class="form-control" name="foodName" id="inputFoodName" placeholder="Enter Food Name">
                     </div>
                     <div class="form-group">
-                        <label for="inputFoodName">Distance</label>
+                        <label for="inputFoodName">Distance (optional)</label>
                         <input type="text" class="form-control" name="foodName" id="inputFoodName" placeholder="Enter Miles">
                     </div>
-                    <div class="form-group">
-                        <a href="#" class="btn btn-primary col-md-12">Search</a>
-                        <hr>
-                        <a href="#" class="btn btn-primary col-md-12">Suprise Me!</a>
+
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <a href="#" class="btn btn-dark col-md-12" style="background-color: rgb(80, 0, 0);">Search</a>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <a href="#" class="btn btn-dark col-md-12"  style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
+                        </div>
                     </div>
 
                     <div class="card">
-                        <h5 class="card-header">Local Restaurant</h5>
+                        <h5 class="card-header">Results for Local Restaurants</h5>
                         <div class="card-body">
                             <table class="table table-hover table-light">
                                 <thead>
@@ -42,13 +47,13 @@
                                     <td>Tanaka Ramen</td>
                                     <td>Japanese</td>
                                     <td>####</td>
-                                    <td><a href="#" class="btn btn-primary col-md-10">More</a></td>
+                                    <td><a href="#" class="btn btn-outline-primary col-md-10">More</a></td>
                                   </tr>
                                   <tr>
                                     <td>Olive Garden</td>
                                     <td>Italian</td>
                                     <td>####</td>
-                                    <td><a href="#" class="btn btn-primary col-md-10">More</a></td>
+                                    <td><a href="#" class="btn btn-outline-primary col-md-10">More</a></td>
                                   </tr>
                                   </tr>
                                 </tbody>

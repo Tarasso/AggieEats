@@ -1,54 +1,124 @@
 <%- include('partials/head', {pageInfo: pageInfo})%>
-<%- include('partials/navbar', {pageInfo: pageInfo})%>
-<div class="d-flex flex-column min-vh-100">
+    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+        <div class="d-flex flex-column min-vh-100">
 
-    <main class="flex-fill">
-        <div class="container fill">
-            <h1>Recipe Library</h1>
-            <hr/>
-            <div class="search-bar-area">
-                <form action="#" method="get" id="searchForm" class="input-group">
-                    <div class="input-group-btn search-panel">
-                        <!-- cuisine down selection -->
-                        <select name="search_param" id="search_param" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                            <option value="all">All</option>
-                            <option value="african">African</option>
-                            <option value="american">American</option>
-                            <option value="british">British</option>
-                            <option value="cajun">Cajun</option>
-                            <option value="caribbean">Caribbean</option>
-                            <option value="chinese">Chinese</option>
-                            <option value="european">European</option>
-                            <option value="french">French</option>
-                            <option value="german">German</option>
-                            <option value="greek">Greek</option>
-                            <option value="indian">Indian</option>
-                            <option value="italian">Italian</option>
-                            <option value="japanese">Japanese</option>
-                            <option value="jewish">Jewish</option>
-                            <option value="korean">Korean</option>
-                            <option value="latinamerican">Latin American</option>
-                            <option value="miditerranean">Mediterranean</option>
-                            <option value="mexican">Mexican</option>
-                            <option value="middleeastern">Middle Eastern</option>
-                            <option value="southern">Southern</option>
-                            <option value="spanish">Spanish</option>
-                            <option value="thai">Thai</option>
-                            <option value="vietnamese">Vietnamese</option>
-                        </select>
+            <main class="flex-fill">
+                <div class="container fill">
+                    <h1>Recipe Library</h1>
+                    <p class="text-muted">What do you feel like eating today?</p>
+                    <hr />
+
+                    <form action="/recipes" method="POST" id="searchForm">
+                        <div class="form-row">
+                            <div class="form-group col-md-4">
+                                <label for="cuisineSearch" class="text-muted">Search by cuisines</label>
+                                <div class="input-group-btn search-panel" id="cuisineSearch">
+                                    <!-- cuisine down selection -->
+                                    <select name="cuisine_type" id="search_param" class="form-control"
+                                        data-toggle="dropdown">
+                                        <% cuisineData['cuisines'].forEach(function(cuisine) { %>
+                                            <option value=<%=cuisine.toLowerCase() %>><%= cuisine %>
+                                            </option>
+                                            <% }) %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-8">
+                                <label for="querySearch" class="text-muted">Search by keywords</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                    <input type="text" id="querySearch" class="form-control" aria-label="String query"
+                                        placeholder="Enter any recipe...">
+                                </div>
+                            </div>
+                        </div>
+                        <label for="test" class="text-muted">Enter dietary restrictions (optional)</label>
+                        <div class="form-group" id="test">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="vegan" id="inlineCheckbox1"
+                                    value="">
+                                <label class="form-check-label" for="inlineCheckbox1">Vegan</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="vegetarian" id="inlineCheckbox2"
+                                    value="">
+                                <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" name="gf" id="inlineCheckbox3" value="">
+                                <label class="form-check-label" for="inlineCheckbox3">Gluten Free</label>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" type="submit">Search</button>
+
+                    </form>
+
+                    <hr />
+                    <!-- recipe cards-->
+                    <div class="row">
+                        <div class="col">
+                            <div class="card">
+                                <a href="https://www.google.com/">
+                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/97352/Five-Ingredient-Veggie-Burgers-Wordpress-1-360x270-c.jpg"
+                                        class="card-img-top" alt="sample1">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">Five-Ingredient Veggie Burger</h5>
+                                    <p class="card-text">Some cool info here</p>
+
+                                    <div class="d-flex flex-row justify-content-around my-flex-container">
+                                        <a href="#" class="btn btn-primary p-2">More Details</a>
+
+                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip" data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
+                                    </div>
+                                
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col">
+                            <div class="card">
+                                <a href="https://www.google.com/">
+                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/126506/Teriyaki-Burger-with-carrot-pickle-wordpress-360x270-c.jpg"
+                                        class="card-img-top" alt="sample2">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">Pineapple Teriyaki Burgers</h5>
+                                    <p class="card-text">Some cool info here</p>
+                                    <div class="d-flex flex-row justify-content-around my-flex-container">
+                                        <a href="#" class="btn btn-primary p-2">More Details</a>
+
+                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip" data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <a href="https://www.google.com/">
+                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/128207/White-Bean-and-Pesto-Burgers-360x270-c.jpg"
+                                        class="card-img-top" alt="sample3">
+                                </a>
+                                <div class="card-body">
+                                    <h5 class="card-title">White Bean and Pesto Burger</h5>
+                                    <p class="card-text">Some cool info here</p>
+                                    <div class="d-flex flex-row justify-content-around my-flex-container">
+                                        <a href="#" class="btn btn-primary p-2">More Details</a>
+
+                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip" data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <input type="text" class="form-control" name="x" placeholder="Enter Recipe...">
-                    <!-- search button-->
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                           <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                    </span>
-                </form>  
-            </div> 
+                    <hr />
+                    <a href="#" class="btn btn-primary">Load More</a>
 
+
+
+                </div>
+            </main>
+
+            <%- include('partials/foot')%>
         </div>
-    </main>
-
-    <%- include('partials/foot')%>
-</div>

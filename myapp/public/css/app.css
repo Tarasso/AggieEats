@@ -18,3 +18,8 @@
 h1 {
     margin-bottom: 35px;
 }
+
+.jumbotron {
+    background-color: rgb(80, 0, 0);
+    
+  }
