@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path');
 const db = require('./queries')
+const spoon = require('./yelp')
 const app = express()
 const port = 3000
 
@@ -18,6 +19,17 @@ app.set('views', path.join(__dirname, '/views'))
 app.set('view engine', 'ejs');
 
 // route views
+app.get('/yelp', (req, res) => {
+    res.send('Yelp API testing page!');
+    spoon.getTodos();
+   });
+ 
+app.get('/users', db.getUsers)
+
+app.get('/user/:accountId', (req, res) => {
+    res.send('User: ' + req.params.accountId)
+});
+
 app.get('/', (req, res) => {
     const pageName = "Home";
     res.render('home.ejs', {pageInfo : pageName})
@@ -65,13 +77,6 @@ app.get('*', (req, res) => {
     const pageName = "Unkown";
     res.render('unknown.ejs', { pageInfo: pageName })
 })
-
-app.get('/users', db.getUsers)
-
-app.get('/user/:accountId', (req, res) => {
-    res.send('User: ' + req.params.accountId)
-});
-
 
 app.listen(port, () => {
     console.log(`Example app listening at http://localhost:${port}`)

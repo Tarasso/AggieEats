@@ -11,7 +11,7 @@ const getUsers = (request, response) => {
     console.log('in get users function')
     pool.query('SELECT * FROM demo_table', (error, results) => {
       if (error) {
-        throw error
+        consoror
       }
       response.status(200).json(results.rows)
     })
