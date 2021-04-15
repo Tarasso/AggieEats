@@ -1,0 +1,32 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+<%- include('partials/navbar', {pageInfo: pageInfo})%>
+<div class="d-flex flex-column min-vh-100">
+
+    <main class="flex-fill">
+        <div class="container fill">
+            <h1>Login to AggieEats </h1>
+            <hr/>
+            <form action="/login" method="POST">
+                <div class="form-group">
+                  <label for="inputEmail">Email address</label>
+                  <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                  <label for="inputPassword">Password</label>
+                  <input type="password" class="form-control" name="password" id="inputPassword" aria-describedby="passwordHelp">
+                </div>
+                <div class="form-group form-check">
+                    <input type="checkbox" class="form-check-input" id="showPassword">
+                    <label class="form-check-label" for="showPassword">Show Password</label>
+                </div>
+                <button type="submit" class="btn btn-primary" aria-describedby="submitButton">Login</button>
+                <small id="submitButton" class="form-text text-muted">By logging in, you agree to AggieEat's Terms of Service and acknowledge AggieEat's Privacy Policy.</small>
+                <small id="submitButton" class="form-text text-muted">New to AggieEats? Sign up <a href="/register">here</a>.</small>
+
+              </form>
+            
+        </div>
+    </main>
+
+    <%- include('partials/foot')%>
+</div>

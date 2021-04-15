@@ -1,0 +1,25 @@
+.navbar {
+	padding-left: 50px !important;
+}
+
+.container {
+    padding-top: 65px;
+}
+
+
+.hero {
+    background-position: top left;
+    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://s.hdnux.com/photos/01/11/05/12/19157670/4/rawImage.jpg");
+    background-size: cover;
+    height: 100vh;
+    margin-bottom: 4rem;
+    }
+
+h1 {
+    margin-bottom: 35px;
+}
+
+.jumbotron {
+    background-color: rgb(80, 0, 0);
+    
+  }

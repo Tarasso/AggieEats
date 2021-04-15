@@ -1,0 +1,38 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+<%- include('partials/navbar', {pageInfo: pageInfo})%>
+
+<div class="container-fluid hero d-flex align-items-center justify-content-center">
+    <div class="text-center text-light">
+        <h1 class="display-1 mb-10 ">Welcome to AggieEats!</h1>
+        <p>
+            AggieEats is a project developed by Aggies for Aggies to experience the diverse cuisine here in Bryan/College Station that hides in plain sight.
+        </p>
+        <p>
+            Get started by making an account, inputting personal food preferences, and get your first recommended restaurant or recipe in minutes!
+        </p>
+        <button class="btn btn-lg btn-primary">Learn More</button>
+    </div>
+</div>
+
+  <div class="container mb-auto">
+    <!-- Content here -->
+
+    <div class="card">
+        <h5 class="card-header">Featured Restaurant</h5>
+        <div class="card-body">
+          <h5 class="card-title">This card will contain info about a featured restaurant</h5>
+          <p class="card-text">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quae impedit sapiente soluta ad aspernatur.</p>
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+  </div>
+  <div class="container">
+    <%- include('partials/leaderboard')%>
+  </div>
+
+  <div class="container">
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Praesentium, assumenda veritatis! Accusamus, adipisci veritatis maxime ut natus assumenda aliquid ullam corrupti doloremque atque. Enim possimus, quis non est id vitae?</p>
+  </div>
+
+
+<%- include('partials/foot')%>

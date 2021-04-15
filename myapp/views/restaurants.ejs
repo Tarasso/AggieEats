@@ -1,0 +1,107 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+<%- include('partials/navbar', {pageInfo: pageInfo})%>
+<div class="d-flex flex-column min-vh-100">
+
+    <main class="flex-fill">
+        <div class="container fill">
+            <h1>Local Restaurant Search</h1>
+            <p class="text-muted">Search and filter the hottest local restaurants in your area.</p>
+            <hr/>
+            <form action="/restaurant" method="POST">
+                    <div class="form-group">
+                        <label for="inputCuisine">What cuisine would you like too try today?</label>
+                        <input type="text" class="form-control" name="cuisine" id="inputCuisine" placeholder="Enter Cuisine">
+                      </div>
+                    <div class="form-group">
+                        <label for="inputFoodName">What would you like to eat today?</label>
+                        <input type="text" class="form-control" name="foodName" id="inputFoodName" placeholder="Enter Food Name">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputFoodName">Distance (optional)</label>
+                        <input type="text" class="form-control" name="foodName" id="inputFoodName" placeholder="Enter Miles">
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <a href="#" class="btn btn-dark col-md-12" style="background-color: rgb(80, 0, 0);">Search</a>
+                        </div>
+                        <div class="form-group col-md-6">
+                          <a href="#" class="btn btn-dark col-md-12"  style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h5 class="card-header">Results for Local Restaurants</h5>
+                        <div class="card-body">
+                            <table class="table table-hover table-light">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Restaurant Name</th>
+                                    <th scope="col">Cuisine</th>
+                                    <th scope="col">Distance</th>
+                                    <th scope="col">Info</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                    <td>Tanaka Ramen</td>
+                                    <td>Japanese</td>
+                                    <td>####</td>
+                                    <td>
+                                      <!-- Button trigger modal -->
+                                      <button type="button" class="btn btn-outline-primary col-md-10" data-toggle="modal" data-target="#staticBackdrop">More Details</button>
+
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                          <div class="modal-content">
+                                            <div class="modal-header">
+                                              <h5 class="modal-title" id="staticBackdropLabel">Restaurant Name</h5>
+                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                              </button>
+                                            </div>
+                                            <div class="modal-body">
+                                              <p>This window will display restaurant information from Yelp API</p>
+                                              <div class="form-group">
+                                                <label for="inputRate">Rate</label>
+                                                <input type="text" class="form-control" name="rate" id="inputRate" placeholder="Enter number between 1 to 5">
+                                                <br>
+                                                <label for="inputReview">Review</label>
+                                                <textarea id="Review" class="form-control" name="review" name="review" id="inputReview" rows="4" placeholder="Share details of your own experience at this place"></textarea>
+                                                <div class="form-check form-check-inline">
+                                                  <input class="form-check-input" type="checkbox" name="gf" id="inlineTwitterCheckbox" value="">
+                                                  <label class="form-check-label" for="inlineTwitterCheckbox">Share on Twitter</label>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                              <button type="button" class="btn btn-primary" style="background-color: rgb(80, 0, 0);">Submit</button>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>                             
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>Olive Garden</td>
+                                    <td>Italian</td>
+                                    <td>####</td>
+                                    <td>
+                                      <!-- Button trigger modal -->
+                                      <button type="button" class="btn btn-outline-primary col-md-10" data-toggle="modal" data-target="#staticBackdrop">More Details</button>
+                                      <!-- Take from above -->
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                              </div>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </main>
+
+    <%- include('partials/foot')%>
+</div>
+
