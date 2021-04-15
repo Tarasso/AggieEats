@@ -25,7 +25,7 @@ app.get('/yelp', (req, res) => {
     spoon.getTodos();
    });
 
-app.get('/users', db.getUsers)
+// app.get('/users', db.createNewUser)
 
 app.get('/user/:accountId', (req, res) => {
     res.send('User: ' + req.params.accountId)
@@ -66,6 +66,7 @@ app.get('/login', (req, res) => {
 // get object including inputs of login form
 app.post('/login', (req, res) => {
     console.log("Received user input from login form.")
+    db.login(req.body)
     res.send(req.body)
 })
 
