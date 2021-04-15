@@ -1,8 +1,10 @@
 const express = require('express')
 const path = require('path');
 const db = require('./queries')
-const spoon = require('./yelp')
-const cuisineData = require('./resources/cuisines.json')
+const yelp = require('./yelp')
+const spoon = require('./spoonacular')
+const cuisineData = require('./resources/cuisines.json');
+const { searchRecipes } = require('./spoonacular');
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -22,12 +24,16 @@ app.set('view engine', 'ejs');
 // route views
 app.get('/yelp', (req, res) => {
     res.send('Yelp API testing page!');
-    spoon.getTodos();
+    yelp.getTodos();
    });
 
 // app.get('/users', db.createNewUser)
 
 app.get('/user/:accountId', (req, res) => {
+    // spoon.searchRecipes("pasta","greek")
+    // spoon.getRecipeDetails(654939)
+    // db.storeRecipe(654939,"Pasta With Roasted Vegetables & Greek Olives")
+    // db.getRecipeTitle(654939)
     res.send('User: ' + req.params.accountId)
 });
 
