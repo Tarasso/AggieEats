@@ -55,15 +55,12 @@ async function login(req) {
   let exists = await userExists(email) 
   if(exists) {
     let user = await getUser(email)
-    if(password == user.password)
-      console.log("valid login")
-    else
-      console.log("invalid login")
+    if(password == user.password) {
+      return true
+    } else {
+      return false
+    }
   }
-  else {
-    console.log("no accouts associated with that email")
-    //    ask them to register?
-  } 
 }
 
   module.exports = {

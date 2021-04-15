@@ -1,4 +1,7 @@
 const express = require('express')
+const flash = require('connect-flash')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const path = require('path');
 const db = require('./queries')
 const spoon = require('./yelp')
@@ -13,6 +16,7 @@ const port = process.env.PORT || 3000
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
 
+
 // load up views
 app.set('views', path.join(__dirname, '/views'))
 
@@ -24,6 +28,23 @@ app.get('/yelp', (req, res) => {
     res.send('Yelp API testing page!');
     spoon.getTodos();
    });
+
+// set up cookie parser, sessions, and flash middlewares
+app.use(cookieParser())
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}))
+app.use(flash());
+
+// middleware to insert flash to all routes
+app.use((req, res, next) => {
+    res.locals.loginFlashSuccess = req.flash('loginResultSuccess');
+    res.locals.loginFlashFail = req.flash('loginResultFail');
+    next();
+})
 
 // app.get('/users', db.createNewUser)
 
@@ -37,7 +58,7 @@ app.get('/', (req, res) => {
 
 })
 
-app.get('/dashboard', (req, res) => {
+app.get('/dashboard', async (req, res) => {
     const pageName = "Dashboard";
     res.render('dashboard.ejs', { pageInfo: pageName })
 })
@@ -64,10 +85,16 @@ app.get('/login', (req, res) => {
 })
 
 // get object including inputs of login form
-app.post('/login', (req, res) => {
-    console.log("Received user input from login form.")
-    db.login(req.body)
-    res.send(req.body)
+app.post('/login', async (req, res) => {
+    const loginResult = await db.login(req.body)
+    console.log(loginResult)
+    if (loginResult) {
+        req.flash('loginResultSuccess', 'Successfully logged in!')
+        res.redirect('/dashboard')
+    } else {  
+        req.flash('loginResultFail', 'Incorrect username or password.')
+        res.redirect('/login');
+    }
 })
 
 app.get('/register', (req, res) => {
