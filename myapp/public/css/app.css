@@ -15,3 +15,5 @@
     background-color: rgb(80, 0, 0);
     
   }
+
+  html { scroll-behavior: smooth; } 
