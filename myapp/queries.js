@@ -13,10 +13,10 @@ const getUsers = (request, response) => {
         .catch(e => console.error(e.stack))
   }
 
-  async function getUser(email) {
-    const res = await pool.query('SELECT * FROM users where "email" = $1', [email])
-    return res.rows[0]
-  }
+async function getUser(email) {
+  const res = await pool.query('SELECT * FROM users where "email" = $1', [email])
+  return res.rows[0]
+}
 
 async function getUniqueUserId() {
   try {
@@ -52,17 +52,39 @@ const createNewUser = async (request, response) => {
 async function login(req) {
   let email = req.email;
   let password = req.password;
-  let exists = await userExists(email) 
+  let exists = await userExists(email)
   if(exists) {
     let user = await getUser(email)
-    if(password == user.password) {
-      return true
-    } else {
-      return false
-    }
+    if(password == user.password)
+      console.log("valid login")
+    else
+      console.log("invalid login")
+  }
+  else {
+    console.log("no accouts associated with that email")
+    //    ask them to register?
+  }
+}
+
+function storeRecipe(id, title) {
+  const values = [id, title];
+  pool.query('INSERT INTO recipes VALUES ($1, $2)', values)
+      .then(console.log('Successfully created new'))
+      .catch(e => console.error(e.stack))
+}
+
+async function getRecipeTitle(id) {
+  const values = [id];
+  const res = await pool.query('SELECT * FROM recipes where "id" = $1', values);
+  if(res.rows[0] != null) {
+    console.log(res.rows[0]["title"]) // return this
+  } else {
+    console.log('recipe not in db')
   }
 }
 
   module.exports = {
-    login
+    login,
+    storeRecipe,
+    getRecipeTitle
   }

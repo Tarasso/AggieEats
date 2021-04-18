@@ -1,10 +1,13 @@
 const express = require('express')
+const path = require('path');
+const db = require('./queries')
+const yelp = require('./yelp')
+const spoon = require('./spoonacular')
+const cuisineData = require('./resources/cuisines.json');
+const { searchRecipes } = require('./spoonacular');
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const path = require('path');
-const db = require('./queries')
-const spoon = require('./yelp')
 const cuisineData = require('./resources/cuisines.json')
 const app = express()
 const port = process.env.PORT || 3000
@@ -15,7 +18,6 @@ const port = process.env.PORT || 3000
 // load up public CSS/JS files
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({extended: true}));
-
 
 // load up views
 app.set('views', path.join(__dirname, '/views'))
@@ -91,7 +93,7 @@ app.post('/login', async (req, res) => {
     if (loginResult) {
         req.flash('loginResultSuccess', 'Successfully logged in!')
         res.redirect('/dashboard')
-    } else {  
+    } else {
         req.flash('loginResultFail', 'Incorrect username or password.')
         res.redirect('/login');
     }
