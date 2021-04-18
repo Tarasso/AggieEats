@@ -55,10 +55,14 @@ async function login(req) {
   let exists = await userExists(email)
   if(exists) {
     let user = await getUser(email)
-    if(password == user.password)
+    if(password == user.password) {
       console.log("valid login")
-    else
+      return true
+    }
+    else {
       console.log("invalid login")
+      return false
+    }
   }
   else {
     console.log("no accouts associated with that email")

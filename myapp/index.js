@@ -8,7 +8,6 @@ const { searchRecipes } = require('./spoonacular');
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
-const cuisineData = require('./resources/cuisines.json')
 const app = express()
 const port = process.env.PORT || 3000
 
