@@ -6,28 +6,33 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class= <% if(pageInfo=="Home" ) {%> "nav-item active" <%} else {%>
+            <li class=<% if(pageInfo=="Home" ) {%> "nav-item active" <%} else {%>
                     "nav-item"
-                        <%}%>>
-                <a class="nav-link" href="/">Home</a>
-            </li>
-            <li class= <% if(pageInfo=="Dashboard" ) {%> "nav-item active" <%} else {%>
-                "nav-item"
                     <%}%>>
-                <a class="nav-link" href="/dashboard">Dashboard</a>
-        </li>
-            <li class= <% if(pageInfo=="Restaurants" ) {%> "nav-item active" <%} else {%>
-                    "nav-item"
-                        <%}%>>
-                    <a class="nav-link" href="/restaurants">Restaurants</a>
+                        <a class="nav-link" href="/">Home</a>
             </li>
-            <li class= <% if(pageInfo=="Recipes" ) {%> "nav-item active" <%} else {%>
+
+            <% if (userAccount) { %>
+            <li class=<% if(pageInfo=="Dashboard" ) {%> "nav-item active" <%} else {%>
                     "nav-item"
-                        <%}%>>
-                    <a class="nav-link" href="/recipes">Recipes</a>
+                    <%}%>>
+                        <a class="nav-link" href="/dashboard">Dashboard</a>
             </li>
+            <% } %>
+            <li class=<% if(pageInfo=="Restaurants" ) {%> "nav-item active" <%} else {%>
+                    "nav-item"
+                    <%}%>>
+                        <a class="nav-link" href="/restaurants">Restaurants</a>
+            </li>
+            <li class=<% if(pageInfo=="Recipes" ) {%> "nav-item active" <%} else {%>
+                    "nav-item"
+                    <%}%>>
+                        <a class="nav-link" href="/recipes">Recipes</a>
+            </li>
+
         </ul>
         <ul class="navbar-nav mr-right">
+            <% if (!userAccount) { %>
             <li class=<% if(pageInfo=="Login" ) {%> "nav-item active" <%} else {%>
                     "nav-item"
                     <%}%>>
@@ -38,6 +43,13 @@
                     <%}%>>
                         <a class="nav-link" href="/register">Register</a>
             </li>
+            <% } else { %>
+            <li class=<% if(pageInfo=="Log Out" ) {%> "nav-item active" <%} else {%>
+                    "nav-item"
+                    <%}%>>
+                        <a class="nav-link" href="/logout">Log out</a>
+            </li>
+            <% } %>
         </ul>
     </div>
 
