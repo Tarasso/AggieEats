@@ -7,19 +7,19 @@
                     <h1 class="mb-2">Local Restaurant Search</h1>
                     <p class="text-muted mb-4">Search and filter the hottest local restaurants in your area.</p>
                     <hr />
-                    <form action="/restaurant" method="POST">
-                        <div class="form-group">
-                            <label for="inputCuisine">What type of cuisine would you like to try?</label>
+                    <form action="/restaurant" method="POST" class="row g-3">
+                        <div class="col-12">
+                            <label class="form-label" for="inputCuisine">What type of cuisine would you like to try?</label>
                             <input type="text" class="form-control" name="cuisine" id="inputCuisine"
                                 placeholder="Enter Cuisine">
                         </div>
-                        <div class="form-group">
-                            <label for="inputFoodName">What would you like to eat today?</label>
+                        <div class="col-12">
+                            <label class="form-label" for="inputFoodName">What would you like to eat today?</label>
                             <input type="text" class="form-control" name="foodName" id="inputFoodName"
                                 placeholder="Enter Food Name">
                         </div>
-                        <div class="form-group">
-                            <label for="inputFoodName">Distance (optional)</label>
+                        <div class="col-12">
+                            <label class="form-label" for="inputFoodName">Distance (optional)</label>
                             <div class="input-group mb-2">
                                 <input type="text" class="form-control" name="foodName" id="inputFoodName"
                                     placeholder="Enter Miles">
@@ -28,15 +28,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-group col-md-6">
-                                <a href="#" class="btn btn-dark col-md-12"
-                                    style="background-color: rgb(80, 0, 0);">Search</a>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <a href="#" class="btn btn-dark col-md-12"
-                                    style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
-                            </div>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-dark w-100" style="background-color: rgb(80, 0, 0);">Search</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a href="#" class="btn btn-dark w-100" style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
                         </div>
                         <hr class="mb-5" />
 
@@ -59,9 +55,8 @@
                                             <td>####</td>
                                             <td>
                                                 <!-- Button trigger modal -->
-                                                <button type="button" class="btn btn-outline-primary col-md-10"
-                                                    data-toggle="modal" data-target="#staticBackdrop">More
-                                                    Details</button>
+                                                <a class="btn btn-outline-primary col-md-10" href="#detailsPopOut" data-bs-toggle="modal"
+                                                data-bs-target="#staticBackdrop">More Details</a>
 
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="staticBackdrop" data-backdrop="static"
@@ -72,21 +67,19 @@
                                                             <div class="modal-header">
                                                                 <h5 class="modal-title" id="staticBackdropLabel">
                                                                     Restaurant Name</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                                 </button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <p>This window will display restaurant information from
                                                                     Yelp API</p>
                                                                 <div class="form-group">
-                                                                    <label for="inputRate">Rate</label>
+                                                                    <label class="form-label" for="inputRate">Rate</label>
                                                                     <input type="text" class="form-control" name="rate"
                                                                         id="inputRate"
                                                                         placeholder="Enter number between 1 to 5">
                                                                     <br>
-                                                                    <label for="inputReview">Review</label>
+                                                                    <label class="form-label" for="inputReview">Review</label>
                                                                     <textarea id="Review" class="form-control"
                                                                         name="review" name="review" id="inputReview"
                                                                         rows="4"
@@ -102,8 +95,6 @@
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
-                                                                <button type="button" class="btn btn-secondary"
-                                                                    data-dismiss="modal">Close</button>
                                                                 <button type="button" class="btn btn-primary"
                                                                     style="background-color: rgb(80, 0, 0);">Submit</button>
                                                             </div>
