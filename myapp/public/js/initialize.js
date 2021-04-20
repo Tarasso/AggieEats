@@ -4,8 +4,17 @@ $(function () {
 })
 
 $(document).ready(function () {
-	$("#showPassword").click(function () {
-		$(this).is(':checked') ? $('#inputPassword').attr('type', 'text') : $('#inputPassword').attr('type', 'password');
+	$("#showPassword").on('click', function (event) {
+		event.preventDefault();
+		if ($('#inputPassword').attr("type") == "text") {
+			$('#inputPassword').attr('type', 'password');
+			$('#eyeButton').addClass("fa-eye-slash");
+			$('#eyeButton').removeClass("fa-eye");
+		} else if ($('#inputPassword').attr("type") == "password") {
+			$('#inputPassword').attr('type', 'text');
+			$('#eyeButton').removeClass("fa-eye-slash");
+			$('#eyeButton').addClass("fa-eye");
+		}
 	});
 });
 
