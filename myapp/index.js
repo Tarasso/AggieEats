@@ -42,8 +42,8 @@ app.use(flash());
 
 // middleware to insert flash to all routes
 app.use((req, res, next) => {
-    res.locals.loginFlashSuccess = req.flash('loginResultSuccess');
-    res.locals.loginFlashFail = req.flash('loginResultFail');
+    res.locals.flashSuccess = req.flash('loginResultSuccess');
+    res.locals.flashWarn = req.flash('loginResultFail');
     res.locals.userAccount = req.session.user
     next();
 })
