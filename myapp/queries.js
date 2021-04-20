@@ -52,25 +52,27 @@ const createNewUser = async (request, response) => {
 async function login(req) {
   let email = req.email;
   let password = req.password;
-  let exists = await userExists(email) 
+  let exists = await userExists(email)
   if(exists) {
     let user = await getUser(email)
-    if(password == user.password)
-      console.log("valid login")
-    else
-      console.log("invalid login")
+    if(password == user.password) {
+      return user
+    }
+    else {
+      return null
+    }
   }
   else {
     console.log("no accouts associated with that email")
     //    ask them to register?
-  } 
+  }
 }
 
 function storeRecipe(id, title) {
   const values = [id, title];
   pool.query('INSERT INTO recipes VALUES ($1, $2)', values)
       .then(console.log('Successfully created new'))
-      .catch(e => console.error(e.stack)) 
+      .catch(e => console.error(e.stack))
 }
 
 async function getRecipeTitle(id) {

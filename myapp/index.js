@@ -5,6 +5,9 @@ const yelp = require('./yelp')
 const spoon = require('./spoonacular')
 const cuisineData = require('./resources/cuisines.json');
 const { searchRecipes } = require('./spoonacular');
+const flash = require('connect-flash')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -24,16 +27,33 @@ app.set('view engine', 'ejs');
 // route views
 app.get('/yelp', (req, res) => {
     res.send('Yelp API testing page!');
-    yelp.getTodos();
+    yelp.testRestaurant();
+    // spoon.searchRecipes("pasta","greek")
+    // spoon.getRecipeDetails(654939)
+
    });
+
+// set up cookie parser, sessions, and flash middlewares
+//app.use(cookieParser())
+app.use(session({
+    secret: 'keyboard cat',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
+}))
+app.use(flash());
+
+// middleware to insert flash to all routes
+app.use((req, res, next) => {
+    res.locals.loginFlashSuccess = req.flash('loginResultSuccess');
+    res.locals.loginFlashFail = req.flash('loginResultFail');
+    res.locals.userAccount = req.session.user
+    next();
+})
 
 // app.get('/users', db.createNewUser)
 
 app.get('/user/:accountId', (req, res) => {
-    // spoon.searchRecipes("pasta","greek")
-    // spoon.getRecipeDetails(654939)
-    // db.storeRecipe(654939,"Pasta With Roasted Vegetables & Greek Olives")
-    // db.getRecipeTitle(654939)
     res.send('User: ' + req.params.accountId)
 });
 
@@ -43,9 +63,15 @@ app.get('/', (req, res) => {
 
 })
 
-app.get('/dashboard', (req, res) => {
-    const pageName = "Dashboard";
-    res.render('dashboard.ejs', { pageInfo: pageName })
+app.get('/dashboard', async (req, res) => {
+    if (!req.session.user) {
+        console.log("You must be logged in.")
+        req.flash('loginResultFail', 'You must be logged in to access dashboard.')
+        res.redirect('/login');
+    } else {
+        const pageName = "Dashboard";
+        res.render('dashboard.ejs', { pageInfo: pageName })
+    }
 })
 
 app.get('/restaurants', (req, res) => {
@@ -69,11 +95,30 @@ app.get('/login', (req, res) => {
     res.render('login.ejs', { pageInfo: pageName })
 })
 
+app.get('/logout', async (req, res) => {
+    if (!req.session.user) {
+        res.redirect('/')
+        return;
+    }
+    req.session.destroy();
+    const pageName = "Logged out";
+    res.locals.userAccount = null
+    res.render('logout.ejs', { pageInfo: pageName, cuisineData: cuisineData })
+})
+
 // get object including inputs of login form
-app.post('/login', (req, res) => {
-    console.log("Received user input from login form.")
-    db.login(req.body)
-    res.send(req.body)
+app.post('/login', async (req, res) => {
+    const loginResult = await db.login(req.body)
+    if (loginResult != null) {
+        req.flash('loginResultSuccess', 'Successfully logged in!')
+        console.log(loginResult)
+        console.log("Login result: " + loginResult);
+        req.session.user = loginResult;
+        res.redirect('/dashboard')
+    } else {
+        req.flash('loginResultFail', 'Incorrect email or password.')
+        res.redirect('/login');
+    }
 })
 
 app.get('/register', (req, res) => {
@@ -89,6 +134,7 @@ app.post('/register', (req, res) => {
 
 app.get('/test', (req, res) => {
     const pageName = "Test";
+    req.flash('loginResultSuccess', 'Test Message')
     res.render('test.ejs', { pageInfo: pageName })
 })
 

@@ -4,22 +4,24 @@
 
     <main class="flex-fill">
         <div class="container fill">
+            <%- include('partials/flash')%>
             <h1>Login to AggieEats </h1>
             <hr/>
-            <form action="/login" method="POST">
+            <form action="/login" method="POST" class="needs-validation" novalidate>
                 <div class="form-group">
                   <label for="inputEmail">Email address</label>
-                  <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp">
+                  <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp" required>
+                   
                 </div>
                 <div class="form-group">
                   <label for="inputPassword">Password</label>
-                  <input type="password" class="form-control" name="password" id="inputPassword" aria-describedby="passwordHelp">
+                  <input type="password" class="form-control" name="password" id="inputPassword" aria-describedby="passwordHelp" required>
                 </div>
                 <div class="form-group form-check">
                     <input type="checkbox" class="form-check-input" id="showPassword">
                     <label class="form-check-label" for="showPassword">Show Password</label>
                 </div>
-                <button type="submit" class="btn btn-primary" aria-describedby="submitButton">Login</button>
+                <button type="submit" class="btn btn-primary mb-2" aria-describedby="submitButton">Login</button>
                 <small id="submitButton" class="form-text text-muted">By logging in, you agree to AggieEat's Terms of Service and acknowledge AggieEat's Privacy Policy.</small>
                 <small id="submitButton" class="form-text text-muted">New to AggieEats? Sign up <a href="/register">here</a>.</small>
 
