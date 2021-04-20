@@ -27,7 +27,10 @@ app.set('view engine', 'ejs');
 // route views
 app.get('/yelp', (req, res) => {
     res.send('Yelp API testing page!');
-    spoon.getTodos();
+    yelp.testRestaurant();
+    // spoon.searchRecipes("pasta","greek")
+    // spoon.getRecipeDetails(654939)
+
    });
 
 // set up cookie parser, sessions, and flash middlewares
