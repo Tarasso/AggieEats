@@ -16,4 +16,10 @@
     
   }
 
-  html { scroll-behavior: smooth; } 
+html { 
+    scroll-behavior: smooth; 
+} 
+
+.footer-link {
+    color: gray !important;
+}
