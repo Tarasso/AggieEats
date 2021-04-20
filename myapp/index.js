@@ -33,6 +33,20 @@ app.get('/yelp', (req, res) => {
 
    });
 
+app.get('/test', (req, res) => {
+res.send('Welcome to the testing page!');
+let temp = {
+    "email": "kylemrosko@gmail.com",
+    "password": "password",
+    "firstName": "Kyle",
+    "lastName": "Mrosko"
+}
+db.requestNewAccount(temp);
+// spoon.searchRecipes("pasta","greek")
+// spoon.getRecipeDetails(654939)
+
+});
+
 // set up cookie parser, sessions, and flash middlewares
 //app.use(cookieParser())
 app.use(session({

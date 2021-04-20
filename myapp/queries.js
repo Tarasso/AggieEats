@@ -7,6 +7,8 @@ const pool = new Pool({
   port: 5432,
 })
 
+// ---------------------------- USERS ------------------------------------------------
+
 const getUsers = (request, response) => {
     pool.query('SELECT "firstName", "lastName" FROM users')
         .then(res => console.table(res.rows))
@@ -36,17 +38,12 @@ async function userExists(email) {
   }
 }
 
-const createNewUser = async (request, response) => {
+async function createNewUser(email, firstName, lastName, password) {
   const userId = await getUniqueUserId();
-  const email = "example@example.com";
-  const firstName = "Kyle";
-  const lastName = "Mrosko";
-  const password = "pass";
   const points = 0;
   const values = [userId, email, firstName, lastName, password, points];
-  pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6)', values)
-      .then(console.log('Successfully created new'))
-      .catch(e => console.error(e.stack))
+  let res = await pool.query('INSERT INTO users VALUES ($1, $2, $3, $4, $5, $6)', values);
+  console.log('Successfully created new user')
 }
 
 async function login(req) {
@@ -58,15 +55,32 @@ async function login(req) {
     if(password == user.password) {
       return user
     }
-    else {
-      return null
-    }
+    else { return null }
+  }
+  else { console.log("no accouts associated with that email")}
+}
+
+async function requestNewAccount(req) {
+  let email = req.email;
+  let password = req.password;
+  let firstName = req.firstName;
+  let lastName = req.lastName;
+  let exists = await userExists(email)
+  if(exists) {
+    console.log("there is already an account associated with this email")
+    return null
   }
   else {
-    console.log("no accouts associated with that email")
-    //    ask them to register?
+    console.log("creating new account");
+    await createNewUser(email, firstName, lastName, password);
+    let res = await getUser(email);
+    return res;
   }
 }
+
+// -----------------------------------------------------------------------------------
+
+// ---------------------------- RECIPES ----------------------------------------------
 
 function storeRecipe(id, title) {
   const values = [id, title];
@@ -85,8 +99,11 @@ async function getRecipeTitle(id) {
   }
 }
 
+// -----------------------------------------------------------------------------------
+
   module.exports = {
     login,
     storeRecipe,
-    getRecipeTitle
+    getRecipeTitle,
+    requestNewAccount
   }
