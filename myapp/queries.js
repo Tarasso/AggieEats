@@ -20,6 +20,12 @@ async function getUser(email) {
   return res.rows[0]
 }
 
+async function getTopUsers(limit) {
+  const res = await pool.query('select "firstName", "lastName", "points" from users order by "points" DESC limit $1', [limit]);
+  console.table(res.rows);
+  return res.rows;
+}
+
 async function getUniqueUserId() {
   try {
     const res = await pool.query('select max("userId") from users')
@@ -105,5 +111,6 @@ async function getRecipeTitle(id) {
     login,
     storeRecipe,
     getRecipeTitle,
-    requestNewAccount
+    requestNewAccount,
+    getTopUsers
   }

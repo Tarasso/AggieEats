@@ -34,14 +34,15 @@ app.get('/yelp', (req, res) => {
    });
 
 app.get('/test', (req, res) => {
-res.send('Welcome to the testing page!');
-let temp = {
-    "email": "kylemrosko@gmail.com",
-    "password": "password",
-    "firstName": "Kyle",
-    "lastName": "Mrosko"
-}
-db.requestNewAccount(temp);
+    db.getTopUsers(5);
+// res.send('Welcome to the testing page!');
+// let temp = {
+//     "email": "kylemrosko@gmail.com",
+//     "password": "password",
+//     "firstName": "Kyle",
+//     "lastName": "Mrosko"
+// }
+// db.requestNewAccount(temp);
 // spoon.searchRecipes("pasta","greek")
 // spoon.getRecipeDetails(654939)
 
