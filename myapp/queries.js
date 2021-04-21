@@ -125,13 +125,14 @@ async function addToLibrary(email, recipeId) {
   const values = [recipeId, email];
   let userLib = await getUser(email);
   userLib = userLib.res_history;
-  if(userLib.includes(recipeId))
+  if(userLib != null && userLib.includes(recipeId))
     console.log("already in library");
   else {
     console.log("need to add");
     let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
     console.log('updated lib');
-    // add recipe id and title to db
+    // add points to user account 
+    pool.query('UPDATE users SET points = points + 1 WHERE "email" = $1',[email])
   }
 }
 
