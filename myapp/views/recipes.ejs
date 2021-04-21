@@ -8,28 +8,18 @@
                     <p class="text-muted mb-4">What do you feel like eating today?</p>
                     <hr />
 
-                    <form action="/recipes" method="POST" id="searchForm">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="cuisineSearch" class="text-muted">Search by cuisines (optional)</label>
-                                <div class="input-group-btn search-panel" id="cuisineSearch">
-                                    <!-- cuisine down selection -->
-                                    <select name="cuisine_type" id="search_param" class="form-control"
-                                        data-toggle="dropdown">
-                                        <% cuisineData['cuisines'].forEach(function(cuisine) { %>
-                                            <option value=<%=cuisine.toLowerCase() %>><%= cuisine %>
-                                            </option>
-                                            <% }) %>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-8">
-                                <label for="querySearch" class="text-muted">Search by keywords (required)</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" id="querySearch" class="form-control" aria-label="String query"
-                                        placeholder="Enter any recipe...">
-                                </div>
+                    <form action="/recipes" method="POST" id="searchForm" class="row g-3">
+                        <div class="form-group col-md-4">
+                            <label for="cuisineSearch" class="text-muted form-label">Search by cuisines</label>
+                            <div class="input-group-btn search-panel" id="cuisineSearch">
+                                <!-- cuisine down selection -->
+                                <select name="cuisine_type" id="search_param" class="form-select"
+                                    data-toggle="dropdown">
+                                    <% cuisineData['cuisines'].forEach(function(cuisine) { %>
+                                        <option value=<%=cuisine.toLowerCase() %>><%= cuisine %>
+                                        </option>
+                                        <% }) %>
+                                </select>
                             </div>
                         </div>
                         <div class="form-group col-md-8">

@@ -1,9 +1,14 @@
 <%- include('partials/head', {pageInfo: pageInfo})%>
-<%- include('partials/navbar', {pageInfo: pageInfo})%>
-<div class="d-flex flex-column min-vh-100">
-    <div class="container">
-        <p>This is a test page</p>
-    </div>
-    
-    <%- include('partials/foot')%>
-</div>
+    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+        <div class="d-flex flex-column min-vh-100">
+            <div class="container">
+                <p>
+                    <% const num = 5 %>
+                    <% for (i = 0; i < num; i++) { %>
+                        <p>Test</p>
+                    <% } %>
+                </p>
+            </div>
+
+            <%- include('partials/foot')%>
+        </div>
