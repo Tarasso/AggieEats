@@ -6,6 +6,11 @@ const limit = 3
 
 // support diets later
 // search term requied, cuisine optional
+// ****************************************************************
+// Idea:
+// display title and image
+// clicking on "more details" calls getRecipeDetails with recipe id
+// ****************************************************************
 async function searchRecipes(terms, cuisine = "") {
     let res = await axios.get(recipeEndpoint + 'complexSearch', {
         params: {
@@ -14,15 +19,20 @@ async function searchRecipes(terms, cuisine = "") {
           number: limit,
           cuisine: cuisine
         }
-      })
-    console.log(res.data)
+      });
+    console.log(res.data);
+    return res.data;
 }
 
-// can include nutrition via param
+// ****************************************************************
+// Idea:
+// display all info in trimmedRes in pop up box
+// ****************************************************************
 async function getRecipeDetails(id) {
     let trimmedRes = {
         "title": "",
         "time": 0,
+        "servings": 0,
         "url": "",
         "image": ""
 
@@ -36,6 +46,7 @@ async function getRecipeDetails(id) {
     trimmedRes.time = res.data.readyInMinutes;
     trimmedRes.url = res.data.sourceUrl;
     trimmedRes.image = res.data.image;
+    trimmedRes.servings = res.data.servings;
     console.log(trimmedRes);
     return trimmedRes;
 }
