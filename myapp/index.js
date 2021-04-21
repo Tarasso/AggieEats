@@ -35,7 +35,7 @@ app.get('/yelp', (req, res) => {
 
 app.get('/test', (req, res) => {
 res.send('Welcome to the testing page!');
-db.getRecipeLibrary("kylemrosko@gmail.com");
+// db.getRecipeLibrary("kylemrosko@gmail.com");
 // db.addToLibrary("kylemrosko@gmail.com",5);
 // let temp = {
 //     "email": "kylemrosko@gmail.com",
@@ -44,7 +44,7 @@ db.getRecipeLibrary("kylemrosko@gmail.com");
 //     "lastName": "Mrosko"
 // }
 // db.requestNewAccount(temp);
-// spoon.searchRecipes("pasta","greek")
+spoon.searchRecipes("sandwich")
 // spoon.getRecipeDetails(654939)
 
 });

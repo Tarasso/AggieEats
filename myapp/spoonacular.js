@@ -1,4 +1,5 @@
 const axios = require('axios').default
+const db = require('./queries')
 
 const recipeEndpoint = 'https://api.spoonacular.com/recipes/'
 const apiKey = '3abcc91390874fbf9263b2b911b22431'
@@ -12,15 +13,19 @@ const limit = 9
 // clicking on "more details" calls getRecipeDetails with recipe id
 // ****************************************************************
 async function searchRecipes(terms, cuisine = "") {
-    let res = await axios.get(recipeEndpoint + 'complexSearch', {
-        params: {
-          apiKey: apiKey,
-          query: terms,
-          number: limit,
-          cuisine: cuisine
-        }
-      });
-    return res.data;
+  let res = await axios.get(recipeEndpoint + 'complexSearch', {
+      params: {
+        apiKey: apiKey,
+        query: terms,
+        number: limit,
+        cuisine: cuisine
+      }
+    });
+  for(i = 0; i < res.data.results.length; i++) {
+    console.log(res.data.results[i].id,res.data.results[i].title);
+    db.storeRecipe(res.data.results[i].id,res.data.results[i].title);
+  }
+  return res.data;
 }
 
 // ****************************************************************

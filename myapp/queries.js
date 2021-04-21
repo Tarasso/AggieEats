@@ -88,10 +88,26 @@ async function requestNewAccount(req) {
 
 // ---------------------------- RECIPES ----------------------------------------------
 
+async function recipeExists(id) {
+  const res = await pool.query('SELECT * FROM recipes where "id" = $1', [id])
+  if(res.rows[0] != null) {
+    return true
+  } else {
+    return false
+  }
+}
+
 async function storeRecipe(id, title) {
   const values = [id, title];
-  let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
-  console.log('Successfully created new')
+  let exists = await recipeExists(id);
+  if(!exists) {
+    let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
+    console.log('Successfully created new')
+  }
+  else {
+    console.log('recipe already in db')
+  }
+  
 }
 
 async function getRecipeTitle(id) {
@@ -115,6 +131,7 @@ async function addToLibrary(email, recipeId) {
     console.log("need to add");
     let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
     console.log('updated lib');
+    // add recipe id and title to db
   }
 }
 
