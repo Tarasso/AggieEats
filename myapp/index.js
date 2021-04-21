@@ -94,16 +94,26 @@ app.get('/restaurants', (req, res) => {
     res.render('restaurants.ejs', { pageInfo: pageName })
 })
 
-app.get('/recipes', (req, res) => {
+app.get('/recipes', async (req, res) => {
     const pageName = "Recipes";
-    res.render('recipes.ejs', { pageInfo: pageName, cuisineData: cuisineData })
+    console.log(req.query)
+    var spoon_results
+    if ('recipe_query' in req.query) {
+        console.log("query not empty")
+        spoon_results = await spoon.searchRecipes(req.query.recipe_query, req.query.cuisine_type)
+        console.log(spoon_results)
+    } else {
+        console.log("query is empty")
+    }
+    // res.send(spoon_results)
+    res.render('recipes.ejs', { pageInfo: pageName, cuisineData, spoon_results, query: req.query })
 })
 
 // get object including inputs of registration form
-app.post('/recipes', (req, res) => {
-    console.log("Received user input from post form.")
-    res.send(req.body)
-})
+// app.post('/recipes', (req, res) => {
+//     console.log("Received user input from post form.")
+//     res.send(req.body)
+// })
 
 app.get('/login', (req, res) => {
     const pageName = "Login";
@@ -118,7 +128,7 @@ app.get('/logout', async (req, res) => {
     req.session.destroy();
     const pageName = "Logged out";
     res.locals.userAccount = null
-    res.render('logout.ejs', { pageInfo: pageName, cuisineData: cuisineData })
+    res.render('logout.ejs', { pageInfo: pageName })
 })
 
 app.post('/login', async (req, res) => {
