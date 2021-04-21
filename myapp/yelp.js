@@ -6,10 +6,12 @@ const auth = 'Bearer eYND9foowwisuxbuMvW1bUGApWxytHH3rkC2TfD0equwvbjUns0vTKiwh6e
 function toMiles(meters) {
     return (meters)/1609;
   }
-
+  const dist = toMiles(3000);
+  const limit = 3;
 // async function searchRestaurant(cuisine, item, distance = 10000)
 // {
 // }
+
 function resolveAfter2Seconds() {
     return new Promise(resolve => {
       setTimeout(() => {
@@ -19,7 +21,7 @@ function resolveAfter2Seconds() {
   }
 async function testRestaurant()
 {
-    console.log('calling');
+  console.log('calling');
   const result = await resolveAfter2Seconds();
   console.log(result);
     
@@ -38,8 +40,8 @@ async function testRestaurant()
         params: {
           term: 'thai food',
           location: 'Texas A&M University',
-          limit: 3,
-          radius: toMiles(3000)
+          limit: limit,
+          radius: dist
         }
     });
     res = res.data;
