@@ -3,207 +3,82 @@
         <div class="d-flex flex-column min-vh-100">
 
             <main class="flex-fill">
-                <div class="container fill">
+                <div class="container">
                     <h1 class="mb-2">Recipe Library</h1>
                     <p class="text-muted mb-4">What do you feel like eating today?</p>
                     <hr />
 
-                    <form action="/recipes" method="POST" id="searchForm">
-                        <div class="form-row">
-                            <div class="form-group col-md-4">
-                                <label for="cuisineSearch" class="text-muted">Search by cuisines</label>
-                                <div class="input-group-btn search-panel" id="cuisineSearch">
-                                    <!-- cuisine down selection -->
-                                    <select name="cuisine_type" id="search_param" class="form-control"
-                                        data-toggle="dropdown">
-                                        <% cuisineData['cuisines'].forEach(function(cuisine) { %>
-                                            <option value=<%=cuisine.toLowerCase() %>><%= cuisine %>
-                                            </option>
-                                            <% }) %>
-                                    </select>
-                                </div>
+                    <form action="/recipes" method="GET" id="searchForm" class="row g-3">
+                        <div class="form-group col-md-4">
+                            <label for="cuisineSearch" class="text-muted form-label">Search by cuisines</label>
+                            <div class="input-group-btn search-panel" id="cuisineSearch">
+                                <!-- cuisine down selection -->
+                                <select name="cuisine_type" id="search_param" class="form-select"
+                                    data-toggle="dropdown">
+                                    <% cuisineData['cuisines'].forEach(function(cuisine) { %>
+                                        <option value=<%=cuisine.toLowerCase() %>><%= cuisine %>
+                                        </option>
+                                        <% }) %>
+                                </select>
                             </div>
-                            <div class="form-group col-md-8">
-                                <label for="querySearch" class="text-muted">Search by keywords</label>
-                                <div class="input-group mb-3">
-                                    <span class="input-group-text"><i class="fas fa-search"></i></span>
-                                    <input type="text" id="querySearch" class="form-control" aria-label="String query"
-                                        placeholder="Enter any recipe...">
+                        </div>
+                        <div class="form-group col-md-8">
+                            <label for="querySearch" class="text-muted form-label">Search by keywords</label>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                                <input type="text" id="querySearch" class="form-control" aria-label="String query"
+                                    placeholder="Enter any recipe..." name="recipe_query" value=<%= query.recipe_query %>>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12">
+                            <label for="test" class="text-muted form-label">Enter dietary restrictions (optional)</label>
+                            <div class="form-group" id="test">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="vegan" id="inlineCheckbox1"
+                                        value="">
+                                    <label class="form-check-label" for="inlineCheckbox1">Vegan</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="vegetarian" id="inlineCheckbox2"
+                                        value="">
+                                    <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" name="gf" id="inlineCheckbox3" value="">
+                                    <label class="form-check-label" for="inlineCheckbox3">Gluten Free</label>
                                 </div>
                             </div>
                         </div>
-                        <label for="test" class="text-muted">Enter dietary restrictions (optional)</label>
-                        <div class="form-group" id="test">
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="vegan" id="inlineCheckbox1"
-                                    value="">
-                                <label class="form-check-label" for="inlineCheckbox1">Vegan</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="vegetarian" id="inlineCheckbox2"
-                                    value="">
-                                <label class="form-check-label" for="inlineCheckbox2">Vegetarian</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="checkbox" name="gf" id="inlineCheckbox3" value="">
-                                <label class="form-check-label" for="inlineCheckbox3">Gluten Free</label>
-                            </div>
+                        <div class="form-group col-md-1">
+                            <button class="btn btn-primary w-100" type="submit">Search</button>
                         </div>
-                        <button class="btn btn-primary" type="submit">Search</button>
 
                     </form>
 
                     <hr />
                     <!-- recipe cards-->
                     <div class="row">
-                        <div class="col">
-                            <div class="card">
-                                <a href="https://www.google.com/">
-                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/97352/Five-Ingredient-Veggie-Burgers-Wordpress-1-360x270-c.jpg"
-                                        class="card-img-top" alt="sample1">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">Five-Ingredient Veggie Burger</h5>
-                                    <p class="card-text">Some cool info here</p>
+                        <% const cardNumber = (spoon_results === undefined) ? -1 : spoon_results.number%>
+                        <% if (cardNumber == -1) { %>
 
-                                    <div class="d-flex flex-row justify-content-around my-flex-container">
-                                        <a class="btn btn-primary p-2" href="#detailsPopOut" data-toggle="modal"
-                                            data-target="#detailsPopOut">More Details</a>
+                        <% } %>
+                        <% if (cardNumber == 0) { %>
+                            <h1 class="text-center pt-5">No results were found.</h1>
+                            <p class="text-center text-muted pb-5">Try again!</p>
+                        <% } %>
+                        <% for (i = 0; i < cardNumber; i++) { %>
+                            <% const result = spoon_results.results[i] %>
+                            
+                            <% if (result === undefined) { %>
+                                <% break %>
+                            <% } %>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="detailsPopOut"
-                                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">Recipe Name
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>This window will display recipe information from Spoonacular
-                                                            API</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            style="background-color: rgb(80, 0, 0);">Save to My
-                                                            Library</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                            <div class="col-md-4"><%- include('partials/recipe_card', {result})%></div>
+                            <% if (i % 3 == 2) { %>
+                                <div class="w-100"></div>
+                            <% } %>
+                        <% } %>
 
-                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip"
-                                            data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col">
-                            <div class="card">
-                                <a href="https://www.google.com/">
-                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/126506/Teriyaki-Burger-with-carrot-pickle-wordpress-360x270-c.jpg"
-                                        class="card-img-top" alt="sample2">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">Pineapple Teriyaki Burgers</h5>
-                                    <p class="card-text">Some cool info here</p>
-                                    <div class="d-flex flex-row justify-content-around my-flex-container">
-                                        <a class="btn btn-primary p-2" href="#detailsPopOut" data-toggle="modal"
-                                            data-target="#detailsPopOut">More Details</a>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="detailsPopOut"
-                                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">Recipe Name
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>This window will display recipe information from Spoonacular
-                                                            API</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            style="background-color: rgb(80, 0, 0);">Save to My
-                                                            Library</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip"
-                                            data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="card">
-                                <a href="https://www.google.com/">
-                                    <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/128207/White-Bean-and-Pesto-Burgers-360x270-c.jpg"
-                                        class="card-img-top" alt="sample3">
-                                </a>
-                                <div class="card-body">
-                                    <h5 class="card-title">White Bean and Pesto Burger</h5>
-                                    <p class="card-text">Some cool info here</p>
-                                    <div class="d-flex flex-row justify-content-around my-flex-container">
-                                        <a class="btn btn-primary p-2" href="#detailsPopOut" data-toggle="modal"
-                                            data-target="#detailsPopOut">More Details</a>
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="detailsPopOut"
-                                            data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                                            aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="staticBackdropLabel">Recipe Name
-                                                        </h5>
-                                                        <button type="button" class="close" data-dismiss="modal"
-                                                            aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p>This window will display recipe information from Spoonacular
-                                                            API</p>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary"
-                                                            data-dismiss="modal">Close</button>
-                                                        <button type="button" class="btn btn-primary"
-                                                            style="background-color: rgb(80, 0, 0);">Save to My
-                                                            Library</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip"
-                                            data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <hr />
                     <a href="#" class="btn btn-secondary mb-5">Load More <i class="fas fa-arrow-down"></i></a>

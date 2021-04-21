@@ -1,18 +1,16 @@
 
-<% if (loginFlashSuccess && loginFlashSuccess.length) { %>
+<% if (flashSuccess && flashSuccess.length) { %>
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <%= loginFlashSuccess %>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+        <%= flashSuccess %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
         </button>
     </div>
 <% } %>
 
-<% if (loginFlashFail && loginFlashFail.length) { %>
+<% if (flashWarn && flashWarn.length) { %>
     <div class="alert alert-danger alert-dismissible fade show" role="alert">
-        <%= loginFlashFail %>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
+        <%= flashWarn %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+        </button>
     </div>
 <% } %>
