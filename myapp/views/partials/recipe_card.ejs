@@ -1,10 +1,9 @@
 <div class="card my-3">
     <a href="https://www.google.com/">
-        <img src="https://www.forksoverknives.com/wp-content/uploads/fly-images/97352/Five-Ingredient-Veggie-Burgers-Wordpress-1-360x270-c.jpg"
-            class="card-img-top" alt="sample1">
+        <img src=<%= (result === undefined) ? "icons/tray.svg" : result.image %> class="card-img-top" alt="sample1">
     </a>
     <div class="card-body">
-        <h5 class="card-title">Five-Ingredient Veggie Burger</h5>
+        <h5 class="card-title"><%= result.title %></h5>
         <p class="card-text">Some cool info here</p>
 
         <div class="row">

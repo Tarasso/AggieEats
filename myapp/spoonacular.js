@@ -2,7 +2,7 @@ const axios = require('axios').default
 
 const recipeEndpoint = 'https://api.spoonacular.com/recipes/'
 const apiKey = '3abcc91390874fbf9263b2b911b22431'
-const limit = 3
+const limit = 9
 
 // support diets later
 // search term requied, cuisine optional
@@ -20,7 +20,6 @@ async function searchRecipes(terms, cuisine = "") {
           cuisine: cuisine
         }
       });
-    console.log(res.data);
     return res.data;
 }
 
