@@ -20,12 +20,6 @@ async function getUser(email) {
   return res.rows[0]
 }
 
-async function getTopUsers(limit) {
-  const res = await pool.query('select "firstName", "lastName", "points" from users order by "points" DESC limit $1', [limit]);
-  console.table(res.rows);
-  return res.rows;
-}
-
 async function getUniqueUserId() {
   try {
     const res = await pool.query('select max("userId") from users')
@@ -149,6 +143,46 @@ async function getRecipeLibrary(email) {
 
 // -----------------------------------------------------------------------------------
 
+// -------------------------- Leaderboard --------------------------------------------
+
+// async function getTopUsers(limit) {
+//   const res = await pool.query('select "firstName", "lastName", "points" from users order by "points" DESC limit $1', [limit]);
+//   console.table(res.rows);
+//   return res.rows;
+// }
+
+async function getTopUsers(limit, email="") {
+  let ret = [];
+  let res = await pool.query('select "email", "firstName", "lastName", "points" from users order by "points" DESC');
+  let users = res.rows;
+  let selfIncluded = false;
+  for(i = 0; i < limit; i++) {
+    users[i].rank = i + 1;
+    delete users[i]["email"];
+    ret.push(users[i]);
+    if(users[i]["email"] == email)
+      selfIncluded = true;
+  }
+  console.table(ret);
+  if(email === "")
+    return ret;
+  // below is extra
+  let val = limit;
+  while(!selfIncluded && val < users.length) {
+    if(users[val]["email"] == email) {
+      users[val].rank = val + 1;
+      delete users[val]["email"];
+      ret.push(users[val]);
+      selfIncluded = true;
+    }
+    val += 1;
+  }
+  console.table(ret);
+  return ret;
+
+}
+
+// -----------------------------------------------------------------------------------
   module.exports = {
     login,
     storeRecipe,

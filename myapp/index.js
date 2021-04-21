@@ -35,8 +35,10 @@ app.get('/yelp', (req, res) => {
 
 app.get('/test', (req, res) => {
 res.send('Welcome to the testing page!');
+db.getTopUsers(5);
+// db.getTopUsers(5,"t@t.com")
 // db.getRecipeLibrary("kylemrosko@gmail.com");
-db.addToLibrary("lc@test.com",654939);
+// db.addToLibrary("lc@test.com",654939);
 // let temp = {
 //     "email": "kylemrosko@gmail.com",
 //     "password": "password",
