@@ -98,9 +98,10 @@ async function getRecipeTitle(id) {
   const values = [id];
   const res = await pool.query('SELECT * FROM recipes where "id" = $1', values);
   if(res.rows[0] != null) {
-    console.log(res.rows[0]["title"])
+    return res.rows[0]["title"];
   } else {
     console.log('recipe not in db')
+    return null;
   }
 }
 
@@ -117,6 +118,17 @@ async function addToLibrary(email, recipeId) {
   }
 }
 
+async function getRecipeLibrary(email) {
+  let names = [];
+  let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
+  recipes = res.rows[0]["res_history"];
+  for(i = 0; i < recipes.length; i++) {
+    let name = await getRecipeTitle(recipes[i]);
+    names.push(name);
+  }
+  return names;
+}
+
 // -----------------------------------------------------------------------------------
 
   module.exports = {
@@ -125,5 +137,6 @@ async function addToLibrary(email, recipeId) {
     getRecipeTitle,
     requestNewAccount,
     getTopUsers,
-    addToLibrary
+    addToLibrary,
+    getRecipeLibrary
   }
