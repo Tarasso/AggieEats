@@ -88,20 +88,32 @@ async function requestNewAccount(req) {
 
 // ---------------------------- RECIPES ----------------------------------------------
 
-function storeRecipe(id, title) {
+async function storeRecipe(id, title) {
   const values = [id, title];
-  pool.query('INSERT INTO recipes VALUES ($1, $2)', values)
-      .then(console.log('Successfully created new'))
-      .catch(e => console.error(e.stack))
+  let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
+  console.log('Successfully created new')
 }
 
 async function getRecipeTitle(id) {
   const values = [id];
   const res = await pool.query('SELECT * FROM recipes where "id" = $1', values);
   if(res.rows[0] != null) {
-    console.log(res.rows[0]["title"]) // return this
+    console.log(res.rows[0]["title"])
   } else {
     console.log('recipe not in db')
+  }
+}
+
+async function addToLibrary(email, recipeId) {
+  const values = [recipeId, email];
+  let userLib = await getUser(email);
+  userLib = userLib.res_history;
+  if(userLib.includes(recipeId))
+    console.log("already in library");
+  else {
+    console.log("need to add");
+    let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
+    console.log('updated lib');
   }
 }
 
@@ -112,5 +124,6 @@ async function getRecipeTitle(id) {
     storeRecipe,
     getRecipeTitle,
     requestNewAccount,
-    getTopUsers
+    getTopUsers,
+    addToLibrary
   }

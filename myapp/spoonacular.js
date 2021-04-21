@@ -36,7 +36,8 @@ async function getRecipeDetails(id) {
     trimmedRes.time = res.data.readyInMinutes;
     trimmedRes.url = res.data.sourceUrl;
     trimmedRes.image = res.data.image;
-    console.log(trimmedRes)
+    console.log(trimmedRes);
+    return trimmedRes;
 }
 
 module.exports = {
