@@ -1,0 +1,79 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+	<%- include('partials/navbar', {pageInfo: pageInfo})%>
+		<div class="d-flex flex-column min-vh-100">
+
+			<main class="flex-fill">
+				<div class="container justify-content-center align-items-center mt-5">
+					<div class="row">
+						<div class="col-md-6 offset-md-3 col-xl-6 offset-xl-3">
+							<%- include('partials/flash')%>
+
+								<div class="card shadow mb-5">
+									<div class="card-body p-4">
+										<div class="card-title">
+											<h1 class="text-center">Register</h1>
+											<p class="text-center">Start exploring local restaurants and find tasty recipes</p>
+											<hr />
+										</div>
+										<form action="/register" method="POST" class="needs-validation row g-3"
+											novalidate>
+											<div class="form-group col-md-6">
+												<label class="form-label" for="inputFirstName">First Name</label>
+												<input type="text" class="form-control" name="firstName"
+													id="inputFirstName" required>
+											</div>
+											<div class="form-group col-md-6">
+												<label class="form-label" for="inputLastName">Last Name</label>
+												<input type="text" class="form-control" name="lastName"
+													id="inputLastName" required>
+											</div>
+											<div class="form-group col-md-12">
+												<label class="form-label" for="inputEmail">Email address</label>
+												<input type="email" class="form-control" name="email" id="inputEmail"
+													aria-describedby="emailHelp" required>
+												<div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+											</div>
+											<div class="form-group col-md-12">
+												<label class="form-label" for="inputPassword">Password</label>
+												<div class="input-group">
+													<input type="password" class="form-control" name="password"
+														id="inputPassword" aria-describedby="passwordHelp" required>
+													<div class="input-group-append">
+														<button class="btn btn-outline-secondary" id="showPassword"
+															type="button"><i id="eyeButton" class="fa fa-eye-slash"
+																aria-hidden="true"></i></button>
+													</div>
+												</div>
+												<div id="emailHelp" class="form-text">Must be 8-20
+													characters long.</div>
+											</div>
+											<div class="form-group">
+												<label class="form-label" for="inputDietaryPref">Dietary
+													Preference</label>
+												<!-- SUGGESTION: make choices not hard coded-->
+												<select name="diet" id="inputDietaryPref" class="form-select">
+													<option selected>None</option>
+													<option>Vegan</option>
+													<option>Vegetarian</option>
+													<option>Gluten Free</option>
+												</select>
+											</div>
+
+											<div class="d-grid gap-2">
+												<button type="submit" class="btn btn-primary mb-4 btn-block"
+													aria-describedby="submitButton">Register</button>
+											</div>
+											<small id="submitButton" class="form-text text-muted text-center">Already have an
+												account? Sign in <a href="/login">here</a>.</small>
+										</form>
+
+									</div>
+								</div>
+						</div>
+					</div>
+				</div>
+		</div>
+		</main>
+
+		<%- include('partials/foot')%>
+			</div>

@@ -1,0 +1,55 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+	<%- include('partials/navbar', {pageInfo: pageInfo})%>
+
+		<div class="container-fluid hero d-flex align-items-center justify-content-center">
+			<div class="text-center text-light">
+				<h1 class="display-1 mb-10 ">Welcome to AggieEats!</h1>
+				<p>
+					AggieEats is a project developed by Aggies for Aggies to experience the diverse cuisine here in
+					Bryan/College Station that hides in plain sight.
+				</p>
+				<p>
+					Get started by making an account, inputting personal food preferences, and get your first
+					recommended restaurant or recipe in minutes!
+				</p>
+				<button class="btn btn-lg btn-primary">Learn More</button>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row text-center">
+				<div class="col-lg-4">
+					<img class="mb-4" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
+					<h2>Recipes</h2>
+					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+						ultricies vehicula ut
+						id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+						magna.</p>
+					<p><a class="btn btn-secondary" href="/recipes" role="button">View details &raquo;</a></p>
+				</div>
+				<div class="col-lg-4">
+					<img class="mb-4" style="width:128px;height:128px;" src="icons/tray.svg" alt="tray icon">
+					<h2>Restaurants</h2>
+					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+						ultricies vehicula ut
+						id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+						magna.</p>
+					<p><a class="btn btn-secondary" href="/restaurants" role="button">View details &raquo;</a></p>
+				</div>
+				<div class="col-lg-4">
+					<img class="mb-4" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
+					<h2>Leaderboard</h2>
+					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
+						ultricies vehicula ut
+						id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
+						magna.</p>
+					<p><a class="btn btn-secondary" href="#leaderboard" role="button">View details &raquo;</a></p>
+				</div>
+			</div>
+		</div>
+
+		<div id=leaderboard>
+			<%- include('partials/leaderboard')%>
+		</div>
+
+		<%- include('partials/foot')%>

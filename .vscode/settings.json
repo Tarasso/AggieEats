@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/89b29379-790a-471e-b9d4-28038c743e31/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/AggieEats",
+    "appService.deploySubpath": "."
+}
