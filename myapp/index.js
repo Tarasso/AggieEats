@@ -60,8 +60,8 @@ app.use(flash());
 
 // middleware to insert flash to all routes
 app.use((req, res, next) => {
-    res.locals.flashSuccess = req.flash('loginResultSuccess');
-    res.locals.flashWarn = req.flash('loginResultFail');
+    res.locals.flashSuccess = req.flash('flashSuccess');
+    res.locals.flashWarn = req.flash('flashFail');
     res.locals.userAccount = req.session.user
     next();
 })
@@ -81,7 +81,7 @@ app.get('/', (req, res) => {
 app.get('/dashboard', async (req, res) => {
     if (!req.session.user) {
         console.log("You must be logged in.")
-        req.flash('loginResultFail', 'You must be logged in to access dashboard.')
+        req.flash('flashFail', 'You must be logged in to access dashboard.')
         res.redirect('/login');
     } else {
         const pageName = "Dashboard";
@@ -121,17 +121,15 @@ app.get('/logout', async (req, res) => {
     res.render('logout.ejs', { pageInfo: pageName, cuisineData: cuisineData })
 })
 
-// get object including inputs of login form
 app.post('/login', async (req, res) => {
     const loginResult = await db.login(req.body)
     if (loginResult != null) {
-        req.flash('loginResultSuccess', 'Successfully logged in!')
-        console.log(loginResult)
+        req.flash('flashSuccess', 'Successfully logged in!')
         console.log("Login result: " + loginResult);
         req.session.user = loginResult;
         res.redirect('/dashboard')
     } else {
-        req.flash('loginResultFail', 'Incorrect email or password.')
+        req.flash('flashFail', 'Incorrect email or password.')
         res.redirect('/login');
     }
 })
@@ -141,15 +139,25 @@ app.get('/register', (req, res) => {
     res.render('register.ejs', { pageInfo: pageName })
 })
 
-// get object including inputs of registration form
-app.post('/register', (req, res) => {
+app.post('/register', async (req, res) => {
     console.log("Received user input from registration form.")
-    res.send(req.body)
+
+    const registerResult = await db.requestNewAccount(req.body)
+
+    if (registerResult != null) {
+        req.flash('flashSuccess', 'Successfully registered! Welcome!')
+        req.session.user = registerResult;
+        res.redirect('/dashboard')
+    } else {
+        req.flash('flashFail', 'There is already an account using this e-mail.')
+        res.redirect('/register');
+    }
+
 })
 
 app.get('/test', (req, res) => {
     const pageName = "Test";
-    req.flash('loginResultSuccess', 'Test Message')
+    req.flash('flashSuccess', 'Test Message')
     res.render('test.ejs', { pageInfo: pageName })
 })
 
