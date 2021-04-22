@@ -35,6 +35,8 @@ app.get('/yelp', (req, res) => {
 
 app.get('/test', async (req, res) => {
 res.send('Welcome to the testing page!');
+db.getAverageUserRating("test2@gmail.com")
+// db.getTotalRecipes("test2@gmail.com")
 // db.getAverageRating(2);
 // db.getRecentReview(2);
 // await db.leaveReview("t@t.com",2,"It was meh",1,false)

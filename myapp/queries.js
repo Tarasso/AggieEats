@@ -219,6 +219,36 @@ async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) 
 }
 
 // -----------------------------------------------------------------------------------
+
+// -------------------------- Stats --------------------------------------------
+
+async function getTotalRestaurants(email) {
+  let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
+  if(res.rows[0]["res_history"] != null)
+    return res.rows[0]["res_history"].length;
+  else
+    return 0;
+}
+
+async function getTotalRecipes(email) {
+  let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
+  if(res.rows[0]["recipe_lib"] != null)
+    return res.rows[0]["recipe_lib"].length;
+  else
+    return 0;
+}
+
+async function getAverageUserRating(email) {
+  let userId = await getUserId(email);
+  let res = await pool.query('select avg("rating")::numeric(10,1) from reviews where "userId" = $1',[userId]);
+  if(res.rows[0]["avg"] == null)
+    return "No reviews yet!"
+  else
+    return res.rows[0]["avg"];
+ 
+}
+
+// -----------------------------------------------------------------------------------
   module.exports = {
     login,
     storeRecipe,
@@ -229,5 +259,8 @@ async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) 
     getRecipeLibrary,
     leaveReview,
     getRecentReview,
-    getAverageRating
+    getAverageRating,
+    getTotalRestaurants,
+    getTotalRecipes,
+    getAverageUserRating
   }
