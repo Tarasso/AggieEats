@@ -35,7 +35,7 @@ app.get('/yelp', (req, res) => {
 
 app.get('/test', async (req, res) => {
 res.send('Welcome to the testing page!');
-db.getAverageUserRating("test2@gmail.com")
+// db.getAverageUserRating("test2@gmail.com")
 // db.getTotalRecipes("test2@gmail.com")
 // db.getAverageRating(2);
 // db.getRecentReview(2);
@@ -44,7 +44,7 @@ db.getAverageUserRating("test2@gmail.com")
 // await db.leaveReview("t@t.com",1,"It was terrible",1,false)
 // db.getTopUsers(5);
 // db.getTopUsers(5,"t@t.com")
-// db.getRecipeLibrary("kylemrosko@gmail.com");
+db.getRecipeLibrary("lc@test.com");
 // db.addToLibrary("lc@test.com",654939);
 // let temp = {
 //     "email": "kylemrosko@gmail.com",

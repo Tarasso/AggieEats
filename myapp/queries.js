@@ -123,12 +123,12 @@ async function getRecipeTitle(id) {
 async function addToLibrary(email, recipeId) {
   const values = [recipeId, email];
   let userLib = await getUser(email);
-  userLib = userLib.res_history;
+  userLib = userLib.recipe_lib;
   if(userLib != null && userLib.includes(recipeId))
     console.log("already in library");
   else {
     console.log("need to add");
-    let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
+    let res = await pool.query('update users set "recipe_lib" = array_append(recipe_lib,$1) where "email" = $2',values);
     console.log('updated lib');
     // add points to user account 
     pool.query('UPDATE users SET points = points + 1 WHERE "email" = $1',[email])
@@ -137,8 +137,8 @@ async function addToLibrary(email, recipeId) {
 
 async function getRecipeLibrary(email) {
   let names = [];
-  let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
-  recipes = res.rows[0]["res_history"];
+  let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
+  recipes = res.rows[0]["recipe_lib"];
   for(i = 0; i < recipes.length; i++) {
     let name = await getRecipeTitle(recipes[i]);
     names.push(name);
