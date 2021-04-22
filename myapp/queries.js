@@ -20,6 +20,11 @@ async function getUser(email) {
   return res.rows[0]
 }
 
+async function getUserId(email) {
+  const res = await getUser(email);
+  return res["userId"]
+}
+
 async function getUniqueUserId() {
   try {
     const res = await pool.query('select max("userId") from users')
@@ -145,12 +150,6 @@ async function getRecipeLibrary(email) {
 
 // -------------------------- Leaderboard --------------------------------------------
 
-// async function getTopUsers(limit) {
-//   const res = await pool.query('select "firstName", "lastName", "points" from users order by "points" DESC limit $1', [limit]);
-//   console.table(res.rows);
-//   return res.rows;
-// }
-
 async function getTopUsers(limit, email="") {
   let ret = [];
   let res = await pool.query('select "email", "firstName", "lastName", "points" from users order by "points" DESC');
@@ -183,6 +182,43 @@ async function getTopUsers(limit, email="") {
 }
 
 // -----------------------------------------------------------------------------------
+
+// -------------------------- Restaurants --------------------------------------------
+
+async function getUniqueReviewId() {
+  try {
+    const res = await pool.query('select max("reviewId") from reviews')
+    return res.rows[0]["max"] + 1;
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
+
+async function getAverageRating(resturantId) {
+  let res = await pool.query('select avg("rating")::numeric(10,1) from reviews where "restaurantId" = $1',[resturantId]);
+  if(res.rows[0]["avg"] == null)
+    return "No reviews yet!"
+  else
+    return res.rows[0]["avg"];
+}
+
+async function getRecentReview(resturantId) {
+  let res = await pool.query('select * from reviews where "restaurantId" = $1 order by "reviewId" DESC limit 1',[resturantId]);
+  if(res.rows.length === 0)
+    return "No reviews yet!"
+  else
+    return res.rows[0];
+}
+
+async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
+  let reviewId = await getUniqueReviewId();
+  let userId = await getUserId(email);
+  const values = [reviewId, rating, review, restaurantId, userId]
+  let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
+  // TODO: create funtion for twitter stuff
+}
+
+// -----------------------------------------------------------------------------------
   module.exports = {
     login,
     storeRecipe,
@@ -190,5 +226,8 @@ async function getTopUsers(limit, email="") {
     requestNewAccount,
     getTopUsers,
     addToLibrary,
-    getRecipeLibrary
+    getRecipeLibrary,
+    leaveReview,
+    getRecentReview,
+    getAverageRating
   }

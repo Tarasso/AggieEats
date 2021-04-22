@@ -33,9 +33,14 @@ app.get('/yelp', (req, res) => {
 
    });
 
-app.get('/test', (req, res) => {
+app.get('/test', async (req, res) => {
 res.send('Welcome to the testing page!');
-db.getTopUsers(5);
+// db.getAverageRating(2);
+// db.getRecentReview(2);
+// await db.leaveReview("t@t.com",2,"It was meh",1,false)
+// await db.leaveReview("t@t.com",3,"It was okay",1,false)
+// await db.leaveReview("t@t.com",1,"It was terrible",1,false)
+// db.getTopUsers(5);
 // db.getTopUsers(5,"t@t.com")
 // db.getRecipeLibrary("kylemrosko@gmail.com");
 // db.addToLibrary("lc@test.com",654939);
