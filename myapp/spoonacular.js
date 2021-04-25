@@ -3,6 +3,8 @@ const db = require('./queries')
 
 const recipeEndpoint = 'https://api.spoonacular.com/recipes/'
 const apiKey = 'a6440d2c86ae4fb689e96a76d7783c90'
+// const apiKey = '92c516f2fb3a4db99c07e6901bcfd3bf' // this is ammar's
+// const apiKey = '3abcc91390874fbf9263b2b911b22431' // this is kyle's
 const limit = 9
 
 // support diets later
