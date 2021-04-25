@@ -103,9 +103,6 @@ async function storeRecipe(id, title) {
     let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
     console.log('Successfully created new')
   }
-  else {
-    console.log('recipe already in db')
-  }
   
 }
 
@@ -162,7 +159,6 @@ async function getTopUsers(limit, email="") {
     if(users[i]["email"] == email)
       selfIncluded = true;
   }
-  console.table(ret);
   if(email === "")
     return ret;
   // below is extra
@@ -176,7 +172,6 @@ async function getTopUsers(limit, email="") {
     }
     val += 1;
   }
-  console.table(ret);
   return ret;
 
 }

@@ -2,7 +2,7 @@ const axios = require('axios').default
 const db = require('./queries')
 
 const recipeEndpoint = 'https://api.spoonacular.com/recipes/'
-const apiKey = '3abcc91390874fbf9263b2b911b22431'
+const apiKey = 'a6440d2c86ae4fb689e96a76d7783c90'
 const limit = 9
 
 // support diets later
@@ -33,7 +33,10 @@ async function searchRecipes(terms, cuisine = "") {
 // display all info in trimmedRes in pop up box
 // ****************************************************************
 async function getRecipeDetails(id) {
+
+
     let trimmedRes = {
+        "id": "",
         "title": "",
         "time": 0,
         "servings": 0,
@@ -51,6 +54,7 @@ async function getRecipeDetails(id) {
           apiKey: apiKey
         }
       });
+    trimmedRes.id = res.data.id;
     trimmedRes.title = res.data.title;
     trimmedRes.time = res.data.readyInMinutes;
     trimmedRes.url = res.data.sourceUrl;
@@ -61,7 +65,6 @@ async function getRecipeDetails(id) {
     trimmedRes.glutenFree = res.data.glutenFree;
     trimmedRes.dairyFree = res.data.dairyFree;
 
-    console.log(trimmedRes);
     return trimmedRes;
 }
 

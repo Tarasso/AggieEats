@@ -37,3 +37,20 @@ html {
   box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
 }
 
+.in-library {
+    background-color: green !important;
+}
+
+.starred {
+    color: gold;
+}
+
+.not-in-library {
+    background-color: rgb(80, 0, 0) !important;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}

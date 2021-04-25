@@ -1,14 +1,18 @@
 <%- include('partials/head', {pageInfo: pageInfo})%>
     <%- include('partials/navbar', {pageInfo: pageInfo})%>
         <div class="d-flex flex-column min-vh-100">
+
             <div class="container">
-                <p>
-                    <% const num = 5 %>
-                    <% for (i = 0; i < num; i++) { %>
-                        <p>Test</p>
-                    <% } %>
-                </p>
+
+                <h1>Testing Page</h1>
+
             </div>
+
+            <script>
+                $(document).ready(function () {
+                    $("#liveToast").toast('show');
+                });
+            </script>
 
             <%- include('partials/foot')%>
         </div>

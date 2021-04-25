@@ -36,13 +36,6 @@
                                                 </a></div>
                                             <hr />
                                             <div class="col-12">
-                                                <p>
-                                                    <%= spoon_results.vegan %>
-                                                </p>
-
-
-
-
 
                                                 <table class="table text-start">
                                                     <thead style="background-color: rgb( 103, 253, 172 );">
@@ -104,8 +97,23 @@
                                                 </button>
                                             </div>
                                             <div class="col-6">
-                                            <button type="button" class="btn btn-primary" style="background-color: rgb(80, 0, 0);"><i class="fas fa-star"></i> Save to My
-                                                Library </button>
+
+                    <form action="/library" method="post" id="myForm" name="id" value="<%= id %>">
+                                <% if (library.indexOf(spoon_results.title) > -1) { %>
+                                    <% console.log("In library") %>
+                                    <button type="submit" name="id_remove" value="<%= id %>" class="btn btn-dark in-library" id="library_button"><i
+                                            class="fas fa-star starred" id="starred_icon"></i> Remove from My Library</button>
+                                <% } else { %>
+                                    <% console.log("Not In library") %>
+                                    <button type="submit" name="id_add" value="<%= id %>" class="btn btn-dark not-in-library" id="library_button"><i
+                                            class="fas fa-star" id="starred_icon"></i> Add to My Library</button>
+                                <% } %>
+                    </form>
+
+                                            <!-- <button class="btn btn-dark in-library" id="library_button"><i class="fas fa-star starred" id="starred_icon"></i> <span
+                                                    id="library_button_text">Save to My Library</span> </button> -->
+
+
                                             </div>
                                         </div>
 

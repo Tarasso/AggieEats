@@ -3,7 +3,7 @@
         <img src=<%= (result === undefined) ? "icons/tray.svg" : result.image %> class="card-img-top" alt="sample1">
     </a>
     <div class="card-body">
-        <h5 class="card-title"><%= result.title %></h5>
+        <h5 class="card-title mb-4"><%= result.title %></h5>
 
         <div class="row">
 
@@ -11,35 +11,15 @@
                 <div class="form-group">
                         <a class="btn btn-primary p-2" href="/recipes/<%= result.id %>" >More Details</a>
                             </div>
-                <!-- Modal -->
-                <div class="modal fade" id="detailsPopOut"
-                    data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Recipe Name
-                                </h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                <p>This window will display recipe information from Spoonacular
-                                    API</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"
-                                    style="background-color: rgb(80, 0, 0);">Save to My
-                                    Library</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="col">
                 <div class="float-end">
-                    <a href="#" class="btn btn-secondary ml-auto p-2" data-toggle="tooltip"
-                        data-placement="top" title="Add to Library"><i class="fas fa-book"></i></a>
+
+
+
+
                 </div>
             </div>
         </div>

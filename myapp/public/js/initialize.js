@@ -18,6 +18,27 @@ $(document).ready(function () {
 	});
 });
 
+// $(document).ready(function () {
+// 	$("#library_button").click(function (event) {
+// 		event.preventDefault()
+// 		if ($('#library_button').hasClass("in-library")) { // remove from library
+// 			$('#library_button').addClass("not-in-library");
+// 			$('#library_button').removeClass("in-library");
+// 			$('#starred_icon').removeClass("starred");
+
+// 		} else if ($('#library_button').hasClass("not-in-library")) {
+// 			$('#library_button').removeClass("not-in-library");
+// 			$('#library_button').addClass("in-library");
+// 			$('#starred_icon').addClass("starred");
+// 		}
+
+// 		$("#myForm")[0].submit()
+		
+// 	});
+// });
+
+
+
 (function () {
 	'use strict';
 	window.addEventListener('load', function () {
