@@ -38,7 +38,12 @@ async function getRecipeDetails(id) {
         "time": 0,
         "servings": 0,
         "url": "",
-        "image": ""
+        "image": "",
+        "vegan": "",
+        "vegetarian": "",
+        "glutenFree": "",
+        "dairyFree": ""
+
 
     };
     let res = await axios.get(recipeEndpoint + '/' + id + '/information', {
@@ -51,6 +56,11 @@ async function getRecipeDetails(id) {
     trimmedRes.url = res.data.sourceUrl;
     trimmedRes.image = res.data.image;
     trimmedRes.servings = res.data.servings;
+    trimmedRes.vegan = res.data.vegan;
+    trimmedRes.vegetarian = res.data.vegetarian;
+    trimmedRes.glutenFree = res.data.glutenFree;
+    trimmedRes.dairyFree = res.data.dairyFree;
+
     console.log(trimmedRes);
     return trimmedRes;
 }
