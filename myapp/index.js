@@ -7,7 +7,8 @@ const cuisineData = require('./resources/cuisines.json');
 const { searchRecipes } = require('./spoonacular');
 const flash = require('connect-flash')
 const cookieParser = require('cookie-parser')
-const session = require('express-session')
+const session = require('express-session');
+const { Console } = require('console');
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -83,9 +84,10 @@ app.get('/user/:accountId', (req, res) => {
     res.send('User: ' + req.params.accountId)
 });
 
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
     const pageName = "Home";
-    res.render('home.ejs', {pageInfo : pageName})
+    const topUsers = await db.getTopUsers(10);
+    res.render('home.ejs', {pageInfo : pageName, topUsers})
 
 })
 
@@ -96,7 +98,8 @@ app.get('/dashboard', async (req, res) => {
         res.redirect('/login');
     } else {
         const pageName = "Dashboard";
-        res.render('dashboard.ejs', { pageInfo: pageName })
+        const topUsers = await db.getTopUsers(10);
+        res.render('dashboard.ejs', { pageInfo: pageName, topUsers })
     }
 })
 
@@ -120,14 +123,14 @@ app.get('/recipes/:id', async (req, res) => {
 
 app.get('/recipes', async (req, res) => {
     const pageName = "Recipes";
-    console.log("query:" + req.query)
     var spoon_results
     if ('recipe_query' in req.query) {
-        console.log("query not empty")
-        spoon_results = await spoon.searchRecipes(req.query.recipe_query, req.query.cuisine_type)
-        console.log(spoon_results)
+        try {
+            spoon_results = await spoon.searchRecipes(req.query.recipe_query, req.query.cuisine_type)
+        } catch (error) {
+            return res.send(error)
+        }
     } else {
-        console.log("query is empty")
     }
     // res.send(spoon_results)
     res.render('recipes.ejs', { pageInfo: pageName, cuisineData, spoon_results, query: req.query })
@@ -192,9 +195,8 @@ app.post('/register', async (req, res) => {
 })
 
 app.get('/test', async (req, res) => {
-    const pageName = "Test";
-    req.flash('flashSuccess', 'Test Message')
-    res.render('test.ejs', { pageInfo: pageName })
+    const spoon_results = await spoon.getRecipeDetails(654939)
+    res.render(spoon_results)
 })
 
 // For any undefined pages, handle here
