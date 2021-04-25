@@ -22,7 +22,7 @@
                                     
                                         <% console.log(query, cuisine) %> 
 
-                                        <% var selected = (query.cuisine_type.toLowerCase() === cuisine.toLowerCase()) ? "selected" : "" %>
+                                        <% var selected = (query.cuisine_type != undefined && query.cuisine_type.toLowerCase() === cuisine.toLowerCase()) ? "selected" : "" %>
 
                                         <option 
                                             value="<%=cuisine.toLowerCase() %>"
