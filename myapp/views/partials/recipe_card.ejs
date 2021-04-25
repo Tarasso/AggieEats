@@ -4,13 +4,13 @@
     </a>
     <div class="card-body">
         <h5 class="card-title"><%= result.title %></h5>
-        <p class="card-text">Some cool info here</p>
 
         <div class="row">
 
             <div class="col">
-                <a class="btn btn-primary p-2" href="#detailsPopOut" data-bs-toggle="modal"
-                    data-bs-target="#detailsPopOut">More Details</a>
+                <div class="form-group">
+                        <a class="btn btn-primary p-2" href="/recipes/<%= result.id %>" >More Details</a>
+                            </div>
                 <!-- Modal -->
                 <div class="modal fade" id="detailsPopOut"
                     data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"

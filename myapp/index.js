@@ -11,6 +11,7 @@ const session = require('express-session')
 const app = express()
 const port = process.env.PORT || 3000
 
+
 // path.join(...) is to make directories relative to index.js rather
 // than relative to terminal directory
 
@@ -33,30 +34,30 @@ app.get('/yelp', (req, res) => {
 
    });
 
-app.get('/test', async (req, res) => {
-res.send('Welcome to the testing page!');
-// db.getAverageUserRating("test2@gmail.com")
-// db.getTotalRecipes("test2@gmail.com")
-// db.getAverageRating(2);
-// db.getRecentReview(2);
-// await db.leaveReview("t@t.com",2,"It was meh",1,false)
-// await db.leaveReview("t@t.com",3,"It was okay",1,false)
-// await db.leaveReview("t@t.com",1,"It was terrible",1,false)
-// db.getTopUsers(5);
-// db.getTopUsers(5,"t@t.com")
-db.getRecipeLibrary("lc@test.com");
-// db.addToLibrary("lc@test.com",654939);
-// let temp = {
-//     "email": "kylemrosko@gmail.com",
-//     "password": "password",
-//     "firstName": "Kyle",
-//     "lastName": "Mrosko"
-// }
-// db.requestNewAccount(temp);
-// spoon.searchRecipes("sandwich")
-// spoon.getRecipeDetails(654939)
+// app.get('/test', async (req, res) => {
+// res.send('Welcome to the testing page!');
+// // db.getAverageUserRating("test2@gmail.com")
+// // db.getTotalRecipes("test2@gmail.com")
+// // db.getAverageRating(2);
+// // db.getRecentReview(2);
+// // await db.leaveReview("t@t.com",2,"It was meh",1,false)
+// // await db.leaveReview("t@t.com",3,"It was okay",1,false)
+// // await db.leaveReview("t@t.com",1,"It was terrible",1,false)
+// // db.getTopUsers(5);
+// // db.getTopUsers(5,"t@t.com")
+// db.getRecipeLibrary("lc@test.com");
+// // db.addToLibrary("lc@test.com",654939);
+// // let temp = {
+// //     "email": "kylemrosko@gmail.com",
+// //     "password": "password",
+// //     "firstName": "Kyle",
+// //     "lastName": "Mrosko"
+// // }
+// // db.requestNewAccount(temp);
+// // spoon.searchRecipes("sandwich")
+// // spoon.getRecipeDetails(654939)
 
-});
+// });
 
 // set up cookie parser, sessions, and flash middlewares
 //app.use(cookieParser())
@@ -104,9 +105,22 @@ app.get('/restaurants', (req, res) => {
     res.render('restaurants.ejs', { pageInfo: pageName })
 })
 
+app.get('/recipes/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    const pageName = "Recipe Details";
+    console.log(id)
+    try {
+        const spoon_results = await spoon.getRecipeDetails(id)
+        res.render('recipe_details.ejs', { pageInfo: pageName, spoon_results })
+    } catch (error) {
+        res.send(error)
+    }
+
+})
+
 app.get('/recipes', async (req, res) => {
     const pageName = "Recipes";
-    console.log(req.query)
+    console.log("query:" + req.query)
     var spoon_results
     if ('recipe_query' in req.query) {
         console.log("query not empty")
@@ -118,6 +132,8 @@ app.get('/recipes', async (req, res) => {
     // res.send(spoon_results)
     res.render('recipes.ejs', { pageInfo: pageName, cuisineData, spoon_results, query: req.query })
 })
+
+
 
 // get object including inputs of registration form
 // app.post('/recipes', (req, res) => {
@@ -175,7 +191,7 @@ app.post('/register', async (req, res) => {
 
 })
 
-app.get('/test', (req, res) => {
+app.get('/test', async (req, res) => {
     const pageName = "Test";
     req.flash('flashSuccess', 'Test Message')
     res.render('test.ejs', { pageInfo: pageName })
