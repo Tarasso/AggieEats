@@ -28,7 +28,7 @@ app.set('view engine', 'ejs');
 // route views
 app.get('/yelp', (req, res) => {
     res.send('Yelp API testing page!');
-    yelp.testRestaurant();
+    yelp.searchRestaurants('thai food',1.5);
     // spoon.searchRecipes("pasta","greek")
     // spoon.getRecipeDetails(654939)
 
