@@ -3,7 +3,7 @@
 
 		<div class="container-fluid hero d-flex align-items-center justify-content-center">
 			<div class="text-center text-light">
-				<h1 class="display-1 mb-10 ">Welcome to AggieEats!</h1>
+				<h1 class="display-1 mb-10 hero-heading">Welcome to AggieEats!</h1>
 				<h2>Cook Dine Win</h2>
 				<p>
 					AggieEats was developed by Aggies for Aggies to experience the diverse cuisine here in
@@ -13,11 +13,14 @@
 					Get started by making an account, inputting personal food preferences, and get your first
 					recommended restaurant or recipe in minutes!
 				</p>
-				<button class="btn btn-lg btn-primary">Learn More</button>
+				<a class="btn btn-lg btn-secondary" href="#icon-explain">Learn More </a>
 			</div>
 		</div>
 
-		<div class="container">
+
+		<div class="b-example-divider"></div>
+
+		<div class="container" id="icon-explain">
 			<div class="row text-center">
 				<div class="col-lg-4">
 					<img class="mb-4" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
@@ -39,13 +42,15 @@
 				<div class="col-lg-4">
 					<img class="mb-4" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
 					<h2>Leaderboard</h2>
-					<p>Earn points by interacting with recipes and restaurants. Work your 
+					<p>Earn points by interacting with recipes and restaurants. Create an account and start registering points to work your 
 						way to the top!
 					</p>
-					<p><a class="btn btn-secondary" href="#leaderboard" role="button">View details &raquo;</a></p>
+					<p><a class="btn btn-secondary mb-5" href="#leaderboard" role="button">View details &raquo;</a></p>
 				</div>
 			</div>
 		</div>
+
+		<div class="b-example-divider"></div>
 
 		<div id=leaderboard>
 			<%- include('partials/leaderboard')%>
