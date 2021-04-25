@@ -19,14 +19,17 @@
                                 <select name="cuisine_type" id="search_param" class="form-select"
                                     data-toggle="dropdown">
                                     <% cuisineData['cuisines'].forEach(function(cuisine) { %>
+                                    
+                                        <% console.log(query, cuisine) %> 
+
+                                        <% var selected = (query.cuisine_type.toLowerCase() === cuisine.toLowerCase()) ? "selected" : "" %>
+
                                         <option 
-                                            <% if (query.length > 0) { %>
-                                                <% console.log("-- RAN")%>
-                                                <% if (query.cuisine_type.toLowerCase() === cuisine.toLowerCase()) { %>
-                                                    "<%= selected %>"
-                                                <% } %>
-                                            <% } %> 
-                                            value=<%=cuisine.toLowerCase() %>><%= cuisine %>
+                                            value="<%=cuisine.toLowerCase() %>"
+
+                                            <%= selected %>
+                                        >
+                                        <%= cuisine %>
                                         </option>
                                         <% }) %>
                                 </select>
