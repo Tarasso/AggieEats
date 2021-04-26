@@ -7,7 +7,7 @@
                     <h1 class="mb-2">Local Restaurant Search</h1>
                     <p class="text-muted mb-4">Search and filter the hottest local restaurants in your area.</p>
                     <hr />
-                    <form action="/restaurant" method="POST" class="row g-3">
+                    <form action="/restaurants" method="GET" class="row g-3">
                         <div class="col-12">
                             <label class="form-label" for="inputFoodName">What would you like to eat today?</label>
                             <input type="text" class="form-control" name="foodName" id="inputFoodName"
@@ -16,7 +16,7 @@
                         <div class="col-12">
                             <label class="form-label" for="inputFoodName">Distance (optional)</label>
                             <div class="input-group mb-2">
-                                <input type="text" class="form-control" name="foodName" id="inputFoodName"
+                                <input type="text" class="form-control" name="distance" id="inputDistance"
                                     placeholder="Enter Miles">
                                 <div class="input-group-append">
                                     <div class="input-group-text">Miles</div>
@@ -24,12 +24,13 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-dark w-100" style="background-color: rgb(80, 0, 0);">Search</a>
+                            <button class="btn btn-dark w-100" type="submit" style="background-color: rgb(80, 0, 0);">Search</a>
                         </div>
                         <div class="col-md-6">
                             <a href="#" class="btn btn-dark w-100" style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
                         </div>
                         <hr class="mb-5" />
+                    </form>
 
                         <div class="card mb-5" >
                             <h5 class="card-header">Results for Local Restaurants</h5>
@@ -38,16 +39,16 @@
                                     <thead>
                                         <tr>
                                             <th scope="col">Restaurant Name</th>
-                                            <th scope="col">Cuisine</th>
-                                            <th scope="col">Distance</th>
-                                            <th scope="col">Restaurant Info</th>
-                                            <th scope="col">Review</th>
+                                            <th scope="col">Address</th>
+                                            <th scope="col">City</th>
+                                            <th scope="col">Restaurant URL</th>
+                                            <th scope="col">More Details</th>
                                         </tr>
                                     </thead>
                                     
                                     <!-- Display restaruant search results dynamically -->
                                     <tbody class="table">
-                                        <% const cardNumber = 12 %>
+                                        <% const cardNumber = (food_data === undefined) ? -1 : food_data.length%>
                                         <% if (cardNumber == 0) { %>
                                             <td>N/A</td>
                                             <td>N/A</td>
@@ -56,14 +57,15 @@
                                             <td>N/A</td>
                                         <% } %>
                                         <% for (i = 0; i < cardNumber; i++) { %>
-                                            <div class="col-md-4"><%- include('partials/restaurant_table')%></div>
+                                            <td><div class="col-md-4">
+                                                <%- include('partials/restaurant_table', {food_data})%></div></td>
                                         <% } %>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                 </div>
-                </form>
+
 
         </div>
         </main>
