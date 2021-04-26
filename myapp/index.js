@@ -124,20 +124,20 @@ app.get('/dashboard', requireLogin, async (req, res) => {
 
 app.get('/restaurants', requireLogin, async (req, res) => {
     const pageName = "Restaurants";
-    var food_data;
+    var yelp_results;
     var distance = (req.query.distance == undefined) ? (25) : req.query.distance
 
     if('foodName' in req.query){
         console.log(req.query, distance)
         
         try {
-            food_data = await yelp.searchRestaurants(req.query.foodName, distance)
+            yelp_results = await yelp.searchRestaurants(req.query.foodName, distance)
 
         } catch (error) {
             return res.send(error)
         }
     } 
-    res.render('restaurants.ejs', { pageInfo: pageName, food_data})
+    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
 })
 
 app.get('/recipes/:id', requireLogin, async (req, res) => {
