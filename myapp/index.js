@@ -40,7 +40,9 @@ app.get('/yelp', (req, res) => {
 
 app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
-    db.getRecipeLibrary("lc@test.com");
+    // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
+    yelp.surpriseMe("lc@test.com");
+    // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
  });
 
 // set up cookie parser, sessions, and flash middlewares

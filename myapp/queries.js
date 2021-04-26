@@ -218,15 +218,25 @@ async function RestaurantExists(id) {
   }
 }
 
+async function restaurantVisited(email, id) {
+  let userHist = await getUser(email);
+  userHist = userHist.res_history;
+  if(userHist != null && userHist.includes(id))
+    return true;
+  else
+    return false;
+}
+
 async function storeRestaurant(id, name) {
   const values = [name, id];
   let exists = await RestaurantExists(id);
   if(!exists) {
+    // console.log('here');
     let res = await pool.query('INSERT INTO restaurants VALUES ($1, $2)', values);
-    console.log('Successfully created new row')
+    // console.log('Successfully created new row')
   }
   else {
-    console.log('restaurant already in db')
+    // console.log('restaurant already in db')
   }
   
 }
@@ -353,5 +363,7 @@ async function getAverageUserRating(email) {
     getRestaurantHistory,
     storeRestaurant,
     addToRestaurantHistory,
-    removeFromLibrary
+    removeFromLibrary,
+    RestaurantExists,
+    restaurantVisited
   }
