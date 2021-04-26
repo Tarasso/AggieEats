@@ -110,7 +110,8 @@ app.get('/', async (req, res) => {
 
 app.get('/dashboard', requireLogin, async (req, res) => {
         const pageName = "Dashboard";
-        const topUsers = await db.getTopUsers(5, req.session.user.email);
+        const topUsers = await db.getTopUsers(10, req.session.user.email);
+        console.table(topUsers)
         const library = await db.getRecipeLibrary(req.session.user.email);
         const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
         const totalRecipes = await db.getTotalRecipes(req.session.user.email);
