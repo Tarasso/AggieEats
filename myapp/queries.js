@@ -103,6 +103,9 @@ async function storeRecipe(id, title) {
     let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
     console.log('Successfully created new')
   }
+  else {
+    console.log('recipe already in db')
+  }
   
 }
 
@@ -175,6 +178,7 @@ async function getTopUsers(limit, email="") {
     }
     val += 1;
   }
+  console.table(ret);
   return ret;
 
 }
@@ -182,6 +186,68 @@ async function getTopUsers(limit, email="") {
 // -----------------------------------------------------------------------------------
 
 // -------------------------- Restaurants --------------------------------------------
+async function RestaurantExists(id) {
+  const res = await pool.query('SELECT * FROM restaurants where "id" = $1', [id])
+  if(res.rows[0] != null) {
+    return true
+  } 
+  else {
+    return false
+  }
+}
+
+async function storeRestaurant(id, name) {
+  const values = [name, id];
+  let exists = await RestaurantExists(id);
+  if(!exists) {
+    let res = await pool.query('INSERT INTO restaurants VALUES ($1, $2)', values);
+    console.log('Successfully created new row')
+  }
+  else {
+    console.log('restaurant already in db')
+  }
+  
+}
+
+async function getRestaurantTitle(id) {
+  const values = [id];
+  const res = await pool.query('SELECT * FROM restaurants where "id" = $1', values);
+  console.log('here')
+  if(res.rows[0] != null) {
+    return res.rows[0]["name"];
+  } else {
+    console.log('restaurant not in db')
+    return null;
+  }
+}
+
+async function addToRestaurantHistory(email, restaurantId) {
+  const values = [restaurantId, email];
+  let userLib = await getUser(email);
+  userLib = userLib.res_history;
+  if(userLib != null && userLib.includes(restaurantId))
+    console.log("already in history");
+  else {
+    console.log("need to add");
+    let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
+    console.log('updated lib');
+    // add points to user account 
+    pool.query('UPDATE users SET points = points + 1 WHERE "email" = $1',[email])
+  }
+}
+
+async function getRestaurantHistory(email) {
+  let names = [];
+  let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
+  rest = res.rows[0]["res_history"];
+  if(rest == null)
+    return null;
+  for(i = 0; i < rest.length; i++) {
+    let name = await getRestaurantTitle(rest[i]);
+    names.push(name);
+  }
+  return names;
+}
 
 async function getUniqueReviewId() {
   try {
@@ -260,5 +326,9 @@ async function getAverageUserRating(email) {
     getAverageRating,
     getTotalRestaurants,
     getTotalRecipes,
-    getAverageUserRating
+    getAverageUserRating, 
+    getRestaurantTitle,
+    getRestaurantHistory,
+    storeRestaurant,
+    addToRestaurantHistory
   }

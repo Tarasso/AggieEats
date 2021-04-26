@@ -37,31 +37,35 @@ app.get('/yelp', (req, res) => {
 
    });
 
+app.get('/test', (req, res) => {
+res.send('Welcome to the testing page!');
+// db.addToLibrary("kylemrosko@gmail.com",5);
+//db.getAverageUserRating("test2@gmail.com")
+//db.getTotalRecipes("test2@gmail.com")
+//db.storeRestaurant("Mg9dmyNyltusb_PbAo76Iw","Pin-Toh Thai Cafe")
+//db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw") //Pin-Toh Thai Cafe
+//db.getRecipeTitle(654939);
+// db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw");
+// db.getAverageRating(2);
+// db.getRecentReview(2);
+// await db.leaveReview("t@t.com",2,"It was meh",1,false)
+// await db.leaveReview("t@t.com",3,"It was okay",1,false)
+// await db.leaveReview("t@t.com",1,"It was terrible",1,false)
+// db.getTopUsers(5);
+// db.getTopUsers(5,"t@t.com")
+db.getRecipeLibrary("test2@gmail.com");
+// db.addToLibrary("lc@test.com",654939);
+// let temp = {
+//     "email": "kylemrosko@gmail.com",
+//     "password": "password",
+//     "firstName": "Kyle",
+//     "lastName": "Mrosko"
+// }
+// db.requestNewAccount(temp);
+// spoon.searchRecipes("pasta","greek")
+//spoon.getRecipeDetails(654939)
 
-// app.get('/test', async (req, res) => {
-// res.send('Welcome to the testing page!');
-// // db.getAverageUserRating("test2@gmail.com")
-// // db.getTotalRecipes("test2@gmail.com")
-// // db.getAverageRating(2);
-// // db.getRecentReview(2);
-// // await db.leaveReview("t@t.com",2,"It was meh",1,false)
-// // await db.leaveReview("t@t.com",3,"It was okay",1,false)
-// // await db.leaveReview("t@t.com",1,"It was terrible",1,false)
-// // db.getTopUsers(5);
-// // db.getTopUsers(5,"t@t.com")
-// JSON.stringify(db.getRecipeLibrary("example@example.com"))
-// // db.addToLibrary("lc@test.com",654939);
-// // let temp = {
-// //     "email": "kylemrosko@gmail.com",
-// //     "password": "password",
-// //     "firstName": "Kyle",
-// //     "lastName": "Mrosko"
-// // }
-// // db.requestNewAccount(temp);
-// // spoon.searchRecipes("sandwich")
-// // spoon.getRecipeDetails(654939)
-
-// });
+ });
 
 // set up cookie parser, sessions, and flash middlewares
 //app.use(cookieParser())
@@ -113,10 +117,20 @@ app.get('/dashboard', requireLogin, async (req, res) => {
         res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library })
 })
 
-app.get('/restaurants', requireLogin, (req, res) => {
+app.get('/restaurants', requireLogin, async (req, res) => {
     const pageName = "Restaurants";
-    console.log("FORM SUBMITTED")
-    res.render('restaurants.ejs', { pageInfo: pageName })
+    var food_data;
+    if('foodName' in req.query){
+        console.log(req.query)
+        
+        try {
+            food_data = await yelp.searchRestaurants(req.query.foodName)
+
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    res.render('restaurants.ejs', { pageInfo: pageName, food_data})
 })
 
 app.get('/recipes/:id', requireLogin, async (req, res) => {

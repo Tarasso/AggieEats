@@ -1,85 +1,12 @@
 <tbody class="restaurant-list">
     <tr>
-        <td>Tanaka Ramen</td>
-        <td>Japanese</td>
-        <td>####</td>
+        <td><%= food_data[i].name%></td>
+        <td><%= food_data[i].address%></td>
+        <td><%= food_data[i].city%></td>
+        <td><a href=<%= food_data[i].url%>>Link</a></td>
         <td>
-            <!-- Button trigger modal -->
-            <a class="btn btn-outline-primary col-md-10" href="#detailsPopOut" data-bs-toggle="modal"
-            data-bs-target="#info-staticBackdrop">More Details</a>
-
-            <!-- Modal -->
-            <div class="modal fade" id="info-staticBackdrop" data-backdrop="static"
-                data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">
-                                Restaurant Name</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>This window will display restaurant information from
-                                Yelp API</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"
-                                style="background-color: rgb(80, 0, 0);">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </td>
-
-        <td>
-            <!-- Button trigger modal -->
-            <a class="btn btn-outline-primary col-md-10" href="#detailsPopOut" data-bs-toggle="modal"
-            data-bs-target="#review-staticBackdrop">Mark Visited</a>
-
-            <!-- Modal -->
-            <div class="modal fade" id="review-staticBackdrop" data-backdrop="static"
-                data-keyboard="false" tabindex="-1"
-                aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="staticBackdropLabel">
-                                Restaurant Name</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>This window will display textbox for review</p>
-                            <div class="form-group">
-                                <label class="form-label" for="inputRate">Rate</label>
-                                <input type="text" class="form-control" name="rate"
-                                    id="inputRate"
-                                    placeholder="Enter number between 1 to 5">
-                                <br>
-                                <label class="form-label" for="inputReview">Review</label>
-                                <textarea id="Review" class="form-control"
-                                    name="review" name="review" id="inputReview"
-                                    rows="4"
-                                    placeholder="Share details of your own experience at this place"></textarea>
-                                <div class="form-check form-check-inline mt-3">
-                                    <input class="form-check-input" type="checkbox"
-                                        name="gf" id="inlineTwitterCheckbox"
-                                        value="">
-                                    <label class="form-check-label"
-                                        for="inlineTwitterCheckbox">Share on
-                                        Twitter</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary"
-                                style="background-color: rgb(80, 0, 0);">Submit</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <!-- Button -->
+            <button class="btn btn-primary p-2" href="" >More Details</a>
         </td>
     </tr>
 </tbody>
