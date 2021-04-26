@@ -37,35 +37,35 @@ app.get('/yelp', (req, res) => {
 
    });
 
-app.get('/test', (req, res) => {
-res.send('Welcome to the testing page!');
-// db.addToLibrary("kylemrosko@gmail.com",5);
-//db.getAverageUserRating("test2@gmail.com")
-//db.getTotalRecipes("test2@gmail.com")
-//db.storeRestaurant("Mg9dmyNyltusb_PbAo76Iw","Pin-Toh Thai Cafe")
-//db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw") //Pin-Toh Thai Cafe
-//db.getRecipeTitle(654939);
-// db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw");
-// db.getAverageRating(2);
-// db.getRecentReview(2);
-// await db.leaveReview("t@t.com",2,"It was meh",1,false)
-// await db.leaveReview("t@t.com",3,"It was okay",1,false)
-// await db.leaveReview("t@t.com",1,"It was terrible",1,false)
-// db.getTopUsers(5);
-// db.getTopUsers(5,"t@t.com")
-db.getRecipeLibrary("test2@gmail.com");
-// db.addToLibrary("lc@test.com",654939);
-// let temp = {
-//     "email": "kylemrosko@gmail.com",
-//     "password": "password",
-//     "firstName": "Kyle",
-//     "lastName": "Mrosko"
-// }
-// db.requestNewAccount(temp);
-// spoon.searchRecipes("pasta","greek")
-//spoon.getRecipeDetails(654939)
+// app.get('/test', (req, res) => {
+// res.send('Welcome to the testing page!');
+// // db.addToLibrary("kylemrosko@gmail.com",5);
+// //db.getAverageUserRating("test2@gmail.com")
+// //db.getTotalRecipes("test2@gmail.com")
+// //db.storeRestaurant("Mg9dmyNyltusb_PbAo76Iw","Pin-Toh Thai Cafe")
+// //db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw") //Pin-Toh Thai Cafe
+// //db.getRecipeTitle(654939);
+// // db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw");
+// // db.getAverageRating(2);
+// // db.getRecentReview(2);
+// // await db.leaveReview("t@t.com",2,"It was meh",1,false)
+// // await db.leaveReview("t@t.com",3,"It was okay",1,false)
+// // await db.leaveReview("t@t.com",1,"It was terrible",1,false)
+// // db.getTopUsers(5);
+// // db.getTopUsers(5,"t@t.com")
+// db.getRecipeLibrary("test2@gmail.com");
+// // db.addToLibrary("lc@test.com",654939);
+// // let temp = {
+// //     "email": "kylemrosko@gmail.com",
+// //     "password": "password",
+// //     "firstName": "Kyle",
+// //     "lastName": "Mrosko"
+// // }
+// // db.requestNewAccount(temp);
+// // spoon.searchRecipes("pasta","greek")
+// //spoon.getRecipeDetails(654939)
 
- });
+//  });
 
 // set up cookie parser, sessions, and flash middlewares
 //app.use(cookieParser())
