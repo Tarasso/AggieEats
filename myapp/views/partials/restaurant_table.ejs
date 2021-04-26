@@ -1,12 +1,11 @@
 <tbody class="restaurant-list">
     <tr>
-        <td><%= yelp_results[i].name%></td>
+        <td><a target="_blank" style="color: rgb(80, 0, 0)" href="<%= yelp_results[i].url%>"><%= yelp_results[i].name%></a></td>
         <td><%= yelp_results[i].address%></td>
         <td><%= yelp_results[i].city%></td>
-        <td><a target="_blank" style="color: rgb(80, 0, 0)" href="<%= yelp_results[i].url%>">Link</a></td>
         <td>
             <!-- Button -->
-            <button class="btn btn-md btn-secondary">More Details</a>
+            <button class="btn btn-md btn-secondary">Write a Review</a>
         </td>
     </tr>
 </tbody>
