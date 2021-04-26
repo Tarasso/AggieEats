@@ -115,9 +115,20 @@ app.get('/dashboard', requireLogin, async (req, res) => {
         res.render('dashboard.ejs', { pageInfo: pageName, topUsers })
 })
 
-app.get('/restaurants', requireLogin, (req, res) => {
+app.get('/restaurants', requireLogin, async (req, res) => {
     const pageName = "Restaurants";
-    res.render('restaurants.ejs', { pageInfo: pageName })
+    var food_data;
+    if('foodName' in req.query){
+        console.log(req.query)
+        
+        try {
+            food_data = await yelp.searchRestaurants(req.query.foodName)
+
+        } catch (error) {
+            return res.send(error)
+        }
+    }
+    res.render('restaurants.ejs', { pageInfo: pageName, food_data})
 })
 
 app.get('/recipes/:id', requireLogin, async (req, res) => {
