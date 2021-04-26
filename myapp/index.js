@@ -111,10 +111,14 @@ app.get('/', async (req, res) => {
 app.get('/dashboard', requireLogin, async (req, res) => {
         const pageName = "Dashboard";
         const topUsers = await db.getTopUsers(5, req.session.user.email);
-        console.table(topUsers)
         const library = await db.getRecipeLibrary(req.session.user.email);
+        const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
+        const totalRecipes = await db.getTotalRecipes(req.session.user.email);
+        const averageRatings = await db.getAverageUserRating(req.session.user.email);
+        var stats = {totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings}
+        console.log(stats)
         console.log("Library" + library)
-        res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library })
+        res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats })
 })
 
 app.get('/restaurants', requireLogin, async (req, res) => {
