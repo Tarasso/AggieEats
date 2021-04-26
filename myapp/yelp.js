@@ -25,17 +25,20 @@ async function searchRestaurants(query, dist=40000) {
   res = res.data;
   // console.log(res)
   for(i = 0; i < res.businesses.length; i++) {
-    // console.log('trying ', i)
     var trimmedRes = {
       "name": "",
       "url": "",
       "address": "",
-      "city": ""
+      "city": "",
+      "id":"",
+      "price":""
     }
     trimmedRes.name = res.businesses[i].name;
     trimmedRes.url = res.businesses[i].url;
     trimmedRes.address = res.businesses[i].location.address1;
     trimmedRes.city = res.businesses[i].location.city;
+    trimmedRes.id = res.businesses[i].id;
+    trimmedRes.price = res.businesses[i].price;
     ret.push(trimmedRes);
   }
   console.log(ret)

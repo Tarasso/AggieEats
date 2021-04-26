@@ -20,10 +20,9 @@ async function getUser(email) {
   return res.rows[0]
 }
 
-async function getTopUsers(limit) {
-  const res = await pool.query('select "firstName", "lastName", "points" from users order by "points" DESC limit $1', [limit]);
-  console.table(res.rows);
-  return res.rows;
+async function getUserId(email) {
+  const res = await getUser(email);
+  return res["userId"]
 }
 
 async function getUniqueUserId() {
@@ -88,42 +87,244 @@ async function requestNewAccount(req) {
 
 // ---------------------------- RECIPES ----------------------------------------------
 
+async function recipeExists(id) {
+  const res = await pool.query('SELECT * FROM recipes where "id" = $1', [id])
+  if(res.rows[0] != null) {
+    return true
+  } else {
+    return false
+  }
+}
+
 async function storeRecipe(id, title) {
   const values = [id, title];
-  let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
-  console.log('Successfully created new')
+  let exists = await recipeExists(id);
+  if(!exists) {
+    let res = await pool.query('INSERT INTO recipes VALUES ($1, $2)', values);
+    console.log('Successfully created new')
+  }
+  else {
+    console.log('recipe already in db')
+  }
+  
 }
 
 async function getRecipeTitle(id) {
   const values = [id];
   const res = await pool.query('SELECT * FROM recipes where "id" = $1', values);
   if(res.rows[0] != null) {
-    console.log(res.rows[0]["title"])
+    return res.rows[0]["title"];
   } else {
     console.log('recipe not in db')
+    return null;
   }
 }
 
 async function addToLibrary(email, recipeId) {
   const values = [recipeId, email];
   let userLib = await getUser(email);
-  userLib = userLib.res_history;
-  if(userLib.includes(recipeId))
+  userLib = userLib.recipe_lib;
+  if(userLib != null && userLib.includes(recipeId))
     console.log("already in library");
   else {
     console.log("need to add");
-    let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
+    let res = await pool.query('update users set "recipe_lib" = array_append(recipe_lib,$1) where "email" = $2',values);
     console.log('updated lib');
+    // add points to user account 
+    pool.query('UPDATE users SET points = points + 1 WHERE "email" = $1',[email])
   }
+}
+
+async function getRecipeLibrary(email) {
+  let names = [];
+  let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
+  recipes = res.rows[0]["recipe_lib"];
+  for(i = 0; i < recipes.length; i++) {
+    let name = await getRecipeTitle(recipes[i]);
+    names.push(name);
+  }
+  return names;
 }
 
 // -----------------------------------------------------------------------------------
 
+// -------------------------- Leaderboard --------------------------------------------
+
+async function getTopUsers(limit, email="") {
+  let ret = [];
+  let res = await pool.query('select "email", "firstName", "lastName", "points" from users order by "points" DESC');
+  let users = res.rows;
+  let selfIncluded = false;
+  for(i = 0; i < limit; i++) {
+    users[i].rank = i + 1;
+    delete users[i]["email"];
+    ret.push(users[i]);
+    if(users[i]["email"] == email)
+      selfIncluded = true;
+  }
+  console.table(ret);
+  if(email === "")
+    return ret;
+  // below is extra
+  let val = limit;
+  while(!selfIncluded && val < users.length) {
+    if(users[val]["email"] == email) {
+      users[val].rank = val + 1;
+      delete users[val]["email"];
+      ret.push(users[val]);
+      selfIncluded = true;
+    }
+    val += 1;
+  }
+  console.table(ret);
+  return ret;
+
+}
+
+// -----------------------------------------------------------------------------------
+
+// -------------------------- Restaurants --------------------------------------------
+async function RestaurantExists(id) {
+  const res = await pool.query('SELECT * FROM restaurants where "id" = $1', [id])
+  if(res.rows[0] != null) {
+    return true
+  } 
+  else {
+    return false
+  }
+}
+
+async function storeRestaurant(id, name) {
+  const values = [name, id];
+  let exists = await RestaurantExists(id);
+  if(!exists) {
+    let res = await pool.query('INSERT INTO restaurants VALUES ($1, $2)', values);
+    console.log('Successfully created new row')
+  }
+  else {
+    console.log('restaurant already in db')
+  }
+  
+}
+
+async function getRestaurantTitle(id) {
+  const values = [id];
+  const res = await pool.query('SELECT * FROM restaurants where "id" = $1', values);
+  console.log('here')
+  if(res.rows[0] != null) {
+    return res.rows[0]["name"];
+  } else {
+    console.log('restaurant not in db')
+    return null;
+  }
+}
+
+async function addToRestaurantHistory(email, restaurantId) {
+  const values = [restaurantId, email];
+  let userLib = await getUser(email);
+  userLib = userLib.res_history;
+  if(userLib != null && userLib.includes(restaurantId))
+    console.log("already in history");
+  else {
+    console.log("need to add");
+    let res = await pool.query('update users set "res_history" = array_append(res_history,$1) where "email" = $2',values);
+    console.log('updated lib');
+    // add points to user account 
+    pool.query('UPDATE users SET points = points + 1 WHERE "email" = $1',[email])
+  }
+}
+
+async function getRestaurantHistory(email) {
+  let names = [];
+  let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
+  rest = res.rows[0]["res_history"];
+  for(i = 0; i < rest.length; i++) {
+    let name = await getRestaurantTitle(rest[i]);
+    names.push(name);
+  }
+  return names;
+}
+
+async function getUniqueReviewId() {
+  try {
+    const res = await pool.query('select max("reviewId") from reviews')
+    return res.rows[0]["max"] + 1;
+  } catch (err) {
+    console.log(err.stack)
+  }
+}
+
+async function getAverageRating(resturantId) {
+  let res = await pool.query('select avg("rating")::numeric(10,1) from reviews where "restaurantId" = $1',[resturantId]);
+  if(res.rows[0]["avg"] == null)
+    return "No reviews yet!"
+  else
+    return res.rows[0]["avg"];
+}
+
+async function getRecentReview(resturantId) {
+  let res = await pool.query('select * from reviews where "restaurantId" = $1 order by "reviewId" DESC limit 1',[resturantId]);
+  if(res.rows.length === 0)
+    return "No reviews yet!"
+  else
+    return res.rows[0];
+}
+
+async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
+  let reviewId = await getUniqueReviewId();
+  let userId = await getUserId(email);
+  const values = [reviewId, rating, review, restaurantId, userId]
+  let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
+  // TODO: create funtion for twitter stuff
+}
+
+// -----------------------------------------------------------------------------------
+
+// -------------------------- Stats --------------------------------------------
+
+async function getTotalRestaurants(email) {
+  let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
+  if(res.rows[0]["res_history"] != null)
+    return res.rows[0]["res_history"].length;
+  else
+    return 0;
+}
+
+async function getTotalRecipes(email) {
+  let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
+  if(res.rows[0]["recipe_lib"] != null)
+    return res.rows[0]["recipe_lib"].length;
+  else
+    return 0;
+}
+
+async function getAverageUserRating(email) {
+  let userId = await getUserId(email);
+  let res = await pool.query('select avg("rating")::numeric(10,1) from reviews where "userId" = $1',[userId]);
+  if(res.rows[0]["avg"] == null)
+    return "No reviews yet!"
+  else
+    return res.rows[0]["avg"];
+ 
+}
+
+// -----------------------------------------------------------------------------------
   module.exports = {
     login,
     storeRecipe,
     getRecipeTitle,
     requestNewAccount,
     getTopUsers,
-    addToLibrary
+    addToLibrary,
+    getRecipeLibrary,
+    leaveReview,
+    getRecentReview,
+    getAverageRating,
+    getTotalRestaurants,
+    getTotalRecipes,
+    getAverageUserRating, 
+    getRestaurantTitle,
+    getRestaurantHistory,
+    storeRestaurant,
+    addToRestaurantHistory
   }
