@@ -135,6 +135,21 @@ async function addToLibrary(email, recipeId) {
   }
 }
 
+async function removeFromLibrary(email, recipeId) {
+  const values = [recipeId, email];
+  let userLib = await getUser(email);
+  userLib = userLib.recipe_lib;
+  if(userLib != null && !userLib.includes(recipeId))
+    console.log("cannot remove bc recipe does not exist in library");
+  else {
+    console.log("need to remove");
+    let res = await pool.query('update users set "recipe_lib" = array_remove(recipe_lib,$1) where "email" = $2',values);
+    console.log('updated lib');
+    // add points to user account 
+    pool.query('UPDATE users SET points = points - 1 WHERE "email" = $1',[email])
+  }
+}
+
 async function getRecipeLibrary(email) {
   let names = [];
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
@@ -330,5 +345,6 @@ async function getAverageUserRating(email) {
     getRestaurantTitle,
     getRestaurantHistory,
     storeRestaurant,
-    addToRestaurantHistory
+    addToRestaurantHistory,
+    removeFromLibrary
   }
