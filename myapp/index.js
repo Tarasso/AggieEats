@@ -84,7 +84,6 @@ app.use((req, res, next) => {
 
 const requireLogin = (req, res, next) => {
     if (!req.session.user) {
-        console.log("You must be logged in.")
         req.flash('flashFail', 'You must be logged in to access this page.')
         return res.redirect('/login');
     }
@@ -107,12 +106,16 @@ app.get('/', async (req, res) => {
 
 app.get('/dashboard', requireLogin, async (req, res) => {
         const pageName = "Dashboard";
-        const topUsers = await db.getTopUsers(10);
-        res.render('dashboard.ejs', { pageInfo: pageName, topUsers })
+        const topUsers = await db.getTopUsers(5, req.session.user.email);
+        console.table(topUsers)
+        const library = await db.getRecipeLibrary(req.session.user.email);
+        console.log("Library" + library)
+        res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library })
 })
 
 app.get('/restaurants', requireLogin, (req, res) => {
     const pageName = "Restaurants";
+    console.log("FORM SUBMITTED")
     res.render('restaurants.ejs', { pageInfo: pageName })
 })
 
@@ -177,7 +180,6 @@ app.post('/login', async (req, res) => {
     const loginResult = await db.login(req.body)
     if (loginResult != null) {
         req.flash('flashSuccess', 'Successfully logged in!')
-        console.log("Login result: " + loginResult);
         req.session.user = loginResult;
         res.redirect('/dashboard')
     } else {

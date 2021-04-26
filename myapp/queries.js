@@ -136,6 +136,9 @@ async function getRecipeLibrary(email) {
   let names = [];
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
   recipes = res.rows[0]["recipe_lib"];
+  if (recipes == null) {
+    return null
+  }
   for(i = 0; i < recipes.length; i++) {
     let name = await getRecipeTitle(recipes[i]);
     names.push(name);
@@ -154,19 +157,19 @@ async function getTopUsers(limit, email="") {
   let selfIncluded = false;
   for(i = 0; i < limit; i++) {
     users[i].rank = i + 1;
-    delete users[i]["email"];
     ret.push(users[i]);
     if(users[i]["email"] == email)
       selfIncluded = true;
   }
-  if(email === "")
+  if(email === "") {
+    console.log("no email provided for leaderboard")
     return ret;
+  }
   // below is extra
   let val = limit;
   while(!selfIncluded && val < users.length) {
     if(users[val]["email"] == email) {
       users[val].rank = val + 1;
-      delete users[val]["email"];
       ret.push(users[val]);
       selfIncluded = true;
     }

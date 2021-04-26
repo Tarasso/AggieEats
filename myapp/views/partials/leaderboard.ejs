@@ -21,7 +21,15 @@
 
                 <% topUsers.forEach(function name(user) { %>
 
-                            <tr>
+
+                            
+
+
+                            <tr
+                            <% if (userAccount != null && user.email == userAccount.email) { %>
+                                " style='background-color: rgb(217, 255, 253);' "
+                            <% } %>
+                            >
                                 <th scope="row"><%= user.rank %></th>
                                 <td><%= user.firstName %></td>
                                 <td><%= user.lastName %></td>
