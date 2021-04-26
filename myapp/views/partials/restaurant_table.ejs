@@ -5,7 +5,7 @@
         <td><%= yelp_results[i].city%></td>
         <td>
             <!-- Button -->
-            <button class="btn btn-md btn-secondary">Write a Review</a>
+            <a class="btn btn-md btn-secondary" href="/restaurants/<%= yelp_results[i].id %>">Write a Review</a>
         </td>
     </tr>
 </tbody>
