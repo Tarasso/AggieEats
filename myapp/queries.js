@@ -139,6 +139,8 @@ async function getRecipeLibrary(email) {
   let names = [];
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
   recipes = res.rows[0]["recipe_lib"];
+  if(recipes == null)
+    return null;
   for(i = 0; i < recipes.length; i++) {
     let name = await getRecipeTitle(recipes[i]);
     names.push(name);
@@ -238,6 +240,8 @@ async function getRestaurantHistory(email) {
   let names = [];
   let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
   rest = res.rows[0]["res_history"];
+  if(rest == null)
+    return null;
   for(i = 0; i < rest.length; i++) {
     let name = await getRestaurantTitle(rest[i]);
     names.push(name);
