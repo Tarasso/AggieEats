@@ -151,7 +151,7 @@ async function removeFromLibrary(email, recipeId) {
 }
 
 async function getRecipeLibrary(email) {
-  let names = [];
+  let items = [];
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
   recipes = res.rows[0]["recipe_lib"];
   if (recipes == null) {
@@ -159,9 +159,16 @@ async function getRecipeLibrary(email) {
   }
   for(i = 0; i < recipes.length; i++) {
     let name = await getRecipeTitle(recipes[i]);
-    names.push(name);
+    let temp = {
+      "id": "",
+      "name": ""
+    };
+    temp.id = recipes[i];
+    temp.name = name;
+    items.push(temp);
   }
-  return names;
+  console.log(items);
+  return items;
 }
 
 // -----------------------------------------------------------------------------------

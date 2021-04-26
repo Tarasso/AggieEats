@@ -40,7 +40,7 @@ app.get('/yelp', (req, res) => {
 
 app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
-    // db.removeFromLibrary("lc@test.com",654939)
+    db.getRecipeLibrary("lc@test.com");
  });
 
 // set up cookie parser, sessions, and flash middlewares
