@@ -11,6 +11,7 @@ const session = require('express-session');
 const { Console } = require('console');
 const { resolveNaptr } = require('dns');
 const { DH_UNABLE_TO_CHECK_GENERATOR } = require('constants');
+const { abort } = require('process');
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -117,6 +118,21 @@ app.get('/restaurants', requireLogin, async (req, res) => {
     } 
     res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
 })
+
+app.get('/restaurants/:id', requireLogin, async (req, res) => {
+    console.log("viewing review: '" + req.params.id + "'")
+    const pageName = "Review Details";
+    var restaurant_name;
+    //var review_list;
+    try {
+        restaurant_name = await db.getRestaurantTitle(req.params.id)
+        //review_list = await db.getRecentReview(req.params.id)
+        return res.render('review_details.ejs', {pageInfo: pageName, restaurant_name})
+    } catch (error) {
+        return res.send(error)
+    }
+})
+
 
 app.get('/recipes/:id', requireLogin, async (req, res) => {
     console.log("viewing recipe: '" + req.params.id + "'")
