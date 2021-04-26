@@ -242,22 +242,20 @@ app.get('/test', async (req, res) => {
 })
 
 
-app.post('/library', (req, res) => {
-    console.log(req.session.recipe_details)
+app.post('/recipes/:id', (req, res) => {
+    console.log("DEBUG STATEMENT:" + req.params.id)
     var recipe_id;
     if (req.body.id_add) {
         console.log("Intent: Add to library")
-        recipe_id = req.body.id_add
         req.flash('flashSuccess', "Successfully added recipe to library.")
         db.addToLibrary(req.session.user.email, parseInt(recipe_id))
     }
     else if (req.body.id_remove) {
-        console.log("Intent: Remove from library")
-        recipe_id = req.body.id_remove
+        console.log("Intent: Remove from library")        
         req.flash('flashFail', "Successfully removed recipe removed library.")
     }
     // const recipe_id = req.body.id
-    console.log(`ID: ${recipe_id}, EMAIL: ${req.session.user.email}`)
+    console.log(`ID: ${req.params.id}, EMAIL: ${req.session.user.email}`)
     res.redirect(req.get('referer'));
     // return res.redirect('/recipes/' + recipe_id)
 })

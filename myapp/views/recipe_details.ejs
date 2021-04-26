@@ -103,7 +103,7 @@
                                             </div>
                                             <div class="col-6">
 
-                    <form action="/library" method="post" id="myForm" name="id" value="<%= id %>">
+                    <form action="/recipes/<%= id %>" method="post">
                                 <% if (library != null && library.indexOf(spoon_results.title) > -1) { %>
                                     <% console.log("In library") %>
                                     <button type="submit" name="id_remove" value="<%= id %>" class="btn btn-dark in-library" id="library_button"><i
