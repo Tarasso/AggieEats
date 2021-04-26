@@ -26,16 +26,9 @@
                                     <ul>
                                         <li>Unique restaurants visited: 73</li>
                                         <li>Unique recipes made: 6</li>
-                                        <li>Lowest rating given: 1</li>
-                                        <li>Highest rating given: 5</li>
                                         <li>Average rating given: 3.7</li>
                                     </ul>
-                                    <p>Most popular cuisine: Mexican</p>
                                 </div>
-                            </div>
-                            <div class="col-lg-5">
-                                <img class="border img-fluid"
-                                    src="https://www.w3schools.com/python/img_matplotlib_pie1.png" alt="">
                             </div>
                         </div>
                     </div>
@@ -43,15 +36,40 @@
 
                     <div class="h-100 p-5 border rounded-3" style="background-color: rgb( 218, 247, 166 );">
                         <h2>Recipe Library</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque reiciendis corrupti quos expedita cupiditate facilis vitae sint laboriosam est culpa fugiat atque assumenda adipisci voluptates deleniti, reprehenderit amet beatae ipsa.</p>
+                        <div class="card mb-5" >
+                            <div class="card-body">
+                                <table class="table table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Recipe Name</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <!-- Display restaruant search results dynamically -->
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="h-100 p-5 border rounded-3 mt-5" style="background-color: rgb( 132, 255, 247 );">
-                        <h2>Restaurant History</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eaque reiciendis corrupti quos expedita cupiditate facilis vitae sint laboriosam est culpa fugiat atque assumenda adipisci voluptates deleniti, reprehenderit amet beatae ipsa.</p>
+                        <h2>Dining History</h2>
+                        <div class="card mb-5" >
+                            <div class="card-body">
+                                <table class="table table-hover table-borderless">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Restaurant Name</th>
+                                        </tr>
+                                    </thead>
+                                    
+                                    <!-- Display restaruant search results dynamically -->
+                                </table>
+                            </div>
+                        </div>
                     </div>
 
-                    <%- include('partials/leaderboard')%>
+            <%- include('partials/leaderboard', {topUsers} )%>
+
 
                 <footer class="pt-3 mt-4 text-muted border-top">
                     &copy; 2021

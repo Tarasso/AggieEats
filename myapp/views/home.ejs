@@ -3,53 +3,80 @@
 
 		<div class="container-fluid hero d-flex align-items-center justify-content-center">
 			<div class="text-center text-light">
-				<h1 class="display-1 mb-10 ">Welcome to AggieEats!</h1>
+				<h1 class="display-1 mb-10 hero-heading">Welcome to AggieEats!</h1>
+				<h2>Cook Dine Win</h2>
 				<p>
-					AggieEats is a project developed by Aggies for Aggies to experience the diverse cuisine here in
+					AggieEats was developed by Aggies for Aggies to experience the diverse cuisine here in
 					Bryan/College Station that hides in plain sight.
 				</p>
 				<p>
 					Get started by making an account, inputting personal food preferences, and get your first
 					recommended restaurant or recipe in minutes!
 				</p>
-				<button class="btn btn-lg btn-primary">Learn More</button>
+				<a class="btn btn-lg btn-secondary" href="#icon-explain">Learn More </a>
 			</div>
 		</div>
 
-		<div class="container">
+
+		<div class="b-example-divider"></div>
+
+		<div class="container" id="icon-explain">
 			<div class="row text-center">
+				<h1 class="display-5 fw-bold lh-1 mb-5">How it Works</h1>
+
 				<div class="col-lg-4">
 					<img class="mb-4" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
 					<h2>Recipes</h2>
-					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-						ultricies vehicula ut
-						id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna.</p>
+					<p>Search for recipes based on cuisine, dietary restrictions, or other key words.
+						Save recipes to your personal recipe library and earn points!
+					</p>
 					<p><a class="btn btn-secondary" href="/recipes" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-lg-4">
 					<img class="mb-4" style="width:128px;height:128px;" src="icons/tray.svg" alt="tray icon">
 					<h2>Restaurants</h2>
-					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-						ultricies vehicula ut
-						id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna.</p>
+					<p>Search for local resturants close to campus that are sure to wow you! 
+						Leave reviews and post to twitter to earn points. Not sure where to go?
+						Try out the "Surprise Me" button!
+					</p>
 					<p><a class="btn btn-secondary" href="/restaurants" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-lg-4">
 					<img class="mb-4" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
 					<h2>Leaderboard</h2>
-					<p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh
-						ultricies vehicula ut
-						id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus
-						magna.</p>
-					<p><a class="btn btn-secondary" href="#leaderboard" role="button">View details &raquo;</a></p>
+					<p>Earn points by interacting with recipes and restaurants. Create an account and start registering points to work your 
+						way to the top!
+					</p>
+					<p><a class="btn btn-secondary mb-5" href="#leaderboard" role="button">View details &raquo;</a></p>
 				</div>
 			</div>
 		</div>
 
-		<div id=leaderboard>
-			<%- include('partials/leaderboard')%>
+		<div class="b-example-divider"></div>
+
+		<div class="container col-xxl-8 px-4 py-5">
+			<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
+			  <div class="col-10 col-sm-8 col-lg-6">
+				<img src="icons/twitter.svg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="300" height="200" loading="lazy">
+			  </div>
+			  <div class="col-lg-6">
+				<h1 class="display-5 fw-bold lh-1 mb-3">Get involved with Twitter</h1>
+				<p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore eligendi error sequi est possimus, exercitationem quasi accusantium explicabo necessitatibus illum dolore iusto laboriosam quibusdam minima, odit adipisci qui! Tempora, quo.</p>
+				<div class="d-grid gap-2 d-md-flex justify-content-md-start">
+				  <a type="button" target="_blank" class="btn btn-primary btn-lg px-4 me-md-2" href="https://twitter.com/EatsAggie">Go to Twitter</a>
+				</div>
+			  </div>
+			</div>
+		  </div>
+
+		<div class="b-example-divider"></div>
+
+
+		<div class="mb-4" id=leaderboard>
+			<%- include('partials/leaderboard', {topUsers} )%>
 		</div>
+
+		<div class="b-example-divider"></div>
+
 
 		<%- include('partials/foot')%>
