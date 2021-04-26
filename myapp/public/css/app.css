@@ -1,7 +1,3 @@
-.navbar {
-	padding-left: 50px !important;
-}
-
 .container {
     padding-top: 65px;
 }
@@ -9,17 +5,60 @@
 
 .hero {
     background-position: top left;
-    background: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url("https://s.hdnux.com/photos/01/11/05/12/19157670/4/rawImage.jpg");
+    background: linear-gradient( rgba(0, 0, 0, 0.66), rgba(0, 0, 0, 0.66) ), url("https://s.hdnux.com/photos/01/11/05/12/19157670/4/rawImage.jpg");
     background-size: cover;
-    height: 100vh;
-    margin-bottom: 4rem;
+    height: 75vh;
+    font-family: 'Roboto', sans-serif;
     }
 
-h1 {
-    margin-bottom: 35px;
+.hero-heading {
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: black;
 }
 
 .jumbotron {
     background-color: rgb(80, 0, 0);
     
   }
+
+html { 
+    scroll-behavior: smooth; 
+} 
+
+.footer-link {
+    color: gray !important;
+}
+
+.b-example-divider {
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}
+
+.in-library {
+    background-color: green !important;
+}
+
+.starred {
+    color: gold;
+}
+
+.not-in-library {
+    background-color: rgb(80, 0, 0) !important;
+}
+
+.card-img-top {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
+}
+
+.restaurant-button {
+    background-color: rgb(80, 0, 0) !important;
+}
+
+.restaurant-button:hover {
+    background-color: rgb(66, 0, 0) !important;
+}

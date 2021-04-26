@@ -1,9 +1,18 @@
 <%- include('partials/head', {pageInfo: pageInfo})%>
-<%- include('partials/navbar', {pageInfo: pageInfo})%>
-<div class="d-flex flex-column min-vh-100">
-    <div class="container">
-        <p>This is a test page</p>
-    </div>
-    
-    <%- include('partials/foot')%>
-</div>
+    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+        <div class="d-flex flex-column min-vh-100">
+
+            <div class="container">
+
+                <h1>Testing Page</h1>
+
+                  <a type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tooltip on bottom">
+                    Tooltip on bottom
+                  </a>             
+
+                </div>
+
+            </div>
+
+            <%- include('partials/foot')%>
+        </div>

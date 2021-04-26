@@ -1,32 +1,51 @@
 <%- include('partials/head', {pageInfo: pageInfo})%>
-<%- include('partials/navbar', {pageInfo: pageInfo})%>
-<div class="d-flex flex-column min-vh-100">
+  <%- include('partials/navbar', {pageInfo: pageInfo})%>
+    <div class="d-flex flex-column min-vh-100">
 
-    <main class="flex-fill">
-        <div class="container fill">
-            <h1>Login to AggieEats </h1>
-            <hr/>
-            <form action="/login" method="POST">
-                <div class="form-group">
-                  <label for="inputEmail">Email address</label>
-                  <input type="email" class="form-control" name="email" id="inputEmail" aria-describedby="emailHelp">
-                </div>
-                <div class="form-group">
-                  <label for="inputPassword">Password</label>
-                  <input type="password" class="form-control" name="password" id="inputPassword" aria-describedby="passwordHelp">
-                </div>
-                <div class="form-group form-check">
-                    <input type="checkbox" class="form-check-input" id="showPassword">
-                    <label class="form-check-label" for="showPassword">Show Password</label>
-                </div>
-                <button type="submit" class="btn btn-primary" aria-describedby="submitButton">Login</button>
-                <small id="submitButton" class="form-text text-muted">By logging in, you agree to AggieEat's Terms of Service and acknowledge AggieEat's Privacy Policy.</small>
-                <small id="submitButton" class="form-text text-muted">New to AggieEats? Sign up <a href="/register">here</a>.</small>
+      <main class="flex-fill">
+        <div class="container justify-content-center align-items-center mt-5">
+            <div class="row">
+              <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+          <%- include('partials/flash')%>
 
-              </form>
-            
+                <div class="card shadow mb-5">
+                  <div class="card-body">
+                    <div class="card-title">
+                      <h1 class="text-center">Login</h1>
+                      <hr />
+                    </div>
+                    <form action="/login" method="POST" class="needs-validation row g-3" novalidate>
+                      <div class="form-group col-12">
+                        <label class="form-label" for="inputEmail">Email address</label>
+                        <input type="email" class="form-control" name="email" id="inputEmail"
+                          aria-describedby="emailHelp" required>
+                      </div>
+                      <div class="form-group col-12">
+                        <label class="form-label" for="inputPassword">Password</label>
+                        <div class="input-group mb-3">
+                          <input type="password" class="form-control" name="password" id="inputPassword"
+                            aria-describedby="passwordHelp" required>
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" id="showPassword" type="button"><i id="eyeButton"
+                                class="fa fa-eye-slash" aria-hidden="true"></i></button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary mb-4 btn-block"
+                          aria-describedby="submitButton">Login</button>
+                      </div>
+                      <small id="submitButton" class="form-text text-muted mb-2 text-center">New to AggieEats? Sign up
+                        <a href="/register">here</a>.</small>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </div>
         </div>
-    </main>
+      </main>
 
-    <%- include('partials/foot')%>
-</div>
+      <%- include('partials/foot')%>
+    </div>

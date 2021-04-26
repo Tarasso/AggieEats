@@ -1,0 +1,137 @@
+<%- include('partials/head', {pageInfo: pageInfo})%>
+    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+
+
+
+        <div class="d-flex flex-column min-vh-100">
+
+
+
+            <main class="flex-fill">
+                <div class="container justify-content-center align-items-center mt-2 text-center">
+                    <div class="row">
+                        <div class="col-md-6 offset-md-3 col-xl-6 offset-xl-3">
+                            <%- include('partials/flash')%>
+
+                                <div class="card shadow mb-5">
+                                    <div class="card-body p-4">
+                                        <div class="card-title">
+                                            <h1 class="text-center hero-heading">
+                                                <%= spoon_results.title%>
+                                            </h1>
+                                            <hr />
+                                        </div>
+                                        <div class="row gy-3">
+                                            <div class="col-6">
+                                                <p class="lead">
+                                                    <i class="fas fa-utensils"></i> Servings: <%= spoon_results.servings %>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="lead">
+                                                    <i class="far fa-clock"></i> Ready in: <%= spoon_results.time %> min.
+                                                </p>
+                                            </div>
+                                            <div class="col-12"><img src="<%= spoon_results.image %>" alt="" srcset="">
+                                            </div>
+                                            <div class="col-12"><a class="btn btn-primary"
+                                                    href="<%= spoon_results.url %>" target="_blank">
+                                                    <i class="fas fa-link"></i>
+                                                    See the full recipe
+                                                </a></div>
+                                            <hr />
+                                            <div class="col-12">
+
+                                                <table class="table text-start">
+                                                    <thead style="background-color: rgb( 103, 253, 172 );">
+                                                        <tr>
+                                                            <th scope="col" colspan="2">Dietary Concern</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">Vegan</th>
+                                                            <% if (spoon_results.vegan===true) { %>
+                                                                <td><i class="fas fa-check-circle"
+                                                                        style="color: green;"></i></td>
+                                                                <% } else { %>
+                                                                    <td><i class="fas fa-times-circle"
+                                                                            style="color: red;"></i></td>
+                                                                    <% } %>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Vegetarian</th>
+                                                            <% if (spoon_results.vegetarian===true) { %>
+                                                                <td><i class="fas fa-check-circle"
+                                                                        style="color: green;"></i></td>
+                                                                <% } else { %>
+                                                                    <td><i class="fas fa-times-circle"
+                                                                            style="color: red;"></i></td>
+                                                                    <% } %>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Gluten Free</th>
+                                                            <% if (spoon_results.glutenFree===true) { %>
+                                                                <td><i class="fas fa-check-circle"
+                                                                        style="color: green;"></i></td>
+                                                                <% } else { %>
+                                                                    <td><i class="fas fa-times-circle"
+                                                                            style="color: red;"></i></td>
+                                                                    <% } %>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">Dairy Free</th>
+                                                            <% if (spoon_results.dairyFree===true) { %>
+                                                                <td><i class="fas fa-check-circle"
+                                                                        style="color: green;"></i></td>
+                                                                <% } else { %>
+                                                                    <td><i class="fas fa-times-circle"
+                                                                            style="color: red;"></i></td>
+                                                                    <% } %>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+
+
+                                            </div>
+
+                                            <div class="col-6">
+                                                <button class="btn btn-secondary" onclick="window.history.back()">
+                                                    <i class="fas fa-angle-double-left"></i>
+                                                    Back to Results
+                                                </button>
+                                            </div>
+                                            <div class="col-6">
+
+                    <form action="/library" method="post" id="myForm" name="id" value="<%= id %>">
+                                <% if (library != null && library.indexOf(spoon_results.title) > -1) { %>
+                                    <% console.log("In library") %>
+                                    <button type="submit" name="id_remove" value="<%= id %>" class="btn btn-dark in-library" id="library_button"><i
+                                            class="fas fa-star starred" id="starred_icon"></i> Remove from My Library</button>
+                                <% } else { %>
+                                    <% console.log("Not In library") %>
+                                    <button type="submit" name="id_add" value="<%= id %>" class="btn btn-dark not-in-library" id="library_button"><i
+                                            class="fas fa-star" id="starred_icon"></i> Add to My Library</button>
+                                <% } %>
+                    </form>
+
+                                            <!-- <button class="btn btn-dark in-library" id="library_button"><i class="fas fa-star starred" id="starred_icon"></i> <span
+                                                    id="library_button_text">Save to My Library</span> </button> -->
+
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        </main>
+
+        <div class="b-example-divider"></div>
+
+
+        <%- include('partials/foot')%>
+            </div>

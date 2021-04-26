@@ -1,0 +1,29 @@
+<div class="card my-3">
+    <a href="https://www.google.com/">
+        <img src=<%= (result === undefined) ? "icons/tray.svg" : result.image %> class="card-img-top" alt="sample1">
+    </a>
+    <div class="card-body">
+        <h5 class="card-title mb-4"><%= result.title %></h5>
+
+        <div class="row">
+
+            <div class="col">
+                <div class="form-group">
+                        <a class="btn btn-primary p-2" href="/recipes/<%= result.id %>" >More Details</a>
+                            </div>
+
+            </div>
+
+            <div class="col">
+                <div class="float-end">
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
