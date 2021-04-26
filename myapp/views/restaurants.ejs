@@ -24,10 +24,10 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-dark w-100 restaurant-button" type="submit">Search</a>
+                            <button class="btn btn-dark w-100 restaurant-button" type="submit" style="background-color: rgb(80, 0, 0);">Search</a>
                         </div>
                         <div class="col-md-6">
-                            <a href="#" class="btn btn-dark w-100 restaurant-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Not sure what you want? No problem! We'll give you a randomly generated surprise result. " style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
+                            <button class="btn btn-dark w-100 suprise-button" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Not sure what you want? No problem! We'll give you a randomly generated surprise result. " style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
                         </div>
                         
                         <hr class="mb-5 mt-4" />
@@ -50,7 +50,6 @@
                                     <tbody class="table">
                                         <% const cardNumber = (yelp_results === undefined) ? -1 : yelp_results.length%>
                                         <% if (cardNumber == 0) { %>
-                                            <td>N/A</td>
                                             <td>N/A</td>
                                             <td>N/A</td>
                                             <td>N/A</td>
