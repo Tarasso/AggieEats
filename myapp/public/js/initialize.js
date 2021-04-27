@@ -43,6 +43,18 @@ $(document).ready(function () {
 		console.log("INDEX =", index)
 		$(`.list-recipe:eq(${index})`).hide();
 	});
+
+	$(".favorites-collapse").click(function (event) {
+		var shrink = "Shrink <i class=\"fas fa-angle-double-up\"></i>"
+		var expand = "Expand <i class=\"fas fa-angle-double-down\"></i>"
+		if ($(this).html().trim() === shrink) {
+			$(this).html(expand)
+		} else if ($(this).html().trim() === expand) {
+			$(this).html(shrink)
+		} else {
+			console.log(`Unexpected: html = '${$(this).html().trim()}', shrink = '${shrink}', expand = '${expand}'`)
+		}
+	});
 });
 
 
