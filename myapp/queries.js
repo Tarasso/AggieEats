@@ -308,7 +308,7 @@ async function getRecentReview(resturantId) {
 async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
   let reviewId = await getUniqueReviewId();
   let userId = await getUserId(email);
-  const values = [reviewId, rating, review, restaurantId, userId]
+  const values = [reviewId, rating, review, userId, restaurantId]
   let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
   // TODO: create funtion for twitter stuff
 }

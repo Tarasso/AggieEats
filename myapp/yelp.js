@@ -33,7 +33,9 @@ async function searchRestaurants(query, dist=40000, offset=0) {
       "address": "",
       "city": "",
       "id":"",
-      "price":""
+      "price":"",
+      "recentReview": "",
+      "averageRating": ""
     }
     trimmedRes.name = res.businesses[i].name;
     trimmedRes.url = res.businesses[i].url;
@@ -41,6 +43,8 @@ async function searchRestaurants(query, dist=40000, offset=0) {
     trimmedRes.city = res.businesses[i].location.city;
     trimmedRes.id = res.businesses[i].id;
     trimmedRes.price = res.businesses[i].price;
+    trimmedRes.recentReview = await db.getRecentReview(trimmedRes.id);
+    trimmedRes.averageRating = await db.getAverageRating(trimmedRes.id);
     ret.push(trimmedRes);
     // console.log(trimmedRes.id + " " + trimmedRes.name);
     await db.storeRestaurant(trimmedRes.id, trimmedRes.name);
