@@ -88,7 +88,21 @@
                             </a>
                             <div class="collapse" id="collapseRestaurant">
                                 <div class="card card-body">
-                                    
+                                    <% if (diningHistory !=undefined) { %>
+
+                                        <ul class="list-group">
+                                            <% diningHistory.forEach((rest)=> { %>
+                                                <li class="list-group-item d-flex list-group-item-action">
+                                                    <div class="me-auto">
+                                                        <%= rest %>
+                                                    </div>
+                                                </li>
+                                                <% }) %>
+                                        </ul>
+
+                                        <% } else { %>
+                                            <h4 class="text-center">Nothing to show here.</h4>
+                                            <% } %>
                                 </div>
                             </div>
                         </div>
