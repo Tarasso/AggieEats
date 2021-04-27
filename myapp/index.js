@@ -99,6 +99,7 @@ app.get('/dashboard', requireLogin, async (req, res) => {
         var stats = {totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings}
         console.log(stats)
         console.log("Library" + library)
+        console.log("Dining History" + diningHistory)
         res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats, diningHistory })
 })
 
