@@ -49,18 +49,24 @@
                             <div class="collapse" id="collapseExample">
                                 <div class="card card-body">
 
-                                    <% if (library !=undefined) { %>
+                                    <% var buttonIndex = 0 %>
+                                    <% if (library.length != 0) { %>
 
                                         <ul class="list-group">
                                             <% library.forEach((recipe)=> { %>
-                                                <li class="list-group-item d-flex list-group-item-action">
-                                                    <div class="me-auto">
-                                                        <%= recipe %>
-                                                    </div>
-                                                    <a class="btn btn-secondary me-4" href="/recipes"><i
-                                                            class="fas fa-book"></i> View Full Recipe</a>
-                                                    <a class="btn btn-danger"><i class="fas fa-minus-circle"></i></a>
-                                                </li>
+                                                <div class="list-recipe">
+                                                    <li class="list-group-item d-flex list-group-item-action">
+                                                        <div class="me-auto">
+                                                            <%= recipe.name %>
+                                                        </div>
+                                                        <a class="btn btn-secondary me-4" href="/recipes/<%= recipe.id %>"><i
+                                                                class="fas fa-book"></i> View Full Recipe</a>
+                                                        <form action="/dashboard/recipes" method="post">
+                                                            <button class="btn btn-danger remove-recipe" name="id" data-index="<%= buttonIndex %>" value="<%= recipe.id %>" ><i class="fas fa-minus-circle"></i></button>
+                                                        </form>
+                                                    </li>
+                                                </div>
+                                                <% buttonIndex += 1 %>
                                                 <% }) %>
                                         </ul>
 

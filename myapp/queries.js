@@ -200,7 +200,6 @@ async function getTopUsers(limit, email="") {
     }
     val += 1;
   }
-  console.table(ret);
   return ret;
 
 }

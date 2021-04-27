@@ -90,15 +90,12 @@ app.get('/', async (req, res) => {
 app.get('/dashboard', requireLogin, async (req, res) => {
         const pageName = "Dashboard";
         const topUsers = await db.getTopUsers(10, req.session.user.email);
-        console.table(topUsers)
         const library = await db.getRecipeLibrary(req.session.user.email);
         const diningHistory = await db.getRestaurantHistory(req.session.user.email);
         const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
         const totalRecipes = await db.getTotalRecipes(req.session.user.email);
         const averageRatings = await db.getAverageUserRating(req.session.user.email);
         var stats = {totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings}
-        console.log(stats)
-        console.log("Library" + library)
         console.log("Dining History" + diningHistory)
         res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats, diningHistory })
 })
@@ -227,7 +224,7 @@ app.post('/register', async (req, res) => {
 })
 
 
-app.get('/test', async (req, res) => {
+app.get('/testing', async (req, res) => {
     try {
         const library = db.getRecipeLibrary("example@example.com");
         console.log(JSON.stringify(library))
@@ -238,13 +235,13 @@ app.get('/test', async (req, res) => {
 })
 
 
-app.post('/recipes/:id', (req, res) => {
+app.post('/recipes/:id', async (req, res) => {
     console.log("DEBUG STATEMENT:" + req.params.id)
-    var recipe_id;
+    var recipe_id = req.params.id;
     if (req.body.id_add) {
         console.log("Intent: Add to library")
         req.flash('flashSuccess', "Successfully added recipe to library.")
-        db.addToLibrary(req.session.user.email, parseInt(recipe_id))
+        await db.addToLibrary(req.session.user.email, parseInt(recipe_id))
     }
     else if (req.body.id_remove) {
         console.log("Intent: Remove from library")        
@@ -254,6 +251,12 @@ app.post('/recipes/:id', (req, res) => {
     console.log(`ID: ${req.params.id}, EMAIL: ${req.session.user.email}`)
     res.redirect(req.get('referer'));
     // return res.redirect('/recipes/' + recipe_id)
+})
+
+app.post('/dashboard/recipes', async (req, res) => {
+    console.log("ID:" + req.body.id)
+    await db.removeFromLibrary(req.session.user.email, parseInt(req.body.id))
+    res.status(204).send()
 })
 
 // For any undefined pages, handle here
