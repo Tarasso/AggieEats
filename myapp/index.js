@@ -107,16 +107,29 @@ app.get('/restaurants', requireLogin, async (req, res) => {
 
     if('foodName' in req.query){
         console.log(req.query, distance)
-        
         try {
             yelp_results = await yelp.searchRestaurants(req.query.foodName, distance)
 
         } catch (error) {
             return res.send(error)
         }
-    } 
+    }
     res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
 })
+
+app.get('/restaurants/surpriseme', requireLogin, async (req, res) => {
+    const pageName = "Restaurant Surprise Me"
+    var yelp_results;
+    try{
+        yelp_results = await yelp.surpriseMe(req.session.user.email)
+    } catch (error){
+        return res.send(error)
+    }
+    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
+})
+
+
+
 
 app.get('/restaurants/:id', requireLogin, async (req, res) => {
     console.log("viewing review: '" + req.params.id + "'")
