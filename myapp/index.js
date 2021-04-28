@@ -234,6 +234,17 @@ app.get('/testing', async (req, res) => {
     }
 })
 
+app.post('/testing/review', async (req, res) => {
+    const ratingReceieved = req.body.rating
+    if (ratingReceieved == 0) {
+        req.flash('flashFail', 'Please select a rating from 1 to 5 stars.')
+    } else {
+        req.flash('flashSuccess', `Receieved a rating of ${ratingReceieved}!`)
+    }
+    res.redirect('/testing')
+
+})
+
 
 app.post('/recipes/:id', async (req, res) => {
     console.log("DEBUG STATEMENT:" + req.params.id)

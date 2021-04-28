@@ -1,7 +1,33 @@
-.container {
-    padding-top: 65px;
+:root {
+  color-scheme: light dark; /* both supported */
 }
 
+.dark {
+    background: rgb(31, 27, 36);
+    color: #F5F7Fa;
+}
+
+.dark-field {
+    background: rgb(31, 26, 36);
+    border-color: #BCCCDC;
+    color: #F5F7Fa;
+    border-width: 2px;
+}
+
+.dark-field:focus {
+    background: #323F4B;
+    border-color: #BCCCDC;
+    border-width: 2px;
+    color: #F5F7Fa
+}
+
+.navbar-maroon {
+    background: rgb(80, 0, 0);
+}
+
+.navbar-maroon-dark {
+    background: rgb(70, 0, 0);
+}
 
 .hero {
     background-position: top left;
@@ -61,4 +87,12 @@ html {
 
 .restaurant-button:hover {
     background-color: rgb(66, 0, 0) !important;
+}
+
+.hide_me {
+    display: none;
+}
+
+.vivid {
+    color:rebeccapurple;
 }

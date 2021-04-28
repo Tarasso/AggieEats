@@ -55,6 +55,45 @@ $(document).ready(function () {
 			console.log(`Unexpected: html = '${$(this).html().trim()}', shrink = '${shrink}', expand = '${expand}'`)
 		}
 	});
+
+	$("#submit_review").submit(function (event) {
+		var values = {};
+		$.each($('#submit_review').serializeArray(), function(i, field) {
+			values[field.name] = field.value;
+		});
+
+		if (values.rating == 0) {
+			$("#error_msg").removeClass("hide_me")
+			$("#error_msg").html("<strong><i class=\"fas fa-exclamation-circle\"></i> Please select a rating.</strong>")
+			event.preventDefault();
+		}
+
+		if (values.review.length == 0) {
+			$("#error_msg").removeClass("hide_me")
+			$("#error_msg").html("<strong><i class=\"fas fa-exclamation-circle\"></i> Please enter a review.</strong>")
+			$("#text-form-review").addClass("is-invalid")
+			event.preventDefault();
+		} else {
+			if ($("#text-form-review").hasClass("is-invalid")) {
+				$("#text-form-review").removeClass("is-invalid")
+			}
+			if (!$("#text-form-review").hasClass("is-valid")) {
+				$("#text-form-review").addClass("is-valid")
+			}
+		}
+	});
+
+	$("#dark_mode").click(function (event) {
+		console.log("LINKED")
+		 $( ":button" ).removeClass( "btn-primary" );
+		 $( ":button" ).addClass( "btn-secondary" );
+		   var element = document.body;
+  			element.classList.toggle("dark");
+		 $('input[type=text], textarea').addClass( "dark-field" );
+		 $('#navbar-id').removeClass(".navbar-maroon");
+		 $('#navbar-id').addClass("navbar-maroon-dark");
+	});
+
 });
 
 
