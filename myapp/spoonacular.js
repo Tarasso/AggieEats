@@ -1,19 +1,14 @@
 const axios = require('axios').default
 const db = require('./queries')
 
-const recipeEndpoint = 'https://api.spoonacular.com/recipes/'
-const apiKey = 'a6440d2c86ae4fb689e96a76d7783c90'
+const recipeEndpoint = 'https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/'
+const apiKey = '3f2a47789fmsh47927bebe5c0b3fp1903efjsn21bdca7b70aa'
+const host = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
+// const apiKey = 'a6440d2c86ae4fb689e96a76d7783c90'
 // const apiKey = '92c516f2fb3a4db99c07e6901bcfd3bf' // this is ammar's
 // const apiKey = '3abcc91390874fbf9263b2b911b22431' // this is kyle's
-const limit = 9
+const limit = 12
 
-// support diets later
-// search term requied, cuisine optional
-// ****************************************************************
-// Idea:
-// display title and image
-// clicking on "more details" calls getRecipeDetails with recipe id
-// ****************************************************************
 async function searchRecipes(terms, cuisine = "") {
   let res = await axios.get(recipeEndpoint + 'complexSearch', {
       params: {
@@ -21,6 +16,10 @@ async function searchRecipes(terms, cuisine = "") {
         query: terms,
         number: limit,
         cuisine: cuisine
+      },
+      headers: {
+        'x-rapidapi-key': apiKey,
+        'x-rapidapi-host': host
       }
     });
   for(i = 0; i < res.data.results.length; i++) {
@@ -30,10 +29,6 @@ async function searchRecipes(terms, cuisine = "") {
   return res.data;
 }
 
-// ****************************************************************
-// Idea:
-// display all info in trimmedRes in pop up box
-// ****************************************************************
 async function getRecipeDetails(id) {
 
 
@@ -51,9 +46,13 @@ async function getRecipeDetails(id) {
 
 
     };
-    let res = await axios.get(recipeEndpoint + '/' + id + '/information', {
+    let res = await axios.get(recipeEndpoint + id + '/information', {
         params: {
           apiKey: apiKey
+        },
+        headers: {
+          'x-rapidapi-key': apiKey,
+          'x-rapidapi-host': host
         }
       });
     trimmedRes.id = res.data.id;

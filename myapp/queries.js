@@ -135,15 +135,40 @@ async function addToLibrary(email, recipeId) {
   }
 }
 
+async function removeFromLibrary(email, recipeId) {
+  const values = [recipeId, email];
+  let userLib = await getUser(email);
+  userLib = userLib.recipe_lib;
+  if(userLib != null && !userLib.includes(recipeId))
+    console.log("cannot remove bc recipe does not exist in library");
+  else {
+    console.log("need to remove");
+    let res = await pool.query('update users set "recipe_lib" = array_remove(recipe_lib,$1) where "email" = $2',values);
+    console.log('updated lib');
+    // add points to user account 
+    pool.query('UPDATE users SET points = points - 1 WHERE "email" = $1',[email])
+  }
+}
+
 async function getRecipeLibrary(email) {
-  let names = [];
+  let items = [];
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
   recipes = res.rows[0]["recipe_lib"];
+  if (recipes == null) {
+    return null
+  }
   for(i = 0; i < recipes.length; i++) {
     let name = await getRecipeTitle(recipes[i]);
-    names.push(name);
+    let temp = {
+      "id": "",
+      "name": ""
+    };
+    temp.id = recipes[i];
+    temp.name = name;
+    items.push(temp);
   }
-  return names;
+  console.log(items);
+  return items;
 }
 
 // -----------------------------------------------------------------------------------
@@ -157,26 +182,24 @@ async function getTopUsers(limit, email="") {
   let selfIncluded = false;
   for(i = 0; i < limit; i++) {
     users[i].rank = i + 1;
-    delete users[i]["email"];
     ret.push(users[i]);
     if(users[i]["email"] == email)
       selfIncluded = true;
   }
-  console.table(ret);
-  if(email === "")
+  if(email === "") {
+    console.log("no email provided for leaderboard")
     return ret;
+  }
   // below is extra
   let val = limit;
   while(!selfIncluded && val < users.length) {
     if(users[val]["email"] == email) {
       users[val].rank = val + 1;
-      delete users[val]["email"];
       ret.push(users[val]);
       selfIncluded = true;
     }
     val += 1;
   }
-  console.table(ret);
   return ret;
 
 }
@@ -194,15 +217,25 @@ async function RestaurantExists(id) {
   }
 }
 
+async function restaurantVisited(email, id) {
+  let userHist = await getUser(email);
+  userHist = userHist.res_history;
+  if(userHist != null && userHist.includes(id))
+    return true;
+  else
+    return false;
+}
+
 async function storeRestaurant(id, name) {
   const values = [name, id];
   let exists = await RestaurantExists(id);
   if(!exists) {
+    // console.log('here');
     let res = await pool.query('INSERT INTO restaurants VALUES ($1, $2)', values);
-    console.log('Successfully created new row')
+    // console.log('Successfully created new row')
   }
   else {
-    console.log('restaurant already in db')
+    // console.log('restaurant already in db')
   }
   
 }
@@ -238,6 +271,8 @@ async function getRestaurantHistory(email) {
   let names = [];
   let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
   rest = res.rows[0]["res_history"];
+  if(rest == null)
+    return null;
   for(i = 0; i < rest.length; i++) {
     let name = await getRestaurantTitle(rest[i]);
     names.push(name);
@@ -273,7 +308,7 @@ async function getRecentReview(resturantId) {
 async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
   let reviewId = await getUniqueReviewId();
   let userId = await getUserId(email);
-  const values = [reviewId, rating, review, restaurantId, userId]
+  const values = [reviewId, rating, review, userId, restaurantId]
   let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
   // TODO: create funtion for twitter stuff
 }
@@ -326,5 +361,8 @@ async function getAverageUserRating(email) {
     getRestaurantTitle,
     getRestaurantHistory,
     storeRestaurant,
-    addToRestaurantHistory
+    addToRestaurantHistory,
+    removeFromLibrary,
+    RestaurantExists,
+    restaurantVisited
   }

@@ -37,6 +37,14 @@ $(document).ready(function () {
 // 	});
 // });
 
+$(document).ready(function () {
+	$(".remove-recipe").click(function (event) {
+		var index = $(this).data('index');
+		console.log("INDEX =", index)
+		$(`.list-recipe:eq(${index})`).hide();
+	});
+});
+
 
 
 (function () {

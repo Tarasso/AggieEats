@@ -10,6 +10,8 @@ const cookieParser = require('cookie-parser')
 const session = require('express-session');
 const { Console } = require('console');
 const { resolveNaptr } = require('dns');
+const { DH_UNABLE_TO_CHECK_GENERATOR } = require('constants');
+const { abort } = require('process');
 const app = express()
 const port = process.env.PORT || 3000
 
@@ -38,33 +40,10 @@ app.get('/yelp', (req, res) => {
    });
 
 app.get('/test', (req, res) => {
-res.send('Welcome to the testing page!');
-// db.addToLibrary("kylemrosko@gmail.com",5);
-//db.getAverageUserRating("test2@gmail.com")
-//db.getTotalRecipes("test2@gmail.com")
-//db.storeRestaurant("Mg9dmyNyltusb_PbAo76Iw","Pin-Toh Thai Cafe")
-//db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw") //Pin-Toh Thai Cafe
-//db.getRecipeTitle(654939);
-db.getRestaurantTitle("Mg9dmyNyltusb_PbAo76Iw");
-// db.getAverageRating(2);
-// db.getRecentReview(2);
-// await db.leaveReview("t@t.com",2,"It was meh",1,false)
-// await db.leaveReview("t@t.com",3,"It was okay",1,false)
-// await db.leaveReview("t@t.com",1,"It was terrible",1,false)
-// db.getTopUsers(5);
-// db.getTopUsers(5,"t@t.com")
-//db.getRecipeLibrary("lc@test.com");
-// db.addToLibrary("lc@test.com",654939);
-// let temp = {
-//     "email": "kylemrosko@gmail.com",
-//     "password": "password",
-//     "firstName": "Kyle",
-//     "lastName": "Mrosko"
-// }
-// db.requestNewAccount(temp);
-// spoon.searchRecipes("pasta","greek")
-//spoon.getRecipeDetails(654939)
-
+    res.send('Welcome to the testing page!');
+    // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
+    yelp.surpriseMe("lc@test.com");
+    // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
  });
 
 // set up cookie parser, sessions, and flash middlewares
@@ -88,7 +67,6 @@ app.use((req, res, next) => {
 
 const requireLogin = (req, res, next) => {
     if (!req.session.user) {
-        console.log("You must be logged in.")
         req.flash('flashFail', 'You must be logged in to access this page.')
         return res.redirect('/login');
     }
@@ -111,14 +89,49 @@ app.get('/', async (req, res) => {
 
 app.get('/dashboard', requireLogin, async (req, res) => {
         const pageName = "Dashboard";
-        const topUsers = await db.getTopUsers(10);
-        res.render('dashboard.ejs', { pageInfo: pageName, topUsers })
+        const topUsers = await db.getTopUsers(10, req.session.user.email);
+        const library = await db.getRecipeLibrary(req.session.user.email);
+        const diningHistory = await db.getRestaurantHistory(req.session.user.email);
+        const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
+        const totalRecipes = await db.getTotalRecipes(req.session.user.email);
+        const averageRatings = await db.getAverageUserRating(req.session.user.email);
+        var stats = {totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings}
+        console.log("Dining History" + diningHistory)
+        res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats, diningHistory })
 })
 
-app.get('/restaurants', requireLogin, (req, res) => {
+app.get('/restaurants', requireLogin, async (req, res) => {
     const pageName = "Restaurants";
-    res.render('restaurants.ejs', { pageInfo: pageName })
+    var yelp_results;
+    var distance = (req.query.distance == undefined) ? (25) : req.query.distance
+
+    if('foodName' in req.query){
+        console.log(req.query, distance)
+        
+        try {
+            yelp_results = await yelp.searchRestaurants(req.query.foodName, distance)
+
+        } catch (error) {
+            return res.send(error)
+        }
+    } 
+    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
 })
+
+app.get('/restaurants/:id', requireLogin, async (req, res) => {
+    console.log("viewing review: '" + req.params.id + "'")
+    const pageName = "Review Details";
+    var restaurant_name;
+    //var review_list;
+    try {
+        restaurant_name = await db.getRestaurantTitle(req.params.id)
+        //review_list = await db.getRecentReview(req.params.id)
+        return res.render('review_details.ejs', {pageInfo: pageName, restaurant_name})
+    } catch (error) {
+        return res.send(error)
+    }
+})
+
 
 app.get('/recipes/:id', requireLogin, async (req, res) => {
     console.log("viewing recipe: '" + req.params.id + "'")
@@ -181,7 +194,6 @@ app.post('/login', async (req, res) => {
     const loginResult = await db.login(req.body)
     if (loginResult != null) {
         req.flash('flashSuccess', 'Successfully logged in!')
-        console.log("Login result: " + loginResult);
         req.session.user = loginResult;
         res.redirect('/dashboard')
     } else {
@@ -212,7 +224,7 @@ app.post('/register', async (req, res) => {
 })
 
 
-app.get('/test', async (req, res) => {
+app.get('/testing', async (req, res) => {
     try {
         const library = db.getRecipeLibrary("example@example.com");
         console.log(JSON.stringify(library))
@@ -223,24 +235,28 @@ app.get('/test', async (req, res) => {
 })
 
 
-app.post('/library', (req, res) => {
-    console.log(req.session.recipe_details)
-    var recipe_id;
+app.post('/recipes/:id', async (req, res) => {
+    console.log("DEBUG STATEMENT:" + req.params.id)
+    var recipe_id = req.params.id;
     if (req.body.id_add) {
         console.log("Intent: Add to library")
-        recipe_id = req.body.id_add
         req.flash('flashSuccess', "Successfully added recipe to library.")
-        db.addToLibrary(req.session.user.email, parseInt(recipe_id))
+        await db.addToLibrary(req.session.user.email, parseInt(recipe_id))
     }
     else if (req.body.id_remove) {
-        console.log("Intent: Remove from library")
-        recipe_id = req.body.id_remove
+        console.log("Intent: Remove from library")        
         req.flash('flashFail', "Successfully removed recipe removed library.")
     }
     // const recipe_id = req.body.id
-    console.log(`ID: ${recipe_id}, EMAIL: ${req.session.user.email}`)
+    console.log(`ID: ${req.params.id}, EMAIL: ${req.session.user.email}`)
     res.redirect(req.get('referer'));
     // return res.redirect('/recipes/' + recipe_id)
+})
+
+app.post('/dashboard/recipes', async (req, res) => {
+    console.log("ID:" + req.body.id)
+    await db.removeFromLibrary(req.session.user.email, parseInt(req.body.id))
+    res.status(204).send()
 })
 
 // For any undefined pages, handle here

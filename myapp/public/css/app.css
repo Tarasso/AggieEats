@@ -54,3 +54,11 @@ html {
     height: 15vw;
     object-fit: cover;
 }
+
+.restaurant-button {
+    background-color: rgb(80, 0, 0) !important;
+}
+
+.restaurant-button:hover {
+    background-color: rgb(66, 0, 0) !important;
+}

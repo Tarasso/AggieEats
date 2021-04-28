@@ -22,9 +22,14 @@
                                             <hr />
                                         </div>
                                         <div class="row gy-3">
-                                            <div class="col-12">
-                                                <p>
-                                                    Servings: <%= spoon_results.servings %>
+                                            <div class="col-6">
+                                                <p class="lead">
+                                                    <i class="fas fa-utensils"></i> Servings: <%= spoon_results.servings %>
+                                                </p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="lead">
+                                                    <i class="far fa-clock"></i> Ready in: <%= spoon_results.time %> min.
                                                 </p>
                                             </div>
                                             <div class="col-12"><img src="<%= spoon_results.image %>" alt="" srcset="">
@@ -98,20 +103,30 @@
                                             </div>
                                             <div class="col-6">
 
-                    <form action="/library" method="post" id="myForm" name="id" value="<%= id %>">
-                                <% if (library.indexOf(spoon_results.title) > -1) { %>
-                                    <% console.log("In library") %>
-                                    <button type="submit" name="id_remove" value="<%= id %>" class="btn btn-dark in-library" id="library_button"><i
-                                            class="fas fa-star starred" id="starred_icon"></i> Remove from My Library</button>
-                                <% } else { %>
-                                    <% console.log("Not In library") %>
-                                    <button type="submit" name="id_add" value="<%= id %>" class="btn btn-dark not-in-library" id="library_button"><i
-                                            class="fas fa-star" id="starred_icon"></i> Add to My Library</button>
-                                <% } %>
-                    </form>
+                                                <form action="/recipes/<%= id %>" method="post">
 
-                                            <!-- <button class="btn btn-dark in-library" id="library_button"><i class="fas fa-star starred" id="starred_icon"></i> <span
-                                                    id="library_button_text">Save to My Library</span> </button> -->
+                                                    <% 
+                                                    var inLibrary = false
+                                                    var libraryLength = (library == undefined) ? 0 : library.length;
+                                                    for (let i = 0; i < libraryLength; i++) {
+                                                        const element = library[i];
+                                                        if (element.name == spoon_results.title) {
+                                                            inLibrary = true
+                                                            console.log("In Library")
+                                                            break;
+                                                        }
+                                                    } 
+                                                    %>
+
+                                                    <% if (inLibrary) { %>
+                                                        <button type="submit" name="id_remove" value="<%= id %>" class="btn btn-dark in-library" id="library_button"><i
+                                                                class="fas fa-star starred" id="starred_icon"></i> Remove from My Library</button>
+                                                    <% } else { %>
+                                                        <button type="submit" name="id_add" value="<%= id %>" class="btn btn-dark not-in-library" id="library_button"><i
+                                                                class="fas fa-star" id="starred_icon"></i> Add to My Library</button>
+                                                    <% } %>
+
+                                                </form>
 
 
                                             </div>
