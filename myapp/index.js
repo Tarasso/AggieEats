@@ -22,7 +22,7 @@ const port = process.env.PORT || 3000
 
 // load up public CSS/JS files
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 // load up views
 app.set('views', path.join(__dirname, '/views'))
@@ -33,18 +33,18 @@ app.set('view engine', 'ejs');
 // route views
 app.get('/yelp', (req, res) => {
     res.send('Yelp API testing page!');
-    yelp.searchRestaurants('thai food',1.5);
+    yelp.searchRestaurants('thai food', 1.5);
     // spoon.searchRecipes("pasta","greek")
     // spoon.getRecipeDetails(654939)
 
-   });
+});
 
 app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
     yelp.surpriseMe("lc@test.com");
     // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
- });
+});
 
 // set up cookie parser, sessions, and flash middlewares
 //app.use(cookieParser())
@@ -83,54 +83,50 @@ app.get('/user/:accountId', (req, res) => {
 app.get('/', async (req, res) => {
     const pageName = "Home";
     const topUsers = await db.getTopUsers(10);
-    res.render('home.ejs', {pageInfo : pageName, topUsers})
+    res.render('home.ejs', { pageInfo: pageName, topUsers })
 
 })
 
 app.get('/dashboard', requireLogin, async (req, res) => {
-        const pageName = "Dashboard";
-        const topUsers = await db.getTopUsers(10, req.session.user.email);
-        const library = await db.getRecipeLibrary(req.session.user.email);
-        const diningHistory = await db.getRestaurantHistory(req.session.user.email);
-        const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
-        const totalRecipes = await db.getTotalRecipes(req.session.user.email);
-        const averageRatings = await db.getAverageUserRating(req.session.user.email);
-        var stats = {totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings}
-        console.log("Dining History" + diningHistory)
-        res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats, diningHistory })
+    const pageName = "Dashboard";
+    const topUsers = await db.getTopUsers(10, req.session.user.email);
+    const library = await db.getRecipeLibrary(req.session.user.email);
+    const diningHistory = await db.getRestaurantHistory(req.session.user.email);
+    const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
+    const totalRecipes = await db.getTotalRecipes(req.session.user.email);
+    const averageRatings = await db.getAverageUserRating(req.session.user.email);
+    var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings }
+    console.log("Dining History" + diningHistory)
+    res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats, diningHistory })
 })
 
+// restaurants main page
 app.get('/restaurants', requireLogin, async (req, res) => {
     const pageName = "Restaurants";
-    var yelp_results;
-    var distance = (req.query.distance == undefined) ? (25) : req.query.distance
+    var yelp_results; // will be object that has a list of objects containing restaurant info
 
-    if('foodName' in req.query){
-        console.log(req.query, distance)
-        try {
-            yelp_results = await yelp.searchRestaurants(req.query.foodName, distance)
-
-        } catch (error) {
-            return res.send(error)
-        }
-    }
-    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
-})
-
-app.get('/restaurants/surpriseme', requireLogin, async (req, res) => {
-    const pageName = "Restaurant Surprise Me"
-    var yelp_results;
-    try{
+    if (req.query.surprise_me) { // if surprise me button pressed, get surprise me results
         yelp_results = await yelp.surpriseMe(req.session.user.email)
-    } catch (error){
-        return res.send(error)
     }
-    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results})
+    else if (req.query.foodName) { // otherwise, if search button pressed...
+        const distance = (req.query.distance == undefined) ? (25) : req.query.distance // obtain distance if specified (or default to 25)
+        yelp_results = await yelp.searchRestaurants(req.query.foodName, distance) // and then get query results
+    }
+    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results }) // render page
 })
 
 
+app.get('/testing', async (req, res) => {
+    try {
+        const library = db.getRecipeLibrary("example@example.com");
+        console.log(JSON.stringify(library))
+        res.render('test.ejs', { pageInfo: "Testing Page" })
+    } catch (exception) {
+        res.send(exception)
+    }
+})
 
-
+// restaurant details view page
 app.get('/restaurants/:id', requireLogin, async (req, res) => {
     console.log("viewing review: '" + req.params.id + "'")
     const pageName = "Review Details";
@@ -139,10 +135,26 @@ app.get('/restaurants/:id', requireLogin, async (req, res) => {
     try {
         restaurant_name = await db.getRestaurantTitle(req.params.id)
         //review_list = await db.getRecentReview(req.params.id)
-        return res.render('review_details.ejs', {pageInfo: pageName, restaurant_name})
+        res.render('review_details.ejs', { pageInfo: pageName, restaurant_name, id: req.params.id })
     } catch (error) {
-        return res.send(error)
+        res.send(error)
     }
+})
+
+// restaurant details post review
+app.post('/restaurants/:id', async (req, res) => {
+    const ratingReceieved = req.body.rating
+    const reviewReceived = req.body.review
+    const id = req.params.id
+    console.log(req.body)
+    if (ratingReceieved == 0) {
+        req.flash('flashFail', 'Please select a rating from 1 to 5 stars.')
+    } else {
+        req.flash('flashSuccess', `Successfully rated this restaurant a ${ratingReceieved}!`)
+        await db.leaveReview(req.session.user.email, ratingReceieved, reviewReceived, id)
+    }
+    res.redirect('/restaurants/' + id)
+
 })
 
 
@@ -184,7 +196,7 @@ app.get('/recipes', requireLogin, async (req, res) => {
     const library = await db.getRecipeLibrary(req.session.user.email);
 
     // res.send(spoon_results)
-    res.render('recipes.ejs', { pageInfo: pageName,cuisineData, spoon_results, query: req.query, library })
+    res.render('recipes.ejs', { pageInfo: pageName, cuisineData, spoon_results, query: req.query, library })
 })
 
 app.get('/login', (req, res) => {
@@ -237,26 +249,7 @@ app.post('/register', async (req, res) => {
 })
 
 
-app.get('/testing', async (req, res) => {
-    try {
-        const library = db.getRecipeLibrary("example@example.com");
-        console.log(JSON.stringify(library))
-        res.render('test.ejs', {pageInfo : "Testing Page"})
-    } catch (exception) {
-        res.send(exception)
-    }
-})
 
-app.post('/testing/review', async (req, res) => {
-    const ratingReceieved = req.body.rating
-    if (ratingReceieved == 0) {
-        req.flash('flashFail', 'Please select a rating from 1 to 5 stars.')
-    } else {
-        req.flash('flashSuccess', `Receieved a rating of ${ratingReceieved}!`)
-    }
-    res.redirect('/testing')
-
-})
 
 
 app.post('/recipes/:id', async (req, res) => {
@@ -268,7 +261,7 @@ app.post('/recipes/:id', async (req, res) => {
         await db.addToLibrary(req.session.user.email, parseInt(recipe_id))
     }
     else if (req.body.id_remove) {
-        console.log("Intent: Remove from library")        
+        console.log("Intent: Remove from library")
         req.flash('flashFail', "Successfully removed recipe removed library.")
     }
     // const recipe_id = req.body.id

@@ -7,6 +7,7 @@
                     <h1 class="mt-5 mb-2">Local Restaurant Search</h1>
                     <p class="text-muted mb-4">Search and filter the hottest local restaurants in your area.</p>
                     <hr />
+
                     <form action="/restaurants" method="GET" class="row g-3">
                         <div class="col-12">
                             <label class="form-label" for="inputFoodName">What would you like to eat today?</label>
@@ -24,52 +25,55 @@
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <button class="btn btn-dark w-100 restaurant-button" type="submit" style="background-color: rgb(80, 0, 0);">Search</a>
+                            <button class="btn btn-dark w-100 maroon-button" type="submit"
+                                style="background-color: rgb(80, 0, 0);">Search</a>
                         </div>
-                    </form>
-                    <form action="/restaurants/surpriseme" method="GET" class="row g-3">
                         <div class="col-md-6">
-                            <button class="btn btn-dark w-100 suprise-button" type="submit" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Not sure what you want? No problem! We'll give you a randomly generated surprise result. " style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
+                            <button class="btn btn-dark w-100 suprise-button" type="submit" data-bs-toggle="tooltip" name="surprise_me" value="true"
+                                data-bs-placement="bottom"
+                                title="Not sure what you want? No problem! We'll give you a randomly generated surprise result. "
+                                style="background-color: rgb(80, 0, 0);">Suprise Me!</a>
                         </div>
-                    </form>
                         
-                        <hr class="mb-5 mt-4" />
-                    
+                    </form>
 
-                        <div class="card mb-5" >
-                            <h5 class="card-header">Results for Local Restaurants</h5>
-                            <div class="card-body">
-                                <table class="table table-hover table-borderless">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Restaurant URL</th>
-                                            <th scope="col">Address</th>
-                                            <th scope="col">City</th>
-                                            <th scope="col">Average Rating</th>
-                                            <th scope="col">Recent Review</th>
-                                            <th scope="col">Review Details</th>
-                                        </tr>
-                                    </thead>
-                                    
-                                    <!-- Display restaruant search results dynamically -->
-                                    <tbody class="table">
-                                        <% const cardNumber = (yelp_results === undefined) ? -1 : yelp_results.length%>
-                                        <% if (cardNumber == 0) { %>
+                    <hr class="mb-5 mt-4" />
+
+                    <div class="card mb-5">
+                        <h5 class="card-header">Results for Local Restaurants</h5>
+                        <div class="card-body">
+                            <table class="table table-hover table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Restaurant URL</th>
+                                        <th scope="col">Address</th>
+                                        <th scope="col">City</th>
+                                        <th scope="col">Average Rating</th>
+                                        <th scope="col">Recent Review</th>
+                                        <th scope="col">Review Details</th>
+                                    </tr>
+                                </thead>
+
+                                <!-- Display restaruant search results dynamically -->
+                                <tbody class="table">
+                                    <% const cardNumber=(yelp_results===undefined) ? -1 : yelp_results.length%>
+                                        <% if (cardNumber==0) { %>
                                             <td>N/A</td>
                                             <td>N/A</td>
                                             <td>N/A</td>
                                             <td>N/A</td>
                                             <td>N/A</td>
                                             <td>N/A</td>
-                                        <% } %>
-                                        <% for (i = 0; i < cardNumber; i++) { %>
-                                            <div class="col-md-4">
-                                                <%- include('partials/restaurant_table', {yelp_results})%></div>
-                                        <% } %>
-                                    </tbody>
-                                </table>
-                            </div>
+                                            <% } %>
+                                                <% for (i=0; i < cardNumber; i++) { %>
+                                                    <div class="col-md-4">
+                                                        <%- include('partials/restaurant_table', {yelp_results})%>
+                                                    </div>
+                                                    <% } %>
+                                </tbody>
+                            </table>
                         </div>
+                    </div>
                 </div>
 
 

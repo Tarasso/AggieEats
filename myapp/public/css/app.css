@@ -81,11 +81,11 @@ html {
     object-fit: cover;
 }
 
-.restaurant-button {
+.maroon-button {
     background-color: rgb(80, 0, 0) !important;
 }
 
-.restaurant-button:hover {
+.maroon-button:hover {
     background-color: rgb(66, 0, 0) !important;
 }
 

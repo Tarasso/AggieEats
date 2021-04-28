@@ -94,6 +94,21 @@ $(document).ready(function () {
 		 $('#navbar-id').addClass("navbar-maroon-dark");
 	});
 
+	$("#tweet_button").click(function (event) {
+
+		var restaurant_name = $("#restaurant-title").text().trim();
+		var review = $("#text-form-review").val();
+		var msg = `I visited ${restaurant_name} and my review is: ${review}`
+
+		console.log(msg)
+
+		var twitter_link = `https://twitter.com/intent/tweet?text=${msg}&hashtags=AggieEats`
+
+
+		window.open(twitter_link, '_blank'); 
+
+	});
+
 });
 
 
