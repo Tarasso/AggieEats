@@ -3,6 +3,8 @@
         <td><a target="_blank" style="color: rgb(80, 0, 0)" href="<%= yelp_results[i].url%>"><%= yelp_results[i].name%></a></td>
         <td><%= yelp_results[i].address%></td>
         <td><%= yelp_results[i].city%></td>
+        <td><%= yelp_results[i].recentReview%></td>
+        <td><%= yelp_results[i].averageRating%></td>
         <td>
             <!-- Button -->
             <a class="btn btn-md btn-secondary" href="/restaurants/<%= yelp_results[i].id %>">Write a Review</a>
