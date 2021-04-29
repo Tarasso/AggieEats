@@ -18,12 +18,24 @@
     border-width: 2px;
 }
 
+.accent-2 {
+    background-color: rgb( 218, 247, 166 );
+}
+
+.accent-3 {
+    background-color: rgb( 132, 255, 247 );
+}
+
 .diet-concerns {
     background-color: rgb( 103, 253, 172 );
 }
 
-.diet-concerns-dark {
+.dark-accent-2 {
     background-color: rgb(38, 39, 94);
+}
+
+.dark-accent-3 {
+    background-color: rgb(31, 82, 52);
 }
 
 .dark-field:focus {
@@ -33,11 +45,11 @@
     color: #F5F7Fa
 }
 
-.navbar-maroon {
+.maroon {
     background: rgb(80, 0, 0);
 }
 
-.navbar-maroon-dark {
+.maroon-dark {
     background: rgb(65, 0 ,0);
 }
 
@@ -61,11 +73,6 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
 }
-
-.jumbotron {
-    background-color: rgb(80, 0, 0);
-    
-  }
 
 html { 
     scroll-behavior: smooth; 
@@ -124,4 +131,12 @@ html {
 
 .explain-icon-inverted {
     filter: invert(.5);
+}
+
+.leaderboard-self {
+    background-color: rgb( 132, 255, 247 );
+}
+
+.leaderboard-self-dark {
+    background-color: rgb(44, 73, 71);
 }

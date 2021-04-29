@@ -117,28 +117,34 @@ $(document).ready(function () {
 		$("#dark_mode").html("Turn off Dark Mode");
 		$( ".card ").addClass("dark-accent");
 		$("body, th, td, select").addClass("dark");
-		$(".diet-concerns").addClass("diet-concerns-dark")
-		$(".diet-concerns").addClass("diet-concerns-dark");
+		$(".diet-concerns").addClass("dark-accent-2")
+		$(".diet-concerns").addClass("dark-accent-2");
 		$('input[type=text], input[type=email], input[type=password], textarea').addClass( "dark-field" );
-		$('#navbar-id').addClass("navbar-maroon-dark");
-		$('#footer-id').addClass("navbar-maroon-dark");
+		$('#navbar-id, #footer-id, #jumbo-id').addClass("maroon-dark");
+		$('#navbar-id, #footer-id, #jumbo-id').removeClass("maroon");
 		$('.maroon-button').addClass("maroon-button-dark");
 		$(".maroon-links").addClass("maroon-links-dark");
 		$(".explain-icon").addClass("explain-icon-inverted");
-	
+		$('#dining-history').addClass("dark-accent-2")
+		$('#recipe-library').addClass("dark-accent-3")
+		$('.leaderboard-self').addClass("leaderboard-self-dark")
 	}
 
 	function turnOffDarkMode() {
 		$("#dark_mode").html("Turn on Dark Mode");
 		$( ".card ").removeClass("dark-accent");
 		$("body, th, td, select").removeClass("dark");
-		$(".diet-concerns").removeClass("diet-concerns-dark");
+		$(".diet-concerns").removeClass("dark-accent-2");
 		$('input[type=text], input[type=email], input[type=password], textarea').removeClass( "dark-field" );
-		$('#navbar-id').removeClass("navbar-maroon-dark");
-		$('#footer-id').removeClass("navbar-maroon-dark");
+		$('#navbar-id, #footer-id, #jumbo-id').removeClass("maroon-dark");
+		$('#navbar-id, #footer-id, #jumbo-id').addClass("maroon");
 		$('.maroon-button').removeClass("maroon-button-dark");
 		$('.maroon-links').removeClass("maroon-links-dark");
 		$(".explain-icon").removeClass("explain-icon-inverted");
+		$('#dining-history').removeClass("dark-accent-2")
+		$('#recipe-library').removeClass("dark-accent-3")
+		$('.leaderboard-self').removeClass("leaderboard-self-dark")
+
 	}
 
 	$("#tweet_button").click(function (event) {

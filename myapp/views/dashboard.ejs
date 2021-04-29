@@ -10,7 +10,7 @@
 
                 <div class="mt-5 container py-4">
 
-                    <div class="jumbotron p-4 mb-2 rounded-3 text-center" style="background-color: rgb(80, 0, 0);">
+                    <div class="jumbotron p-4 mb-5 rounded-3 text-center maroon" id="jumbo-id">
                         <div class="container-fluid py-5">
                             <h1 class="display-5 fw-bold text-white">Welcome back, <%= userAccount.firstName %>!</h1>
                             <p class="fs-4 text-white">You can view your restaurant history, saved recipes, and other
@@ -22,38 +22,34 @@
                     <div class="container mt-2 mb-5">
                         <div class="row p-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg pb-5">
                             <div class="col-lg-5">
-                                <h1 class="display-5 fw-bold lh-1 mb-3">Charts</h1>
-                                <div class="card mb-5"> 
-                                    <canvas id="myChart"></canvas>
-                                        <!-- <script src="../../node_modules/chart.js/dist/chart.js"> -->
-                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
-                                        <script type="module" src="js/charts.js"></script>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="container mt-2 mb-5">
-                        <div class="row p-5 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg pb-5">
-                            <div class="col-lg-5">
                                 <h1 class="display-5 fw-bold lh-1 mb-3">Your Dashboard</h1>
                                 <div class="lead">
                                     <p>Here is your personal breakdown:</p>
                                     <ul>
-                                        <li><ul id="tot">Total points: <%= stats.totalPoints %>
-                                            <li id="rests">Unique restaurants visited: <%= stats.totalRestaurants %></li>
-                                            <li id="recs">Unique recipes made: <%= stats.totalRecipes %></li>
-                                        </ul></li>
+                                        <li id="tot">Total points: <%= stats.totalPoints %>
+                                            <ul>
+                                                <li id="rests">Unique restaurants visited: <%= stats.totalRestaurants %></li>
+                                                <li id="recs">Unique recipes made: <%= stats.totalRecipes %></li>
+                                            </ul>
+                                        </li>
                                         
-                                        <li id="avg">Average rating given: <%= stats.averageRatings %></li>
+                                        <li id="avg">
+                                            Average rating given: <%= stats.averageRatings %>
+                                        </li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="col-lg-5">
+                                    <canvas id="myChart"></canvas>
+                                        <!-- <script src="../../node_modules/chart.js/dist/chart.js"> -->
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
+                                        <script type="module" src="js/charts.js"></script>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="h-100 p-5 border rounded-3" style="background-color: rgb( 218, 247, 166 );">
+                    <div class="h-100 p-5 border rounded-3 accent-2" id="recipe-library">
                         <h2 class="mb-4">Recipe Library</h2>
                         <div class="card mb-5">
 
@@ -103,7 +99,7 @@
                         </div>
                     </div>
 
-                    <div class="h-100 p-5 border rounded-3 mt-5" style="background-color: rgb( 132, 255, 247 );">
+                    <div class="h-100 p-5 border rounded-3 mt-5 accent-3" id="dining-history">
                         <h2 class="mb-4">Dining History</h2>
                         <div class="card mb-5">
                             <a class="btn btn-secondary favorites-collapse" data-bs-toggle="collapse" href="#collapseRestaurant" role="button"
