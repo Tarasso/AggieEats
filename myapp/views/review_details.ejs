@@ -28,16 +28,19 @@
                                             <% var number_rating; %>
                                             <% var heading_description %>
                                             <% var button_description %>
+                                            <% var reviewID %>
 
 
                                             <% if (already_reviewed) { 
                                                 heading_description = "Edit your review"
                                                 button_description = "Edit Review"
                                                 number_rating = past_review.rating
+                                                reviewID = past_review.reviewId
                                             } else { 
                                                 heading_description = "Rate your experience"
                                                 button_description = "Post Review"
                                                 number_rating = 0
+                                                reviewID = -1
                                             } %>
 
                                             <legend><%= heading_description %></legend>
@@ -68,7 +71,7 @@
 
                                             <div class="row mt-4">
                                                 <div class="col-6">
-                                                    <button type="submit" name="already_reviewed" value="<%= already_reviewed %>" class="btn btn-primary maroon-button"><%= button_description %></button>
+                                                    <button type="submit" name="reviewID" value="<%= reviewID %>" class="btn btn-primary maroon-button"><%= button_description %></button>
                                                 </div>
                                                 <div class="col-6">
                                                     <div class="float-end"><button href="https://twitter.com/intent/tweet?text=%3CPLACEHOLDER%20FOR%20REVIEW%3E&hashtags=AggieEats" class="btn btn-primary" id="tweet_button"><i class="fab fa-twitter"></i>  Tweet #AggieEats</button></div>

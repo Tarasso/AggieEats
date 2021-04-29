@@ -147,19 +147,19 @@ app.get('/restaurants/:id', requireLogin, async (req, res) => {
 app.post('/restaurants/:id', async (req, res) => {
     const ratingReceieved = req.body.rating
     const reviewReceived = req.body.review
-    const already_reviewed = req.body.already_reviewed
+    const reviewID = req.body.reviewID
     const id = req.params.id
     console.log(req.body)
     if (ratingReceieved == 0) {
         req.flash('flashFail', 'Please select a rating from 1 to 5 stars.')
     } else {
-        // if (already_reviewed === 'true') {
-        //     req.flash('flashSuccess', `Successfully modified your review.`)
-        //     await db.editReview(id, ratingReceieved, reviewReceived)
-        // } else {
+        if (reviewID != -1) {
+            req.flash('flashSuccess', `Successfully modified your review.`)
+            await db.editReview(reviewID, ratingReceieved, reviewReceived)
+        } else {
             req.flash('flashSuccess', `Successfully rated this restaurant a ${ratingReceieved}!`)
             await db.leaveReview(req.session.user.email, ratingReceieved, reviewReceived, id)
-        // }
+        }
     }
     res.redirect('/restaurants/' + id)
 
