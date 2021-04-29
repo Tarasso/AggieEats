@@ -128,14 +128,16 @@ app.get('/testing', async (req, res) => {
 
 // restaurant details view page
 app.get('/restaurants/:id', requireLogin, async (req, res) => {
-    console.log("viewing review: '" + req.params.id + "'")
+    const id = req.params.id
+    console.log("viewing review: '" + id + "'")
     const pageName = "Review Details";
     var restaurant_name;
     //var review_list;
     try {
-        restaurant_name = await db.getRestaurantTitle(req.params.id)
+        restaurant_name = await db.getRestaurantTitle(id)
+        const past_review = await db.getUserReviewFromRestauraunt(req.session.user.email, id)
         //review_list = await db.getRecentReview(req.params.id)
-        res.render('review_details.ejs', { pageInfo: pageName, restaurant_name, id: req.params.id })
+        res.render('review_details.ejs', { pageInfo: pageName, restaurant_name, id, past_review })
     } catch (error) {
         res.send(error)
     }
@@ -145,13 +147,19 @@ app.get('/restaurants/:id', requireLogin, async (req, res) => {
 app.post('/restaurants/:id', async (req, res) => {
     const ratingReceieved = req.body.rating
     const reviewReceived = req.body.review
+    const already_reviewed = req.body.already_reviewed
     const id = req.params.id
     console.log(req.body)
     if (ratingReceieved == 0) {
         req.flash('flashFail', 'Please select a rating from 1 to 5 stars.')
     } else {
-        req.flash('flashSuccess', `Successfully rated this restaurant a ${ratingReceieved}!`)
-        await db.leaveReview(req.session.user.email, ratingReceieved, reviewReceived, id)
+        // if (already_reviewed === 'true') {
+        //     req.flash('flashSuccess', `Successfully modified your review.`)
+        //     await db.editReview(id, ratingReceieved, reviewReceived)
+        // } else {
+            req.flash('flashSuccess', `Successfully rated this restaurant a ${ratingReceieved}!`)
+            await db.leaveReview(req.session.user.email, ratingReceieved, reviewReceived, id)
+        // }
     }
     res.redirect('/restaurants/' + id)
 
