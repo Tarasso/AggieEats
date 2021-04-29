@@ -98,7 +98,7 @@ $(document).ready(function () {
 
 		var restaurant_name = $("#restaurant-title").text().trim();
 		var review = $("#text-form-review").val();
-		var msg = `I visited ${restaurant_name} and my review is: ${review}`
+		var msg = encodeURIComponent(`I visited ${restaurant_name} and my review is: ${review}`)
 
 		console.log(msg)
 
