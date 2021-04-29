@@ -114,9 +114,14 @@
                                             <% diningHistory.forEach((restaurant)=> { %>
                                                 <li class="list-group-item d-flex list-group-item-action">
                                                     <div class="me-auto">
-                                                        <%= restaurant %>
+                                                        <%= restaurant.name %>
                                                     </div>
-                                                    <a class="btn btn-secondary me-4" href="/restaurants"><i
+                                                    <p>
+                                                        <p class="starability-result mx-3" data-rating="<%= restaurant.rating %>">
+                                                            Rated: <%= restaurant.rating %> stars
+                                                          </p>
+                                                    </p>
+                                                    <a class="btn btn-secondary me-4" href="/restaurants/<%= restaurant.id %>"><i
                                                         class="fas fa-utensils"></i> View Your Review</a>
                                                 </li>
                                                 <% }) %>

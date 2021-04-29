@@ -98,7 +98,7 @@ app.get('/dashboard', requireLogin, async (req, res) => {
     const averageRatings = await db.getAverageUserRating(req.session.user.email);
     const totalPoints = await db.getTotalPoints(req.session.user.email);
     var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings, totalPoints: totalPoints }
-    console.log("Dining History" + diningHistory)
+    console.log("Dining History" + JSON.stringify(diningHistory))
     res.render('dashboard.ejs', { pageName, topUsers, library, stats, diningHistory })
 })
 
