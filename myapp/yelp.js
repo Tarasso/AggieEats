@@ -46,7 +46,7 @@ async function searchRestaurants(query, dist=40000, offset=0) {
     trimmedRes.recentReview = await db.getRecentReview(trimmedRes.id);
     trimmedRes.averageRating = await db.getAverageRating(trimmedRes.id);
     ret.push(trimmedRes);
-    console.log(trimmedRes.id + " " + trimmedRes.name);
+    // console.log(trimmedRes.id + " " + trimmedRes.name);
     await db.storeRestaurant(trimmedRes.id, trimmedRes.name);
   }
   // console.log(ret)
@@ -60,8 +60,8 @@ async function surpriseMe(email) {
 
     for(i = 0; i < res.length; i++) {
       let visited = await db.restaurantVisited(email,res[i].id)
-      if(!visited && (Math.random() > 0.33)) {
-        console.log(res[i]);
+      if(!visited && (Math.random() > 0.50)) {
+        // console.log(res[i]);
         return [res[i]];
       }
    }

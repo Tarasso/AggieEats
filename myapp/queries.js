@@ -302,7 +302,7 @@ async function getRecentReview(resturantId) {
   if(res.rows.length === 0)
     return "No reviews yet!"
   else
-    return res.rows[0];
+    return res.rows[0]["review"];
 }
 
 async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
@@ -312,6 +312,20 @@ async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) 
   let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
   console.log(`'${email}' left a review of '${rating}' with message '${review}' for restaurant ${restaurantId}`)
   // TODO: create funtion for twitter stuff
+}
+
+async function getUserReviewFromRestauraunt(email, resturantId) {
+  let userId = await getUserId(email);
+  const values = [userId, resturantId];
+  let res = await pool.query('select * from reviews where "userId" = $1 and "restaurantId" = $2', values);
+  return res.rows[0];
+
+}
+
+async function editReview(reviewId, newRating, newReview) {
+  const values = [newRating, newReview, reviewId];
+  let res = await pool.query('update reviews set "rating" = $1, "review" = $2 where "reviewId" = $3', values);
+  console.log("updated review")
 }
 
 // -----------------------------------------------------------------------------------
@@ -365,5 +379,7 @@ async function getAverageUserRating(email) {
     addToRestaurantHistory,
     removeFromLibrary,
     RestaurantExists,
-    restaurantVisited
+    restaurantVisited,
+    getUserReviewFromRestauraunt,
+    editReview
   }
