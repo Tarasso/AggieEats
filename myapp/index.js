@@ -16,7 +16,6 @@ const app = express()
 const port = process.env.PORT || 3000
 
 
-
 // path.join(...) is to make directories relative to index.js rather
 // than relative to terminal directory
 
@@ -42,7 +41,9 @@ app.get('/yelp', (req, res) => {
 app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
-    yelp.surpriseMe("lc@test.com");
+    //yelp.surpriseMe("lc@test.com");
+    yelp.searchtweets();
+    //yelp.retweeting();
     // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
  });
 
