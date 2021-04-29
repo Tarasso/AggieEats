@@ -3,6 +3,7 @@ const path = require('path');
 const db = require('./queries')
 const yelp = require('./yelp')
 const spoon = require('./spoonacular')
+const tweets = require('./tweets')
 const cuisineData = require('./resources/cuisines.json');
 const { searchRecipes } = require('./spoonacular');
 const flash = require('connect-flash')
@@ -42,7 +43,7 @@ app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
     //yelp.surpriseMe("lc@test.com");
-    yelp.searchtweets();
+    tweets.searchtweets();
     //yelp.retweeting();
     // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
  });
