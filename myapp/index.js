@@ -42,7 +42,8 @@ app.get('/yelp', (req, res) => {
 app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
-    db.editReview(23,1,"suck");
+    // db.editReview(23,1,"suck");
+    db.getRestaurantHistory("lc@test.com")
     // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
 });
 
@@ -95,7 +96,8 @@ app.get('/dashboard', requireLogin, async (req, res) => {
     const totalRestaurants = await db.getTotalRestaurants(req.session.user.email);
     const totalRecipes = await db.getTotalRecipes(req.session.user.email);
     const averageRatings = await db.getAverageUserRating(req.session.user.email);
-    var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings }
+    const totalPoints = await db.getTotalPoints(req.session.user.email);
+    var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings, totalPoints: totalPoints }
     console.log("Dining History" + diningHistory)
     res.render('dashboard.ejs', { pageName, topUsers, library, stats, diningHistory })
 })

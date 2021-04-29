@@ -268,16 +268,27 @@ async function addToRestaurantHistory(email, restaurantId) {
 }
 
 async function getRestaurantHistory(email) {
-  let names = [];
+  let vals = [];
   let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
   rest = res.rows[0]["res_history"];
   if(rest == null)
     return null;
   for(i = 0; i < rest.length; i++) {
-    let name = await getRestaurantTitle(rest[i]);
-    names.push(name);
+    let temp = {
+      "id": "",
+      "name": "",
+      "rating": "",
+      "review": ""
+    }
+    temp.id = rest[i];
+    temp.name = await getRestaurantTitle(rest[i]);
+    let rev = await getUserReviewFromRestauraunt(email, rest[i]);
+    temp.rating = rev["rating"];
+    temp.review = rev["review"];
+    vals.push(temp);
   }
-  return names;
+  console.log(vals);
+  return vals;
 }
 
 async function getUniqueReviewId() {
@@ -359,6 +370,11 @@ async function getAverageUserRating(email) {
  
 }
 
+async function getTotalPoints(email) {
+  let res = await pool.query('select "points" from users where "email" = $1',[email]);
+  return res.rows[0]["points"];
+}
+
 // -----------------------------------------------------------------------------------
   module.exports = {
     login,
@@ -382,5 +398,6 @@ async function getAverageUserRating(email) {
     RestaurantExists,
     restaurantVisited,
     getUserReviewFromRestauraunt,
-    editReview
+    editReview,
+    getTotalPoints
   }
