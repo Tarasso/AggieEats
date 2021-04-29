@@ -83,7 +83,7 @@ app.get('/user/:accountId', (req, res) => {
 app.get('/', async (req, res) => {
     const pageName = "Home";
     const topUsers = await db.getTopUsers(10);
-    res.render('home.ejs', { pageInfo: pageName, topUsers })
+    res.render('home.ejs', { pageName, topUsers })
 
 })
 
@@ -97,7 +97,7 @@ app.get('/dashboard', requireLogin, async (req, res) => {
     const averageRatings = await db.getAverageUserRating(req.session.user.email);
     var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings }
     console.log("Dining History" + diningHistory)
-    res.render('dashboard.ejs', { pageInfo: pageName, topUsers, library, stats, diningHistory })
+    res.render('dashboard.ejs', { pageName, topUsers, library, stats, diningHistory })
 })
 
 // restaurants main page
@@ -112,7 +112,7 @@ app.get('/restaurants', requireLogin, async (req, res) => {
         const distance = (req.query.distance == undefined) ? (25) : req.query.distance // obtain distance if specified (or default to 25)
         yelp_results = await yelp.searchRestaurants(req.query.foodName, distance) // and then get query results
     }
-    res.render('restaurants.ejs', { pageInfo: pageName, yelp_results }) // render page
+    res.render('restaurants.ejs', { pageName, yelp_results }) // render page
 })
 
 
@@ -137,7 +137,7 @@ app.get('/restaurants/:id', requireLogin, async (req, res) => {
         restaurant_name = await db.getRestaurantTitle(id)
         const past_review = await db.getUserReviewFromRestauraunt(req.session.user.email, id)
         //review_list = await db.getRecentReview(req.params.id)
-        res.render('review_details.ejs', { pageInfo: pageName, restaurant_name, id, past_review })
+        res.render('review_details.ejs', { pageName, restaurant_name, id, past_review })
     } catch (error) {
         res.send(error)
     }
@@ -182,7 +182,7 @@ app.get('/recipes/:id', requireLogin, async (req, res) => {
             req.session.recipe_details = spoon_results;
         }
         const library = await db.getRecipeLibrary(req.session.user.email);
-        return res.render('recipe_details.ejs', { pageInfo: pageName, spoon_results, library, id })
+        return res.render('recipe_details.ejs', { pageName, spoon_results, library, id })
     } catch (error) {
         return res.send(error)
     }
@@ -204,12 +204,12 @@ app.get('/recipes', requireLogin, async (req, res) => {
     const library = await db.getRecipeLibrary(req.session.user.email);
 
     // res.send(spoon_results)
-    res.render('recipes.ejs', { pageInfo: pageName, cuisineData, spoon_results, query: req.query, library })
+    res.render('recipes.ejs', { pageName, cuisineData, spoon_results, query: req.query, library })
 })
 
 app.get('/login', (req, res) => {
     const pageName = "Login";
-    res.render('login.ejs', { pageInfo: pageName })
+    res.render('login.ejs', { pageName })
 })
 
 app.get('/logout', async (req, res) => {
@@ -220,7 +220,7 @@ app.get('/logout', async (req, res) => {
     req.session.destroy();
     const pageName = "Logged out";
     res.locals.userAccount = null
-    res.render('logout.ejs', { pageInfo: pageName })
+    res.render('logout.ejs', { pageName })
 })
 
 app.post('/login', async (req, res) => {
@@ -237,7 +237,7 @@ app.post('/login', async (req, res) => {
 
 app.get('/register', (req, res) => {
     const pageName = "Register";
-    res.render('register.ejs', { pageInfo: pageName })
+    res.render('register.ejs', { pageName })
 })
 
 app.post('/register', async (req, res) => {
@@ -286,8 +286,8 @@ app.post('/dashboard/recipes', async (req, res) => {
 
 // For any undefined pages, handle here
 app.get('*', (req, res) => {
-    const pageName = "Unkown";
-    res.render('unknown.ejs', { pageInfo: pageName })
+    const pageName = "Unknown";
+    res.render('unknown.ejs', { pageName })
 })
 
 app.listen(port, () => {

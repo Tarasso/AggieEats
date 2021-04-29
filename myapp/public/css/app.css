@@ -38,7 +38,7 @@
 }
 
 .navbar-maroon-dark {
-    background: rgb(70, 0, 0);
+    background: rgb(65, 0 ,0);
 }
 
 .maroon-links {
@@ -120,4 +120,8 @@ html {
 
 .vivid {
     color:rebeccapurple;
+}
+
+.explain-icon-inverted {
+    filter: invert(.5);
 }

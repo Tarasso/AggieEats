@@ -1,5 +1,5 @@
-<%- include('partials/head', {pageInfo: pageInfo})%>
-    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+<%- include('partials/head', {pageName})%>
+    <%- include('partials/navbar', {pageName})%>
         <div class="d-flex flex-column min-vh-100">
             <main>
 
@@ -47,6 +47,7 @@
 
 
                             <div class="collapse" id="collapseExample">
+                                
                                 <div class="card card-body">
 
                                     <% var buttonIndex = 0 %>
@@ -97,11 +98,13 @@
                                     <% if (diningHistory !=undefined) { %>
 
                                         <ul class="list-group">
-                                            <% diningHistory.forEach((rest)=> { %>
+                                            <% diningHistory.forEach((restaurant)=> { %>
                                                 <li class="list-group-item d-flex list-group-item-action">
                                                     <div class="me-auto">
-                                                        <%= rest %>
+                                                        <%= restaurant %>
                                                     </div>
+                                                    <a class="btn btn-secondary me-4" href="/restaurants"><i
+                                                        class="fas fa-utensils"></i> View Your Review</a>
                                                 </li>
                                                 <% }) %>
                                         </ul>

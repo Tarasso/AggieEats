@@ -1,5 +1,5 @@
-<%- include('partials/head', {pageInfo: pageInfo})%>
-	<%- include('partials/navbar', {pageInfo: pageInfo})%>
+<%- include('partials/head', {pageName})%>
+	<%- include('partials/navbar', {pageName})%>
 
 		<div class="container-fluid hero d-flex align-items-center justify-content-center">
 			<div class="text-center text-light">
@@ -26,7 +26,7 @@
 				<h1 class="display-5 fw-bold lh-1 my-5">How it Works</h1>
 
 				<div class="col-lg-4">
-					<img class="mb-4" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
+					<img class="mb-4 explain-icon" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
 					<h2>Recipes</h2>
 					<p>Search for recipes based on cuisine, dietary restrictions, or other key words.
 						Save recipes to your personal recipe library and earn points!
@@ -34,7 +34,7 @@
 					<p><a class="btn btn-secondary" href="/recipes" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-lg-4">
-					<img class="mb-4" style="width:128px;height:128px;" src="icons/tray.svg" alt="tray icon">
+					<img class="mb-4 explain-icon" style="width:128px;height:128px;" src="icons/tray.svg" alt="tray icon">
 					<h2>Restaurants</h2>
 					<p>Search for local resturants close to campus that are sure to wow you! 
 						Leave reviews and post to twitter to earn points. Not sure where to go?
@@ -43,7 +43,7 @@
 					<p><a class="btn btn-secondary" href="/restaurants" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-lg-4">
-					<img class="mb-4" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
+					<img class="mb-4 explain-icon" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
 					<h2>Leaderboard</h2>
 					<p>Earn points by interacting with recipes and restaurants. Create an account and start registering points to work your 
 						way to the top!

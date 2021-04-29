@@ -120,11 +120,12 @@ $(document).ready(function () {
 		$(".diet-concerns").addClass("diet-concerns-dark")
 		$(".diet-concerns").addClass("diet-concerns-dark");
 		$('input[type=text], input[type=email], input[type=password], textarea').addClass( "dark-field" );
-		$('#navbar-id').removeClass(".navbar-maroon");
 		$('#navbar-id').addClass("navbar-maroon-dark");
+		$('#footer-id').addClass("navbar-maroon-dark");
 		$('.maroon-button').addClass("maroon-button-dark");
 		$(".maroon-links").addClass("maroon-links-dark");
-
+		$(".explain-icon").addClass("explain-icon-inverted");
+	
 	}
 
 	function turnOffDarkMode() {
@@ -133,19 +134,12 @@ $(document).ready(function () {
 		$("body, th, td, select").removeClass("dark");
 		$(".diet-concerns").removeClass("diet-concerns-dark");
 		$('input[type=text], input[type=email], input[type=password], textarea').removeClass( "dark-field" );
-		$('#navbar-id').addClass(".navbar-maroon");
 		$('#navbar-id').removeClass("navbar-maroon-dark");
+		$('#footer-id').removeClass("navbar-maroon-dark");
 		$('.maroon-button').removeClass("maroon-button-dark");
 		$('.maroon-links').removeClass("maroon-links-dark");
+		$(".explain-icon").removeClass("explain-icon-inverted");
 	}
-
-
-
-
-
-
-
-
 
 	$("#tweet_button").click(function (event) {
 
