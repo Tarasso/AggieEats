@@ -311,6 +311,7 @@ async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) 
   const values = [reviewId, rating, review, userId, restaurantId]
   let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
   console.log(`'${email}' left a review of '${rating}' with message '${review}' for restaurant ${restaurantId}`)
+  await addToRestaurantHistory(email, restaurantId);
   // TODO: create funtion for twitter stuff
 }
 
