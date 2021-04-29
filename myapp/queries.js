@@ -268,16 +268,27 @@ async function addToRestaurantHistory(email, restaurantId) {
 }
 
 async function getRestaurantHistory(email) {
-  let names = [];
+  let vals = [];
   let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
   rest = res.rows[0]["res_history"];
   if(rest == null)
     return null;
   for(i = 0; i < rest.length; i++) {
-    let name = await getRestaurantTitle(rest[i]);
-    names.push(name);
+    let temp = {
+      "id": "",
+      "name": "",
+      "rating": "",
+      "review": ""
+    }
+    temp.id = rest[i];
+    temp.name = await getRestaurantTitle(rest[i]);
+    let rev = await getUserReviewFromRestauraunt(email, rest[i]);
+    temp.rating = rev["rating"];
+    temp.review = rev["review"];
+    vals.push(temp);
   }
-  return names;
+  console.log(vals);
+  return vals;
 }
 
 async function getUniqueReviewId() {
@@ -302,7 +313,7 @@ async function getRecentReview(resturantId) {
   if(res.rows.length === 0)
     return "No reviews yet!"
   else
-    return res.rows[0];
+    return res.rows[0]["review"];
 }
 
 async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
@@ -310,7 +321,23 @@ async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) 
   let userId = await getUserId(email);
   const values = [reviewId, rating, review, userId, restaurantId]
   let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
+  console.log(`'${email}' left a review of '${rating}' with message '${review}' for restaurant ${restaurantId}`)
+  await addToRestaurantHistory(email, restaurantId);
   // TODO: create funtion for twitter stuff
+}
+
+async function getUserReviewFromRestauraunt(email, resturantId) {
+  let userId = await getUserId(email);
+  const values = [userId, resturantId];
+  let res = await pool.query('select * from reviews where "userId" = $1 and "restaurantId" = $2', values);
+  return res.rows[0];
+
+}
+
+async function editReview(reviewId, newRating, newReview) {
+  const values = [newRating, newReview, reviewId];
+  let res = await pool.query('update reviews set "rating" = $1, "review" = $2 where "reviewId" = $3', values);
+  console.log("updated review")
 }
 
 // -----------------------------------------------------------------------------------
@@ -343,6 +370,11 @@ async function getAverageUserRating(email) {
  
 }
 
+async function getTotalPoints(email) {
+  let res = await pool.query('select "points" from users where "email" = $1',[email]);
+  return res.rows[0]["points"];
+}
+
 // -----------------------------------------------------------------------------------
   module.exports = {
     login,
@@ -364,5 +396,8 @@ async function getAverageUserRating(email) {
     addToRestaurantHistory,
     removeFromLibrary,
     RestaurantExists,
-    restaurantVisited
+    restaurantVisited,
+    getUserReviewFromRestauraunt,
+    editReview,
+    getTotalPoints
   }

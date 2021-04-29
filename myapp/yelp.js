@@ -60,9 +60,9 @@ async function surpriseMe(email) {
 
     for(i = 0; i < res.length; i++) {
       let visited = await db.restaurantVisited(email,res[i].id)
-      if(!visited && (Math.random() > 0.33)) {
-        console.log(res[i]);
-        return res[i];
+      if(!visited && (Math.random() > 0.50)) {
+        // console.log(res[i]);
+        return [res[i]];
       }
    }
    numPages++;

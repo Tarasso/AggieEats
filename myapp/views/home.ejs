@@ -1,5 +1,5 @@
-<%- include('partials/head', {pageInfo: pageInfo})%>
-	<%- include('partials/navbar', {pageInfo: pageInfo})%>
+<%- include('partials/head', {pageName})%>
+	<%- include('partials/navbar', {pageName})%>
 
 		<div class="container-fluid hero d-flex align-items-center justify-content-center">
 			<div class="text-center text-light">
@@ -23,10 +23,10 @@
 
 		<div class="container" id="icon-explain">
 			<div class="row text-center">
-				<h1 class="display-5 fw-bold lh-1 mb-5">How it Works</h1>
+				<h1 class="display-5 fw-bold lh-1 my-5">How it Works</h1>
 
 				<div class="col-lg-4">
-					<img class="mb-4" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
+					<img class="mb-4 explain-icon" style="width:128px;height:128px;" src="icons/recipe.svg" alt="recipe icon">
 					<h2>Recipes</h2>
 					<p>Search for recipes based on cuisine, dietary restrictions, or other key words.
 						Save recipes to your personal recipe library and earn points!
@@ -34,7 +34,7 @@
 					<p><a class="btn btn-secondary" href="/recipes" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-lg-4">
-					<img class="mb-4" style="width:128px;height:128px;" src="icons/tray.svg" alt="tray icon">
+					<img class="mb-4 explain-icon" style="width:128px;height:128px;" src="icons/tray.svg" alt="tray icon">
 					<h2>Restaurants</h2>
 					<p>Search for local resturants close to campus that are sure to wow you! 
 						Leave reviews and post to twitter to earn points. Not sure where to go?
@@ -43,7 +43,7 @@
 					<p><a class="btn btn-secondary" href="/restaurants" role="button">View details &raquo;</a></p>
 				</div>
 				<div class="col-lg-4">
-					<img class="mb-4" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
+					<img class="mb-4 explain-icon" style="width:128px;height:128px;" src="icons/trophy.svg" alt="trophy icon">
 					<h2>Leaderboard</h2>
 					<p>Earn points by interacting with recipes and restaurants. Create an account and start registering points to work your 
 						way to the top!
@@ -58,11 +58,12 @@
 		<div class="container col-xxl-8 px-4 py-5">
 			<div class="row flex-lg-row-reverse align-items-center g-5 py-5">
 			  <div class="col-10 col-sm-8 col-lg-6">
-				<img src="icons/twitter.svg" class="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="300" height="200" loading="lazy">
+				<a class="twitter-timeline" data-height="500" href="https://twitter.com/EatsAggie?ref_src=twsrc%5Etfw">Tweets by EatsAggie</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 			  </div>
 			  <div class="col-lg-6">
+				<img src="icons/twitter.svg" class="d-block mx-lg-auto img-fluid mb-4" alt="Bootstrap Themes" width="160" height="75" loading="lazy">
 				<h1 class="display-5 fw-bold lh-1 mb-3">Get involved with Twitter</h1>
-				<p class="lead">When leaving a restaurant review, select the option to post it to Twitter as well! Make sure to include the hashtag #aggieats so that we can retweet your review. Earn additional points in doing so and climb to the top of the leaderboard!</p>
+				<p class="lead">When leaving a restaurant review, select the option to post it to Twitter as well! Make sure to include the tag @EatsAggie so that we can retweet your review. Earn additional points in doing so and climb to the top of the leaderboard!</p>
 				<div class="d-grid gap-2 d-md-flex justify-content-md-start">
 				  <a type="button" target="_blank" class="btn btn-primary btn-lg px-4 me-md-2" href="https://twitter.com/EatsAggie">Our Twitter</a>
 				</div>
