@@ -1,7 +1,65 @@
-.container {
-    padding-top: 65px;
+:root {
+  color-scheme: light dark; /* both supported */
 }
 
+.dark {
+    background: rgb(31, 27, 36);
+    color: #F5F7Fa;
+}
+
+.dark-accent {
+    background: #323F4B;
+}
+
+.dark-field {
+    background: rgb(50, 49, 51);
+    border-color: #6d747c;
+    color: #F5F7Fa;
+    border-width: 2px;
+}
+
+.accent-2 {
+    background-color: rgb( 218, 247, 166 );
+}
+
+.accent-3 {
+    background-color: rgb( 132, 255, 247 );
+}
+
+.diet-concerns {
+    background-color: rgb( 103, 253, 172 );
+}
+
+.dark-accent-2 {
+    background-color: rgb(38, 39, 94);
+}
+
+.dark-accent-3 {
+    background-color: rgb(31, 82, 52);
+}
+
+.dark-field:focus {
+    background: #323F4B;
+    border-color: #BCCCDC;
+    border-width: 2px;
+    color: #F5F7Fa
+}
+
+.maroon {
+    background: rgb(80, 0, 0);
+}
+
+.maroon-dark {
+    background: rgb(65, 0 ,0);
+}
+
+.maroon-links {
+    color: rgb(80, 0, 0);
+}
+
+.maroon-links-dark {
+    color: rgb(228, 140, 140);
+}
 
 .hero {
     background-position: top left;
@@ -15,11 +73,6 @@
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: black;
 }
-
-.jumbotron {
-    background-color: rgb(80, 0, 0);
-    
-  }
 
 html { 
     scroll-behavior: smooth; 
@@ -55,10 +108,35 @@ html {
     object-fit: cover;
 }
 
-.restaurant-button {
+.maroon-button {
     background-color: rgb(80, 0, 0) !important;
 }
 
-.restaurant-button:hover {
+.maroon-button:hover {
     background-color: rgb(66, 0, 0) !important;
+}
+
+.maroon-button-dark {
+    background-color: rgb(100, 0, 0) !important;
+}
+
+
+.hide_me {
+    display: none;
+}
+
+.vivid {
+    color:rebeccapurple;
+}
+
+.explain-icon-inverted {
+    filter: invert(.5);
+}
+
+.leaderboard-self {
+    background-color: rgb( 132, 255, 247 );
+}
+
+.leaderboard-self-dark {
+    background-color: rgb(44, 73, 71);
 }

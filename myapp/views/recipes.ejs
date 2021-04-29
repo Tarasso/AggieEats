@@ -1,10 +1,10 @@
-<%- include('partials/head', {pageInfo: pageInfo})%>
-    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+<%- include('partials/head', {pageName})%>
+    <%- include('partials/navbar', {pageName})%>
         <div class="d-flex flex-column min-vh-100">
 
             <main class="flex-fill">
                 <div class="container">
-                    <h1 class="mb-2">Recipe Search</h1>
+                    <h1 class="mt-5 mb-2">Recipe Search</h1>
                     <p class="text-muted mb-4">What do you feel like eating today?</p>
                     <hr />
 
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="form-group col-md-1">
-                            <button class="btn btn-primary w-100" type="submit">Search</button>
+                            <button class="btn btn-dark w-100 maroon-button" type="submit">Search</button>
                         </div>
 
                     </form>

@@ -1,5 +1,5 @@
-<%- include('partials/head', {pageInfo: pageInfo})%>
-    <%- include('partials/navbar', {pageInfo: pageInfo})%>
+<%- include('partials/head', {pageName})%>
+    <%- include('partials/navbar', {pageName})%>
         <div class="d-flex flex-column min-vh-100">
             <main>
 
@@ -8,9 +8,9 @@
                 </div>
 
 
-                <div class="container py-4">
+                <div class="mt-5 container py-4">
 
-                    <div class="jumbotron p-4 mb-2 rounded-3 text-center" style="background-color: rgb(80, 0, 0);">
+                    <div class="jumbotron p-4 mb-5 rounded-3 text-center maroon" id="jumbo-id">
                         <div class="container-fluid py-5">
                             <h1 class="display-5 fw-bold text-white">Welcome back, <%= userAccount.firstName %>!</h1>
                             <p class="fs-4 text-white">You can view your restaurant history, saved recipes, and other
@@ -26,27 +26,41 @@
                                 <div class="lead">
                                     <p>Here is your personal breakdown:</p>
                                     <ul>
-                                        <li>Unique restaurants visited: <%= stats.totalRestaurants %></li>
-                                        <li>Unique recipes made: <%= stats.totalRecipes %></li>
-                                        <li>Average rating given: <%= stats.averageRatings %></li>
+                                        <li id="tot">Total points: <%= stats.totalPoints %>
+                                            <ul>
+                                                <li id="rests">Unique restaurants visited: <%= stats.totalRestaurants %></li>
+                                                <li id="recs">Unique recipes made: <%= stats.totalRecipes %></li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <li id="avg">
+                                            Average rating given: <%= stats.averageRatings %>
+                                        </li>
                                     </ul>
                                 </div>
+                            </div>
+                            <div class="col-lg-5">
+                                    <canvas id="myChart"></canvas>
+                                        <!-- <script src="../../node_modules/chart.js/dist/chart.js"> -->
+                                        <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
+                                        <script type="module" src="js/charts.js"></script>
                             </div>
                         </div>
                     </div>
 
 
-                    <div class="h-100 p-5 border rounded-3" style="background-color: rgb( 218, 247, 166 );">
+                    <div class="h-100 p-5 border rounded-3 accent-2" id="recipe-library">
                         <h2 class="mb-4">Recipe Library</h2>
                         <div class="card mb-5">
 
-                            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseExample" role="button"
+                            <a class="btn btn-secondary favorites-collapse" data-bs-toggle="collapse" href="#collapseExample" role="button"
                                 aria-expanded="false" aria-controls="collapseExample">
-                                Expand <i class="fas fa-angle-double-down"></i>
+                                Expand <i class='fas fa-angle-double-down'></i>
                             </a>
 
 
                             <div class="collapse" id="collapseExample">
+                                
                                 <div class="card card-body">
 
                                     <% var buttonIndex = 0 %>
@@ -85,10 +99,10 @@
                         </div>
                     </div>
 
-                    <div class="h-100 p-5 border rounded-3 mt-5" style="background-color: rgb( 132, 255, 247 );">
+                    <div class="h-100 p-5 border rounded-3 mt-5 accent-3" id="dining-history">
                         <h2 class="mb-4">Dining History</h2>
                         <div class="card mb-5">
-                            <a class="btn btn-secondary" data-bs-toggle="collapse" href="#collapseRestaurant" role="button"
+                            <a class="btn btn-secondary favorites-collapse" data-bs-toggle="collapse" href="#collapseRestaurant" role="button"
                             aria-expanded="false" aria-controls="collapseRestaurant">
                             Expand <i class="fas fa-angle-double-down"></i>
                             </a>
@@ -97,11 +111,18 @@
                                     <% if (diningHistory !=undefined) { %>
 
                                         <ul class="list-group">
-                                            <% diningHistory.forEach((rest)=> { %>
+                                            <% diningHistory.forEach((restaurant)=> { %>
                                                 <li class="list-group-item d-flex list-group-item-action">
                                                     <div class="me-auto">
-                                                        <%= rest %>
+                                                        <%= restaurant.name %>
                                                     </div>
+                                                    <p>
+                                                        <p class="starability-result mx-3" data-rating="<%= restaurant.rating %>">
+                                                            Rated: <%= restaurant.rating %> stars
+                                                          </p>
+                                                    </p>
+                                                    <a class="btn btn-secondary me-4" href="/restaurants/<%= restaurant.id %>"><i
+                                                        class="fas fa-utensils"></i> View Your Review</a>
                                                 </li>
                                                 <% }) %>
                                         </ul>
