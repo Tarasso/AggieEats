@@ -38,6 +38,17 @@ $(document).ready(function () {
 // });
 
 $(document).ready(function () {
+
+    if (sessionStorage.getItem("dark_mode") == "enabled") {
+        dark_mode = true;
+		turnOnDarkMode();
+    } else {
+        dark_mode = false;
+		turnOffDarkMode();
+    }
+
+	
+
 	$(".remove-recipe").click(function (event) {
 		var index = $(this).data('index');
 		console.log("INDEX =", index)
@@ -84,15 +95,57 @@ $(document).ready(function () {
 	});
 
 	$("#dark_mode").click(function (event) {
-		console.log("LINKED")
-		 $( ":button" ).removeClass( "btn-primary" );
-		 $( ":button" ).addClass( "btn-secondary" );
-		   var element = document.body;
-  			element.classList.toggle("dark");
-		 $('input[type=text], textarea').addClass( "dark-field" );
-		 $('#navbar-id').removeClass(".navbar-maroon");
-		 $('#navbar-id').addClass("navbar-maroon-dark");
+
+		toggleDarkMode();
+
 	});
+
+	function toggleDarkMode() {
+		if (dark_mode) {
+			sessionStorage.setItem('dark_mode', 'disabled');
+			turnOffDarkMode();
+		} else {
+			sessionStorage.setItem('dark_mode', 'enabled');
+			turnOnDarkMode();
+		
+		}
+
+		dark_mode = !dark_mode;
+	}
+
+	function turnOnDarkMode() {
+		$("#dark_mode").html("Turn off Dark Mode");
+		$( ".card ").addClass("dark-accent");
+		$("body, th, td, select").addClass("dark");
+		$(".diet-concerns").addClass("diet-concerns-dark")
+		$(".diet-concerns").addClass("diet-concerns-dark");
+		$('input[type=text], input[type=email], input[type=password], textarea').addClass( "dark-field" );
+		$('#navbar-id').removeClass(".navbar-maroon");
+		$('#navbar-id').addClass("navbar-maroon-dark");
+		$('.maroon-button').addClass("maroon-button-dark");
+		$(".maroon-links").addClass("maroon-links-dark");
+
+	}
+
+	function turnOffDarkMode() {
+		$("#dark_mode").html("Turn on Dark Mode");
+		$( ".card ").removeClass("dark-accent");
+		$("body, th, td, select").removeClass("dark");
+		$(".diet-concerns").removeClass("diet-concerns-dark");
+		$('input[type=text], input[type=email], input[type=password], textarea').removeClass( "dark-field" );
+		$('#navbar-id').addClass(".navbar-maroon");
+		$('#navbar-id').removeClass("navbar-maroon-dark");
+		$('.maroon-button').removeClass("maroon-button-dark");
+		$('.maroon-links').removeClass("maroon-links-dark");
+	}
+
+
+
+
+
+
+
+
 
 	$("#tweet_button").click(function (event) {
 

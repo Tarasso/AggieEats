@@ -7,11 +7,23 @@
     color: #F5F7Fa;
 }
 
+.dark-accent {
+    background: #323F4B;
+}
+
 .dark-field {
-    background: rgb(31, 26, 36);
-    border-color: #BCCCDC;
+    background: rgb(50, 49, 51);
+    border-color: #6d747c;
     color: #F5F7Fa;
     border-width: 2px;
+}
+
+.diet-concerns {
+    background-color: rgb( 103, 253, 172 );
+}
+
+.diet-concerns-dark {
+    background-color: rgb(38, 39, 94);
 }
 
 .dark-field:focus {
@@ -27,6 +39,14 @@
 
 .navbar-maroon-dark {
     background: rgb(70, 0, 0);
+}
+
+.maroon-links {
+    color: rgb(80, 0, 0);
+}
+
+.maroon-links-dark {
+    color: rgb(228, 140, 140);
 }
 
 .hero {
@@ -88,6 +108,11 @@ html {
 .maroon-button:hover {
     background-color: rgb(66, 0, 0) !important;
 }
+
+.maroon-button-dark {
+    background-color: rgb(100, 0, 0) !important;
+}
+
 
 .hide_me {
     display: none;
