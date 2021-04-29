@@ -151,12 +151,12 @@ $(document).ready(function () {
 
 		var restaurant_name = $("#restaurant-title").text().trim();
 		var review = $("#text-form-review").val();
-		var msg = encodeURIComponent(`I visited ${restaurant_name} and my review is: ${review}`)
-
-		console.log(msg)
-
-		var twitter_link = `https://twitter.com/intent/tweet?text=${msg}&hashtags=AggieEats`
-
+		var botName = "AggieEatsBot"
+		var msg = encodeURIComponent(`I visited ${restaurant_name} and my review is: ${review} @${botName}`)
+		
+		var twitter_link = `https://twitter.com/intent/tweet?text=${msg}`
+		
+		console.log(twitter_link)
 
 		window.open(twitter_link, '_blank'); 
 
