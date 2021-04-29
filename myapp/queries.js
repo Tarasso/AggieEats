@@ -1,3 +1,5 @@
+const tweets = require('./tweets')
+
 const Pool = require('pg').Pool
 const pool = new Pool({
   user: 'kylemrosko@aggieeats',
@@ -316,14 +318,14 @@ async function getRecentReview(resturantId) {
     return res.rows[0]["review"];
 }
 
-async function leaveReview(email, rating, review, restaurantId, shareOnTwitter) {
+async function leaveReview(email, rating, review, restaurantId) {
   let reviewId = await getUniqueReviewId();
   let userId = await getUserId(email);
   const values = [reviewId, rating, review, userId, restaurantId]
   let res = await pool.query('INSERT INTO reviews VALUES ($1, $2, $3, $4, $5)', values);
   console.log(`'${email}' left a review of '${rating}' with message '${review}' for restaurant ${restaurantId}`)
   await addToRestaurantHistory(email, restaurantId);
-  // TODO: create funtion for twitter stuff
+  tweets.searchtweets();
 }
 
 async function getUserReviewFromRestauraunt(email, resturantId) {

@@ -12829,15 +12829,15 @@ var numRec = Number(recs.slice(recs.search(": ")+2));
 var avgRev = Number(avg.slice(avg.search(": ")+2));
 
 
-const NUMBER_CFG = [numRest, numRec];
+const NUMBER_CFG = [numRest, numRec, 0];
 
 const data = {
-  labels: ['Restaurants', 'Recipes'],
+  labels: ['Restaurants', 'Recipes', 'Twititer'],
   datasets: [
     {
       label: 'Points',
       data: NUMBER_CFG,
-      backgroundColor: ['rgb(132,255,247)','rgb(218,247,166)'],
+      backgroundColor: ['rgb(132,255,247)','rgb(218,247,166)','rgb(29,161,242)'],
     }
   ]
 };

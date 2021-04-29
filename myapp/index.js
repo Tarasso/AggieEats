@@ -44,10 +44,10 @@ app.get('/test', (req, res) => {
     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
 
     //yelp.surpriseMe("lc@test.com");
-    tweets.searchtweets();
+    // tweets.searchtweets();
     //yelp.retweeting();
     // db.editReview(23,1,"suck");
-    db.getRestaurantHistory("lc@test.com")
+    // db.getRestaurantHistory("lc@test.com")
 
     // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
 });

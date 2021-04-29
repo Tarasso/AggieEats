@@ -1,4 +1,4 @@
-const baseURL2 = " https://api.twitter.com/1.1/search/tweets.json?q=%40EatsAggie&src=typed_query"
+const baseURL2 = " https://api.twitter.com/1.1/search/tweets.json?q=%40AggieEatsBot&src=typed_query"
 const consumer_key ='WjOFFJJNNlqQAy0OLUDbBkdPP'
 const consumer_secret_key ='SsnVzQixTdLkrF69lObiJq18xZ4RAvIJ2dr7eUe1Bxi0PifMzx'
 const access_token ='1381342691435364352-s8fRUfXeWA6OvMyXvmZEkxpvbEA8XV'
@@ -15,7 +15,7 @@ var client = new Twitter({
 
 async function searchtweets() {
   res = [];
-  client.get('search/tweets', {q: '@EatsAggie'}, function(error, tweets, response) {
+  client.get('search/tweets', {q: '@AggieEatsBot'}, function(error, tweets, response) {
     
     for(i=0; i<tweets.statuses.length; i++){
       res.push(tweets.statuses[i].id_str);
