@@ -245,7 +245,6 @@ async function storeRestaurant(id, name) {
 async function getRestaurantTitle(id) {
   const values = [id];
   const res = await pool.query('SELECT * FROM restaurants where "id" = $1', values);
-  console.log('here')
   if(res.rows[0] != null) {
     return res.rows[0]["name"];
   } else {
