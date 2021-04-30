@@ -341,16 +341,6 @@ async function editReview(reviewId, newRating, newReview) {
   console.log("updated review")
 }
 
-async function twitterButton(email) {
-  let res = await getUser(email);
-  if(res["tweets"] == null)
-    pool.query('UPDATE users SET tweets = 1 WHERE "email" = $1',[email]);
-  else
-    pool.query('UPDATE users SET tweets = tweets + 1 WHERE "email" = $1',[email]);
-
-  pool.query('UPDATE users SET points = points + 1 WHERE "email" = $1',[email])
-}
-
 // -----------------------------------------------------------------------------------
 
 // -------------------------- Stats --------------------------------------------
@@ -386,11 +376,6 @@ async function getTotalPoints(email) {
   return res.rows[0]["points"];
 }
 
-async function getNumberOfTweets(email) {
-  let res = await pool.query('select "tweets" from users where "email" = $1',[email]);
-  return res.rows[0]["tweets"];
-}
-
 // -----------------------------------------------------------------------------------
   module.exports = {
     login,
@@ -415,7 +400,5 @@ async function getNumberOfTweets(email) {
     restaurantVisited,
     getUserReviewFromRestauraunt,
     editReview,
-    getTotalPoints,
-    twitterButton,
-    getNumberOfTweets
+    getTotalPoints
   }

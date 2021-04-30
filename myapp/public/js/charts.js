@@ -12823,12 +12823,16 @@ var ctx = document.getElementById('myChart');
 var rest = String(document.getElementById('rests').innerHTML);
 var recs = String(document.getElementById('recs').innerHTML);
 var avg = String (document.getElementById('avg').innerHTML);
-var tw = String (document.getElementById('tweets').innerHTML);
 
 var numRest = Number(rest.slice(rest.search(": ")+2));
 var numRec = Number(recs.slice(recs.search(": ")+2));
 var avgRev = Number(avg.slice(avg.search(": ")+2));
-var numTw = Number(tw.slice(tw.search(": ")+2));
+
+// var dining_history_elem = document.getElementById("dining-history");
+// var dining_history_color = window.getComputedStyle(dining_history_elem, null).getPropertyValue("background-color");
+
+// var recipe_library_elem = document.getElementById("recipe-library");
+// var recipe_library_color = window.getComputedStyle(recipe_library_elem, null).getPropertyValue("background-color");
 
 
 $(document).ready(function() {
@@ -12840,7 +12844,7 @@ $(document).ready(function() {
 
   console.log(dining_history_color, recipe_library_color)
 
-  const NUMBER_CFG = [numRest, numRec, numTw];
+  const NUMBER_CFG = [numRest, numRec, 0];
 
   const data = {
     labels: ['Restaurants', 'Recipes', 'Twititer'],

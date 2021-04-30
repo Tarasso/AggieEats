@@ -42,7 +42,7 @@ app.get('/yelp', (req, res) => {
 app.get('/test', (req, res) => {
     res.send('Welcome to the testing page!');
     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
-    db.twitterButton("t@t.com")
+
     //yelp.surpriseMe("lc@test.com");
     // tweets.searchtweets();
     //yelp.retweeting();
@@ -102,8 +102,7 @@ app.get('/dashboard', requireLogin, async (req, res) => {
     const totalRecipes = await db.getTotalRecipes(req.session.user.email);
     const averageRatings = await db.getAverageUserRating(req.session.user.email);
     const totalPoints = await db.getTotalPoints(req.session.user.email);
-    const totalTweets = await db.getNumberOfTweets(req.session.user.email);
-    var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings, totalPoints: totalPoints, totalTweets: totalTweets }
+    var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings, totalPoints: totalPoints }
     res.render('dashboard.ejs', { pageName, topUsers, library, stats, diningHistory })
 })
 
@@ -164,7 +163,7 @@ app.post('/restaurants/:id', async (req, res) => {
     } else {
         if (sharedTwitter) {
             req.flash('flashSuccess', 'Successfully opened link to twitter!')
-            await db.twitterButton(req.session.user.email);
+            // todo
         } else if (reviewID != -1) {
             req.flash('flashSuccess', `Successfully modified your review.`)
             await db.editReview(reviewID, ratingReceieved, reviewReceived)
