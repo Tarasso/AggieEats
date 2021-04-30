@@ -164,7 +164,7 @@ app.post('/restaurants/:id', async (req, res) => {
     } else {
         if (sharedTwitter) {
             req.flash('flashSuccess', 'Successfully opened link to twitter!')
-            // todo
+            await db.twitterButton(req.session.user.email);
         } else if (reviewID != -1) {
             req.flash('flashSuccess', `Successfully modified your review.`)
             await db.editReview(reviewID, ratingReceieved, reviewReceived)
