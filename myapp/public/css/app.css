@@ -1,7 +1,3 @@
-:root {
-  color-scheme: light dark; /* both supported */
-}
-
 .dark {
     background: rgb(31, 27, 36);
     color: #F5F7Fa;
@@ -17,6 +13,20 @@
     color: #F5F7Fa;
     border-width: 2px;
 }
+
+.dark-field:-webkit-autofill {
+    background: red;
+    border-color: #6d747c;
+    color: #F5F7Fa;
+    border-width: 2px;
+}
+
+.dark-field:-webkit-autofill {
+    background: red;
+    border-color: #6d747c;
+    color: #F5F7Fa;
+    border-width: 2px;
+  }
 
 .accent-2 {
     background-color: rgb( 218, 247, 166 );

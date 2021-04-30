@@ -125,8 +125,12 @@ $(document).ready(function () {
 		$('.maroon-button').addClass("maroon-button-dark");
 		$(".maroon-links").addClass("maroon-links-dark");
 		$(".explain-icon").addClass("explain-icon-inverted");
+
 		$('#dining-history').addClass("dark-accent-2")
+		$('#dining-history').removeClass("accent-2")
 		$('#recipe-library').addClass("dark-accent-3")
+		$('#recipe-library').removeClass("accent-3")
+
 		$('.leaderboard-self').addClass("leaderboard-self-dark")
 	}
 
@@ -141,8 +145,12 @@ $(document).ready(function () {
 		$('.maroon-button').removeClass("maroon-button-dark");
 		$('.maroon-links').removeClass("maroon-links-dark");
 		$(".explain-icon").removeClass("explain-icon-inverted");
+
 		$('#dining-history').removeClass("dark-accent-2")
+		$('#dining-history').addClass("accent-2")
 		$('#recipe-library').removeClass("dark-accent-3")
+		$('#recipe-library').addClass("accent-3")
+
 		$('.leaderboard-self').removeClass("leaderboard-self-dark")
 
 	}
