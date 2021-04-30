@@ -103,7 +103,6 @@ app.get('/dashboard', requireLogin, async (req, res) => {
     const averageRatings = await db.getAverageUserRating(req.session.user.email);
     const totalPoints = await db.getTotalPoints(req.session.user.email);
     var stats = { totalRestaurants: totalRestaurants, totalRecipes: totalRecipes, averageRatings: averageRatings, totalPoints: totalPoints }
-    console.log("Dining History" + JSON.stringify(diningHistory))
     res.render('dashboard.ejs', { pageName, topUsers, library, stats, diningHistory })
 })
 
@@ -119,7 +118,7 @@ app.get('/restaurants', requireLogin, async (req, res) => {
         const distance = (req.query.distance == undefined) ? (25) : req.query.distance // obtain distance if specified (or default to 25)
         yelp_results = await yelp.searchRestaurants(req.query.foodName, distance) // and then get query results
     }
-    res.render('restaurants.ejs', { pageName, yelp_results }) // render page
+    res.render('restaurants.ejs', { pageName, yelp_results, query: req.query }) // render page
 })
 
 
@@ -135,8 +134,8 @@ app.get('/testing', async (req, res) => {
 
 // restaurant details view page
 app.get('/restaurants/:id', requireLogin, async (req, res) => {
+    console.log("VIEWING REVIEW")
     const id = req.params.id
-    console.log("viewing review: '" + id + "'")
     const pageName = "Review Details";
     var restaurant_name;
     //var review_list;
@@ -148,19 +147,24 @@ app.get('/restaurants/:id', requireLogin, async (req, res) => {
     } catch (error) {
         res.send(error)
     }
-})
+});
 
 // restaurant details post review
 app.post('/restaurants/:id', async (req, res) => {
+    console.log("POSTING REVIEW")
     const ratingReceieved = req.body.rating
     const reviewReceived = req.body.review
     const reviewID = req.body.reviewID
+    const sharedTwitter = req.body.shared_on_twitter
     const id = req.params.id
     console.log(req.body)
     if (ratingReceieved == 0) {
         req.flash('flashFail', 'Please select a rating from 1 to 5 stars.')
     } else {
-        if (reviewID != -1) {
+        if (sharedTwitter) {
+            req.flash('flashSuccess', 'Successfully opened link to twitter!')
+            // todo
+        } else if (reviewID != -1) {
             req.flash('flashSuccess', `Successfully modified your review.`)
             await db.editReview(reviewID, ratingReceieved, reviewReceived)
         } else {
@@ -170,7 +174,7 @@ app.post('/restaurants/:id', async (req, res) => {
     }
     res.redirect('/restaurants/' + id)
 
-})
+});
 
 
 app.get('/recipes/:id', requireLogin, async (req, res) => {

@@ -74,26 +74,22 @@
                                                     <button type="submit" name="reviewID" value="<%= reviewID %>" class="btn btn-dark maroon-button"><%= button_description %></button>
                                                 </div>
                                                 <div class="col-6">
-                                                    <div class="float-end"><button class="btn btn-primary btn-sm" id="tweet_button" type="button"><i class="fab fa-twitter"></i>  Tweet your review @AggieEatsBot</button></div>
-                                                </div>
-                                                <div class="col-4 mt-4">
-                                                    <button class="btn btn-secondary" onclick="window.history.back()">
-                                                        <i class="fas fa-angle-double-left"></i>
-                                                        Back to Results
-                                                    </button>
+                                                    <div class="float-end">
+                                                        <button class="btn btn-primary btn-sm" id="tweet_button" type="submit" name="shared_on_twitter" value="true">
+                                                            <i class="fab fa-twitter"></i>  Tweet your review @AggieEatsBot
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                        
+
                                         </form>
 
+                                        <div class="col-4 mt-4">
+                                            <%- include('partials/back_button') %> 
+                                        </div>   
+
                                         <br>
-
-                                        <div class="row">
-                                            <div class="col-4">
-
-                                            </div>
-                                        </div>
 
 
                                     </div>

@@ -1,0 +1,21 @@
+<button class="btn btn-secondary" id="go-back">
+    <i class="fas fa-angle-double-left"></i>
+    Back to Results
+</button>
+<script>
+    document.getElementById('go-back').addEventListener('click', () => {
+
+        if (navigator.userAgent.search("Firefox") >= 0) {
+            history.back();
+        }
+        else if (navigator.userAgent.search("Chrome") >= 0) {
+            var oldURL = document.referrer;
+            var currentURL = window.location.href;
+            if (oldURL == currentURL) {
+                history.go(-2);
+            } else {
+                history.back();
+            }
+        }
+    });
+</script>
