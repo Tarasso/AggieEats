@@ -5,7 +5,22 @@
 
         <div class="d-flex flex-column min-vh-100">
 
-
+            <%  var already_reviewed = (past_review != undefined); 
+                var number_rating; 
+                var heading_description 
+                var button_description 
+                var reviewID
+                if (already_reviewed) { 
+                    heading_description = "Edit your review"
+                    button_description = "Update Review"
+                    number_rating = past_review.rating
+                    reviewID = past_review.reviewId
+                } else { 
+                    heading_description = "Rate your experience"
+                    button_description = "Post Review"
+                    number_rating = 0
+                    reviewID = -1
+            } %>
 
             <main class="flex-fill">
                 <div class="container justify-content-center align-items-center mt-2">
@@ -18,30 +33,17 @@
                                         <h1 class="text-center hero-heading" id="restaurant-title">
                                             <%= restaurant_name %>
                                         </h1>
+                                        <small class="text-muted">Share your thoughts down below. Click "<%=button_description%>" when you are ready to submit.</small>
+                                        <br />
+                                        <small class="text-muted">Optionally post your review to twitter so our @AggieEatsBot can help spread the word of your experience. </small>
                                     </div>
-                                    <br>
+                                    <hr>
                                     <div class="form-group">
 
                                         <form action="/restaurants/<%= id %>" method="post" id="submit_review">
 				                            <p class="hide_me text-danger" id="error_msg"></p>
-                                            <% var already_reviewed = (past_review != undefined); %>
-                                            <% var number_rating; %>
-                                            <% var heading_description %>
-                                            <% var button_description %>
-                                            <% var reviewID %>
 
 
-                                            <% if (already_reviewed) { 
-                                                heading_description = "Edit your review"
-                                                button_description = "Update Review"
-                                                number_rating = past_review.rating
-                                                reviewID = past_review.reviewId
-                                            } else { 
-                                                heading_description = "Rate your experience"
-                                                button_description = "Post Review"
-                                                number_rating = 0
-                                                reviewID = -1
-                                            } %>
 
                                             <legend><%= heading_description %></legend>
                                             

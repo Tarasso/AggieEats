@@ -166,6 +166,8 @@ $(document).ready(function () {
 		
 		console.log(twitter_link)
 
+		$(this).append("<i class=\"fas fa-check\"></i>")
+
 		window.open(twitter_link, '_blank'); 
 
 	});
