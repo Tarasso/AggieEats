@@ -11,22 +11,19 @@ const pool = new Pool({
 
 // ---------------------------- USERS ------------------------------------------------
 
-const getUsers = (request, response) => {
-    pool.query('SELECT "firstName", "lastName" FROM users')
-        .then(res => console.table(res.rows))
-        .catch(e => console.error(e.stack))
-  }
-
+// returns the user entry in db based on email
 async function getUser(email) {
   const res = await pool.query('SELECT * FROM users where "email" = $1', [email])
   return res.rows[0]
 }
 
+// returns the user id from user email
 async function getUserId(email) {
   const res = await getUser(email);
   return res["userId"]
 }
 
+// return the next unqiue id to assign to new user
 async function getUniqueUserId() {
   try {
     const res = await pool.query('select max("userId") from users')
@@ -36,6 +33,7 @@ async function getUniqueUserId() {
   }
 }
 
+// returns true or false if a user exists
 async function userExists(email) {
   const res = await pool.query('SELECT * FROM users where "email" = $1', [email])
   if(res.rows[0] != null) {
@@ -45,6 +43,7 @@ async function userExists(email) {
   }
 }
 
+// given the registration information, creates a new user in the db
 async function createNewUser(email, firstName, lastName, password) {
   const userId = await getUniqueUserId();
   const points = 0;
@@ -53,6 +52,7 @@ async function createNewUser(email, firstName, lastName, password) {
   console.log('Successfully created new user')
 }
 
+// checks if user inputs valid email and password
 async function login(req) {
   let email = req.email;
   let password = req.password;
@@ -67,6 +67,8 @@ async function login(req) {
   else { console.log("no accouts associated with that email")}
 }
 
+// wrapper function for createNewUser()
+// ensures that a given email is not already in use
 async function requestNewAccount(req) {
   let email = req.email;
   let password = req.password;
@@ -89,6 +91,7 @@ async function requestNewAccount(req) {
 
 // ---------------------------- RECIPES ----------------------------------------------
 
+// checks if a recipe is already in the db
 async function recipeExists(id) {
   const res = await pool.query('SELECT * FROM recipes where "id" = $1', [id])
   if(res.rows[0] != null) {
@@ -98,6 +101,7 @@ async function recipeExists(id) {
   }
 }
 
+// stores a new recipe into the db
 async function storeRecipe(id, title) {
   const values = [id, title];
   let exists = await recipeExists(id);
@@ -111,6 +115,7 @@ async function storeRecipe(id, title) {
   
 }
 
+// returns a recipe title given a recipe id
 async function getRecipeTitle(id) {
   const values = [id];
   const res = await pool.query('SELECT * FROM recipes where "id" = $1', values);
@@ -122,6 +127,7 @@ async function getRecipeTitle(id) {
   }
 }
 
+// adds recipe to user library and updates user's points
 async function addToLibrary(email, recipeId) {
   const values = [recipeId, email];
   let userLib = await getUser(email);
@@ -137,6 +143,7 @@ async function addToLibrary(email, recipeId) {
   }
 }
 
+// removes recipe from user library
 async function removeFromLibrary(email, recipeId) {
   const values = [recipeId, email];
   let userLib = await getUser(email);
@@ -152,6 +159,7 @@ async function removeFromLibrary(email, recipeId) {
   }
 }
 
+// returns all recipes in a user's recipe library
 async function getRecipeLibrary(email) {
   let items = [];
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
@@ -177,6 +185,8 @@ async function getRecipeLibrary(email) {
 
 // -------------------------- Leaderboard --------------------------------------------
 
+// returns the top users on the website
+// if given an email, it will also show where you stand in comparison to the top users
 async function getTopUsers(limit, email="") {
   let ret = [];
   let res = await pool.query('select "email", "firstName", "lastName", "points" from users order by "points" DESC');
@@ -209,6 +219,8 @@ async function getTopUsers(limit, email="") {
 // -----------------------------------------------------------------------------------
 
 // -------------------------- Restaurants --------------------------------------------
+
+// checks if a resutrant is currently in the db
 async function RestaurantExists(id) {
   const res = await pool.query('SELECT * FROM restaurants where "id" = $1', [id])
   if(res.rows[0] != null) {
@@ -219,6 +231,7 @@ async function RestaurantExists(id) {
   }
 }
 
+// checks if a user has visited a given resturant
 async function restaurantVisited(email, id) {
   let userHist = await getUser(email);
   userHist = userHist.res_history;
@@ -228,20 +241,16 @@ async function restaurantVisited(email, id) {
     return false;
 }
 
+// stores restaurant in the db
 async function storeRestaurant(id, name) {
   const values = [name, id];
   let exists = await RestaurantExists(id);
   if(!exists) {
-    // console.log('here');
     let res = await pool.query('INSERT INTO restaurants VALUES ($1, $2)', values);
-    // console.log('Successfully created new row')
   }
-  else {
-    // console.log('restaurant already in db')
-  }
-  
 }
 
+// returns restaurant title given an id
 async function getRestaurantTitle(id) {
   const values = [id];
   const res = await pool.query('SELECT * FROM restaurants where "id" = $1', values);
@@ -253,6 +262,7 @@ async function getRestaurantTitle(id) {
   }
 }
 
+// adds resturant to a users resturant history
 async function addToRestaurantHistory(email, restaurantId) {
   const values = [restaurantId, email];
   let userLib = await getUser(email);
@@ -268,6 +278,7 @@ async function addToRestaurantHistory(email, restaurantId) {
   }
 }
 
+// returns the restaurant history for a user
 async function getRestaurantHistory(email) {
   let vals = [];
   let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
@@ -292,6 +303,7 @@ async function getRestaurantHistory(email) {
   return vals;
 }
 
+// generates the next unique review id
 async function getUniqueReviewId() {
   try {
     const res = await pool.query('select max("reviewId") from reviews')
@@ -301,6 +313,7 @@ async function getUniqueReviewId() {
   }
 }
 
+// calculates the average rating for a restaurant
 async function getAverageRating(resturantId) {
   let res = await pool.query('select avg("rating")::numeric(10,1) from reviews where "restaurantId" = $1',[resturantId]);
   if(res.rows[0]["avg"] == null)
@@ -309,6 +322,8 @@ async function getAverageRating(resturantId) {
     return res.rows[0]["avg"];
 }
 
+
+// returns the most revent review for a restaurant
 async function getRecentReview(resturantId) {
   let res = await pool.query('select * from reviews where "restaurantId" = $1 order by "reviewId" DESC limit 1',[resturantId]);
   if(res.rows.length === 0)
@@ -317,6 +332,7 @@ async function getRecentReview(resturantId) {
     return res.rows[0]["review"];
 }
 
+// updates review db with a new review
 async function leaveReview(email, rating, review, restaurantId) {
   let reviewId = await getUniqueReviewId();
   let userId = await getUserId(email);
@@ -327,6 +343,7 @@ async function leaveReview(email, rating, review, restaurantId) {
   tweets.searchtweets();
 }
 
+// returns a users own review for a restaurant
 async function getUserReviewFromRestauraunt(email, resturantId) {
   let userId = await getUserId(email);
   const values = [userId, resturantId];
@@ -335,12 +352,14 @@ async function getUserReviewFromRestauraunt(email, resturantId) {
 
 }
 
+// updates a users preexisiting review
 async function editReview(reviewId, newRating, newReview) {
   const values = [newRating, newReview, reviewId];
   let res = await pool.query('update reviews set "rating" = $1, "review" = $2 where "reviewId" = $3', values);
   console.log("updated review")
 }
 
+// increments user's twitter count and gives them a point
 async function twitterButton(email) {
   let res = await getUser(email);
   if(res["tweets"] == null)
@@ -355,6 +374,7 @@ async function twitterButton(email) {
 
 // -------------------------- Stats --------------------------------------------
 
+// returns the total amount of restaurants a user has visited
 async function getTotalRestaurants(email) {
   let res = await pool.query('select "res_history" from users where "email" = $1',[email]);
   if(res.rows[0]["res_history"] != null)
@@ -363,6 +383,7 @@ async function getTotalRestaurants(email) {
     return 0;
 }
 
+// returns the total number of recipes saved by user
 async function getTotalRecipes(email) {
   let res = await pool.query('select "recipe_lib" from users where "email" = $1',[email]);
   if(res.rows[0]["recipe_lib"] != null)
@@ -371,6 +392,7 @@ async function getTotalRecipes(email) {
     return 0;
 }
 
+// computes an average of all ratings given by a user
 async function getAverageUserRating(email) {
   let userId = await getUserId(email);
   let res = await pool.query('select avg("rating")::numeric(10,1) from reviews where "userId" = $1',[userId]);
@@ -381,11 +403,13 @@ async function getAverageUserRating(email) {
  
 }
 
+// returns a users total points
 async function getTotalPoints(email) {
   let res = await pool.query('select "points" from users where "email" = $1',[email]);
   return res.rows[0]["points"];
 }
 
+// returns a users number of tweets
 async function getNumberOfTweets(email) {
   let res = await pool.query('select "tweets" from users where "email" = $1',[email]);
   return res.rows[0]["tweets"];

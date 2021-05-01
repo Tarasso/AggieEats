@@ -12817,7 +12817,7 @@
     
     })));
     
-
+// code to build charts in dashboard
 
 var ctx = document.getElementById('myChart');
 var rest = String(document.getElementById('rests').innerHTML);

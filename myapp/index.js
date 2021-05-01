@@ -39,18 +39,18 @@ app.get('/yelp', (req, res) => {
 
 });
 
-app.get('/test', (req, res) => {
-    res.send('Welcome to the testing page!');
-    // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
-    db.twitterButton("t@t.com")
-    //yelp.surpriseMe("lc@test.com");
-    // tweets.searchtweets();
-    //yelp.retweeting();
-    // db.editReview(23,1,"suck");
-    // db.getRestaurantHistory("lc@test.com")
+// app.get('/test', (req, res) => {
+//     res.send('Welcome to the testing page!');
+//     // db.storeRecipe('S37tD90W3dQJw6r0Ir7-9g','555 Grill');
+//     db.twitterButton("t@t.com")
+//     //yelp.surpriseMe("lc@test.com");
+//     // tweets.searchtweets();
+//     //yelp.retweeting();
+//     // db.editReview(23,1,"suck");
+//     // db.getRestaurantHistory("lc@test.com")
 
-    // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
-});
+//     // db.RestaurantExists('S37tD90W3dQJw6r0Ir7-9g')
+// });
 
 // set up cookie parser, sessions, and flash middlewares
 //app.use(cookieParser())

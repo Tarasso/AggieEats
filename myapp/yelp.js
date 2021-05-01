@@ -6,6 +6,7 @@ const auth = 'Bearer eYND9foowwisuxbuMvW1bUGApWxytHH3rkC2TfD0equwvbjUns0vTKiwh6e
 const limit = 10;
 const location = 'Texas A&M University';
 
+// searches for local restaurants using query and optional distance and offset fields (for paging)
 async function searchRestaurants(query, dist=40000, offset=0) {
   if(dist != 40000)
     dist = dist*1609;
@@ -37,6 +38,7 @@ async function searchRestaurants(query, dist=40000, offset=0) {
       "recentReview": "",
       "averageRating": ""
     }
+    // only store info we will be using
     trimmedRes.name = res.businesses[i].name;
     trimmedRes.url = res.businesses[i].url;
     trimmedRes.address = res.businesses[i].location.address1;
@@ -53,6 +55,7 @@ async function searchRestaurants(query, dist=40000, offset=0) {
   return ret;
 }
 
+// iterates through top restaurants, 50% chance to reccomend the first unvisited restaurant
 async function surpriseMe(email) {
   let numPages = 0;
   while(numPages < 11) {

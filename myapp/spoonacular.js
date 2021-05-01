@@ -9,6 +9,7 @@ const host = 'spoonacular-recipe-food-nutrition-v1.p.rapidapi.com'
 // const apiKey = '3abcc91390874fbf9263b2b911b22431' // this is kyle's
 const limit = 12
 
+// uses the complex search endpoint to search for recipes given search terms
 async function searchRecipes(terms, cuisine = "") {
   let res = await axios.get(recipeEndpoint + 'complexSearch', {
       params: {
@@ -29,6 +30,7 @@ async function searchRecipes(terms, cuisine = "") {
   return res.data;
 }
 
+// uses a recipe id to fetch details on recipe from information endpoint
 async function getRecipeDetails(id) {
 
 
@@ -55,6 +57,8 @@ async function getRecipeDetails(id) {
           'x-rapidapi-host': host
         }
       });
+
+    // only store fields we will be using
     trimmedRes.id = res.data.id;
     trimmedRes.title = res.data.title;
     trimmedRes.time = res.data.readyInMinutes;
