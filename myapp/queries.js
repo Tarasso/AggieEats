@@ -193,6 +193,8 @@ async function getTopUsers(limit, email="") {
   let users = res.rows;
   let selfIncluded = false;
   for(i = 0; i < limit; i++) {
+    if(i >= users.length)
+      continue;
     users[i].rank = i + 1;
     ret.push(users[i]);
     if(users[i]["email"] == email)
